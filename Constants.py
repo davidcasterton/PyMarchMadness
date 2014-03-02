@@ -1,3 +1,7 @@
+import os
+import pandas
+
+
 # Kaggle data from http://www.kaggle.com/c/march-machine-learning-mania/data
 KAGGLE_DATA = {}  # dictionary storing DataFrames of data from Kaggle.com
 KAGGLE_DATA['regular_season_results'] = pandas.read_csv('Kaggle/regular_season_results.csv')
@@ -7,44 +11,52 @@ KAGGLE_DATA['tourney_results'] = pandas.read_csv('Kaggle/tourney_results.csv')
 KAGGLE_DATA['tourney_seeds'] = pandas.read_csv('Kaggle/tourney_seeds.csv')
 KAGGLE_DATA['tourney_slots'] = pandas.read_csv('Kaggle/tourney_slots.csv')
 
+
 # KenPom data from http://kenpom.com/
 KENPOM_DATA = {}  # dictionary storing DataFrames of data from KenPom.com
-for file_type in ['defense', 'misc', 'offense', 'summary']:
-    for year_int in range(3, 14):
-        file_name = '%s%02d' % (file_type, year_int)
-        file_path = os.path.join('KenPomWithIds', file_name) + '.csv'
-        KENPOM_DATA[file_name] = pandas.read_csv(file_path)
+_kenpom_dir = "KenPomWithIds"
+for _file_name in os.listdir(_kenpom_dir):
+        _file_path = os.path.join(_kenpom_dir, _file_name)
+        _file_base_name = _file_name.split(".")[0]
+        KENPOM_DATA[_file_base_name] = pandas.read_csv(_file_path)
 
-TOURNAMET_BRACKET = {
-    'R1': {
-        'W1': None, 'W2': None, 'W3': None, 'W4': None, 'W5': None, 'W6': None, 'W7': None, 'W8': None,
-        'X1': None, 'X2': None, 'X3': None, 'X4': None, 'X5': None, 'X6': None, 'X7': None, 'X8': None,
-        'Y1': None, 'Y2': None, 'Y3': None, 'Y4': None, 'Y5': None, 'Y6': None, 'Y7': None, 'Y8': None,
-        'Z1': None, 'Z2': None, 'Z3': None, 'Z4': None, 'Z5': None, 'Z6': None, 'Z7': None, 'Z8': None,
+
+TOURNAMENT_BRACKET = {
+    'R01': {
+        'W01': None, 'W02': None, 'W03': None, 'W04': None, 'W05': None, 'W06': None, 'W07': None, 'W08': None, 'W09': None, 'W10': None, 'W11': None, 'W12': None, 'W13': None, 'W14': None, 'W15': None, 'W16': None,
+        'X01': None, 'X02': None, 'X03': None, 'X04': None, 'X05': None, 'X06': None, 'X07': None, 'X08': None, 'X09': None, 'X10': None, 'X11': None, 'X12': None, 'X13': None, 'X14': None, 'X15': None, 'X16': None,
+        'Y01': None, 'Y02': None, 'Y03': None, 'Y04': None, 'Y05': None, 'Y06': None, 'Y07': None, 'Y08': None, 'Y09': None, 'Y10': None, 'Y11': None, 'Y12': None, 'Y13': None, 'Y14': None, 'Y15': None, 'Y16': None,
+        'Z01': None, 'Z02': None, 'Z03': None, 'Z04': None, 'Z05': None, 'Z06': None, 'Z07': None, 'Z08': None, 'Z09': None, 'Z10': None, 'Z11': None, 'Z12': None, 'Z13': None, 'Z14': None, 'Z15': None, 'Z16': None,
     },
-    'R2': {
-        'W1': None, 'W2': None, 'W3': None, 'W4': None,
-        'X1': None, 'X2': None, 'X3': None, 'X4': None,
-        'Y1': None, 'Y2': None, 'Y3': None, 'Y4': None,
-        'Z1': None, 'Z2': None, 'Z3': None, 'Z4': None,
+    'R02': {
+        'W01': None, 'W02': None, 'W03': None, 'W04': None, 'W05': None, 'W06': None, 'W07': None, 'W08': None,
+        'X01': None, 'X02': None, 'X03': None, 'X04': None, 'X05': None, 'X06': None, 'X07': None, 'X08': None,
+        'Y01': None, 'Y02': None, 'Y03': None, 'Y04': None, 'Y05': None, 'Y06': None, 'Y07': None, 'Y08': None,
+        'Z01': None, 'Z02': None, 'Z03': None, 'Z04': None, 'Z05': None, 'Z06': None, 'Z07': None, 'Z08': None,
     },
-    'R3': {
-        'W1': None, 'W2': None,
-        'X1': None, 'X2': None,
-        'Y1': None, 'Y2': None,
-        'Z1': None, 'Z2': None,
+    'R03': {
+        'W01': None, 'W02': None, 'W03': None, 'W04': None,
+        'X01': None, 'X02': None, 'X03': None, 'X04': None,
+        'Y01': None, 'Y02': None, 'Y03': None, 'Y04': None,
+        'Z01': None, 'Z02': None, 'Z03': None, 'Z04': None,
     },
-    'R4': {
-        'W1': None,
-        'X1': None,
-        'Y1': None,
-        'Z1': None,
+    'R04': {
+        'W01': None, 'W02': None,
+        'X01': None, 'X02': None,
+        'Y01': None, 'Y02': None,
+        'Z01': None, 'Z02': None,
     },
-    'R5': {
-        'WX': None,
-        'YZ': None,
-    }
-    'R6': {
+    'R05': {
+        'W01': None,
+        'X01': None,
+        'Y01': None,
+        'Z01': None,
+    },
+    'R06': {
+        'W0X0': None,
+        'Y0Z0': None,
+    },
+    'R07': {
         'CH': None
     }
 }
