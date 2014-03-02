@@ -3,6 +3,7 @@ import os
 import pdb
 import re
 
+import Constants
 
 # variable init
 KAGGLE_NAME_TO_KAGGLE_ID = {}
@@ -12,7 +13,8 @@ KENPOM_NAME_TO_KAGGLE_ID = {}
 # read Kaggle/teams.csv and build KAGGLE_NAME_TO_KAGGLE_ID dictionary with
 # relationships between team names and ids
 ################################################################################
-handle = open('Kaggle/teams.csv', 'r')
+file_path = os.path.join(Constants.INPUT_DATA, "Kaggle", "teams.csv")
+handle = open(file_path, 'r')
 reader = csv.reader(handle)
 for row in reader:
     team_name = row[1]
@@ -28,8 +30,8 @@ handle.close()
 # team name, if no match is found then prompt the user to find a match between
 # the 2 sets of team names.
 ################################################################################
-source_kenpom_dir = 'KenPom'
-dest_kenpom_dir = 'KenPomWithIds'
+source_kenpom_dir = os.path.join(Constants.INPUT_DATA, 'KenPom')
+dest_kenpom_dir = os.path.join(Constants.INPUT_DATA, 'KenPomWithIds')
 for source_file_name in os.listdir(source_kenpom_dir):
     # read in source KenPom file
     source_file_path = os.path.join(source_kenpom_dir, source_file_name)

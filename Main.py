@@ -83,7 +83,7 @@ class Season(object):
             return
 
         # if necessary make kaggle_submission_dir directory
-        kaggle_submission_dir = "KaggleSubmission"
+        kaggle_submission_dir = Constants.OUTPUT_DATA
         if not os.path.isdir(kaggle_submission_dir):
             os.mkdir(kaggle_submission_dir)
         # create output file
