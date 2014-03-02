@@ -2,79 +2,96 @@ import numpy
 import os
 import pandas
 import pandasql
+import pybrain
 import pdb
 
-################################################################################
-# initialize variables & import data
-################################################################################
-Kaggle = {}  # dictionary storing DataFrames of data from Kaggle.com
-KenPom = {}  # dictionary storing DataFrames of data from KenPom.com
-# Kaggle data from http://www.kaggle.com/c/march-machine-learning-mania/data
-Kaggle['regular_season_results'] = pandas.read_csv('Kaggle/regular_season_results.csv')
-Kaggle['seasons'] = pandas.read_csv('Kaggle/seasons.csv')
-Kaggle['teams'] = pandas.read_csv('Kaggle/teams.csv')
-Kaggle['tourney_results'] = pandas.read_csv('Kaggle/tourney_results.csv')
-Kaggle['tourney_seeds'] = pandas.read_csv('Kaggle/tourney_seeds.csv')
-Kaggle['tourney_slots'] = pandas.read_csv('Kaggle/tourney_slots.csv')
-# KenPom data from http://kenpom.com/
-for file_type in ['defense', 'misc', 'offense', 'summary']:
-    for year_int in range(3, 14):
-        file_name = '%s%02d' % (file_type, year_int)
-        file_path = os.path.join('KenPomWithIds', file_name) + '.csv'
-        KenPom[file_name] = pandas.read_csv(file_path)
+import Constants
 
 
 class Season(object):
-    def __init__(self, id, years):
+    """
+    Season objects represent 1 NCAA backetball season.
+
+    @param id       string  season identifier, defined in Kaggle/seasons.csv season column
+    @param years    string  2 years that NCAA season spans in format 'XXXX-YYYY'
+    """
+    def __init__(self, id, years, day_zero):
+        # save input variables to class member variables
         self.id = id
         self.years = years
         self.tournament_year = self.years.split("-")[1]
+        self.day_zero = day_zero
 
-        self.day_zero = None
-        self.regions = {}
-        self.teams = {}  # dictionary storing Team objects, indexed by team_id
+        # initialize member variables to be defined after constructor
+        self.regions = {}  # dictionary of region names, indexed by region id
+        self.teams = {}  # dictionary of Team objects, indexed by team_id
+        self.tournament_bracket = Constants.TOURNAMET_BRACKET
 
     def __str__(self):
+        # define how Season object will look if printed
         string = self.years
         for team in self.teams.values():
             string += "\n\t" + str(team)
         return string
 
-    def populate_teams(self):
-        df = Kaggle['tourney_seeds']
+    def set_regions(self, region_w, region_x, region_y, region_z):
+        self.regions = {
+            "W": region_w,
+            "X": region_x,
+            "Y": region_y,
+            "Z": region_z,
+        }
+
+    def build_teams(self):
+        """
+        Build Team objects for this season from KAGGLE_DATA.
+        """
+        df = Constants.KAGGLE_DATA['tourney_seeds']
         tourney_teams = df[df.season == self.id]  # slice of tourney_seeds DataFrame for current season
         for _id, row in tourney_teams.iterrows():
             # define variables relevant to Team
             team_id = int(row.team)
-            df = Kaggle['teams']
+            df = Constants.KAGGLE_DATA['teams']
             team_name = df[df.id == team_id].name.iloc[0]
             tourney_seed = row.seed
-            division = self.regions[tourney_seed[0]]
-            division_seed = tourney_seed[1:]
 
             # create Team object
-            team_object = Team(years=self.years, id=team_id, name=team_name)
-            team_object.division = division
-            team_object.division_seed = division_seed
-            team_object.get_kenpom()
+            team_object = Team(id=team_id, name=team_name, years=self.years)
+            team_object.set_tourney_seed(tourney_seed)
+            team_object.retrieve_kenpom()
 
-            # add Team to self.teams dictionary
+            # add Team object to self.teams dictionary
             self.teams[team_id] = team_object
+
+    def run_tournament(self):
+        df = Constants.KAGGLE_DATA['tourney_slots']
+        tourney_slots = df[df.season == self.id]  # slice of tourney_slots DataFrame for current season
 
 
 class Team(object):
-    def __init__(self, years, id, name):
-        self.years = years
-        self.tournament_year = self.years.split("-")[1]
+    """
+    Team object representing 1 NCAA backetball team for 1 NCAA season.
+
+    @param years    string  2 years that NCAA season spans in format 'XXXX-YYYY'
+    @param id       string  team identifier, defined in Kaggle/teams.csv id column
+    @param name     string  team name, defined in Kaggle/teams.csv name column
+    """
+    def __init__(self, id, name, years):
+        # save input variables to class member variables
         self.id = id
         self.name = name
+        self.years = years
+        self.tournament_year = self.years.split("-")[1]
+
+        # initialize member variables to be defined in set/retrieve methods
+        self.tourney_seed = None
         self.division = None
         self.division_seed = None
-
         self.kenpom_data_frame = pandas.DataFrame
         self.pythag = None
 
     def __str__(self):
+        # define how team object will look if printed
         attribute_list = []
         attribute_list.append(self.name.ljust(20))
         attribute_list.append(("year: %s" % self.tournament_year).ljust(10))
@@ -87,10 +104,18 @@ class Team(object):
             attribute_list.append("Pythag: %s" % self.pythag)
         return "| ".join(attribute_list)
 
-    def get_kenpom(self):
+    def set_tourney_seed(self, tourney_seed):
+        self.tourney_seed = tourney_seed
+        self.division = self.regions[tourney_seed[0]]
+        self.division_seed = tourney_seed[1:]
+
+    def retrieve_kenpom(self):
+        """
+        Retrieve KenPom statistics for this team from KENPOM_DATA.
+        """
         file_name = 'summary%s' % self.tournament_year[-2:]
-        if file_name in KenPom.keys():
-            df = KenPom[file_name]
+        if file_name in Constants.KENPOM_DATA.keys():
+            df = Constants.KENPOM_DATA[file_name]
             self.kenpom_data_frame = df[df.TeamId == self.id]  # single row from summaryXX.csv for this team
             if not self.kenpom_data_frame.empty:
                 self.pythag = self.kenpom_data_frame.Pythag.iloc[0]
@@ -98,17 +123,13 @@ class Team(object):
                 raise Exception("KenPom data not found for team name:%s, id:%s" % (self.name, self.id))
 
 
-for _, row in Kaggle['seasons'].iterrows():
-    #pdb.set_trace()
-    # create Season object
-    season = Season(id=row['season'], years=row['years'])
-    season.day_zero = row['dayzero']
-    season.regions = {
-        "W": row['regionW'],
-        "X": row['regionX'],
-        "Y": row['regionY'],
-        "Z": row['regionZ']
-    }
-    # create Team objects within Season
-    season.populate_teams()
-    print(season)
+if __name__ == "__main__":
+    for _, row in Constants.KAGGLE_DATA['seasons'].iterrows():
+        # create Season object
+        season = Season(id=row['season'], years=row['years'], day_zero =row['dayzero'])
+        season.set_regions(region_w=row['regionW'], region_x=row['regionX'], region_y=row['regionY'], region_z=row['regionZ'])
+        # create Team objects within Season
+        season.build_teams()
+        # run tournament
+        season.run_tournament()
+        print(season)
