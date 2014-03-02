@@ -9,8 +9,8 @@ KAGGLE_NAME_TO_KAGGLE_ID = {}
 KENPOM_NAME_TO_KAGGLE_ID = {}
 
 ################################################################################
-# read Kaggle/teams.csv and build KAGGLE_NAME_TO_KAGGLE_ID dictionary with relationships
-# between team names and ids
+# read Kaggle/teams.csv and build KAGGLE_NAME_TO_KAGGLE_ID dictionary with
+# relationships between team names and ids
 ################################################################################
 handle = open('Kaggle/teams.csv', 'r')
 reader = csv.reader(handle)
@@ -21,7 +21,7 @@ for row in reader:
 handle.close()
 
 ################################################################################
-# Open each KenPom file and insert a new column with the team_id that
+# Open each KenPom file and insert a new column with the Kaggle team_id that
 # corresponds to each team_name.
 #
 # Attempt automated replacement by matching the KenPom team name to the Kaggle
@@ -70,8 +70,7 @@ for source_file_name in os.listdir(source_kenpom_dir):
             dest_csv.writerow(row)
             continue
 
-        # ask for user to define mapping between KenPom & Kaggle name
-        # prompt user with consolidated list
+        # prompt user to define mapping between KenPom & Kaggle name with CONSOLIDATED list
         kenpom_words = kenpom_team_name.split(" ")
         kaggle_team_names = KAGGLE_NAME_TO_KAGGLE_ID.keys()
         kaggle_team_names.sort()
@@ -95,7 +94,7 @@ for source_file_name in os.listdir(source_kenpom_dir):
             dest_csv.writerow(row)
             continue
 
-        # prompt user with full list
+        # prompt user to define mapping between KenPom & Kaggle name with FULL list
         prompt = "Enter the number of the team that matches: '%s'.\n" % kenpom_team_name
         for i in range(len(kaggle_team_names)):
             prompt += "\t%d. %s" % (i, kaggle_team_names[i])
