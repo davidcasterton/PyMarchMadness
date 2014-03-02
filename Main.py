@@ -1,3 +1,4 @@
+import csv
 import numpy
 import os
 import pandas
@@ -25,7 +26,7 @@ class Season(object):
         # initialize member variables to be defined after constructor
         self.regions = {}  # dictionary of region names, indexed by region id
         self.teams = {}  # dictionary of Team objects, indexed by team_id
-        self.tournament_bracket = Constants.TOURNAMET_BRACKET
+        self.tournament_bracket = Constants.TOURNAMENT_BRACKET
 
     def __str__(self):
         # define how Season object will look if printed
@@ -57,15 +58,52 @@ class Season(object):
 
             # create Team object
             team_object = Team(id=team_id, name=team_name, years=self.years)
-            team_object.set_tourney_seed(tourney_seed)
+            team_object.set_tourney_seed(tourney_seed=tourney_seed, regions=self.regions)
             team_object.retrieve_kenpom()
 
             # add Team object to self.teams dictionary
             self.teams[team_id] = team_object
 
-    def run_tournament(self):
+    def build_bracket(self):
+        """
+        Populate 1st round of tournament_bracket with Team objects.
+        """
         df = Constants.KAGGLE_DATA['tourney_slots']
         tourney_slots = df[df.season == self.id]  # slice of tourney_slots DataFrame for current season
+
+        df = Constants.KAGGLE_DATA['tourney_seeds']
+        tourney_seeds = df[df.season == self.id]  # slice of tourney_seeds DataFrame for current season
+
+        for _id, row in tourney_slots.iterrows():
+            self.tournament_bracket['R1'][row.seed]
+
+    def generate_kaggle_submission(self):
+        if self.tournament_year < "2003":
+            print("Cannot generate Kaggle submission for year '%s', do not have KenPom data." % self.tournament_year)
+            return
+
+        # if necessary make kaggle_submission_dir directory
+        kaggle_submission_dir = "KaggleSubmission"
+        if not os.path.isdir(kaggle_submission_dir):
+            os.mkdir(kaggle_submission_dir)
+        # create output file
+        file_path = os.path.join(kaggle_submission_dir, "season%s.csv" % self.id)
+        handle = open(file_path, "w")
+        csv_writer = csv.writer(handle)
+        csv_writer.writerow(["id", "pred"])
+        # variable init
+        team_ids = self.teams.keys()
+        team_ids.sort()
+        # loop through all possible match ups in tournament and write probability of win to .csv
+        for i in range(len(team_ids)):
+            for k in range(i+1, len(team_ids)):
+                team_id_1 = team_ids[i]
+                team_id_2 = team_ids[k]
+                row = ["%s_%s_%s" % (self.id, team_id_1, team_id_2)]
+                team_id_1_win_probability = self.teams[team_id_1].pythag - self.teams[team_id_2].pythag
+                row.append(team_id_1_win_probability)
+                csv_writer.writerow(row)
+        handle.close()
 
 
 class Team(object):
@@ -104,9 +142,9 @@ class Team(object):
             attribute_list.append("Pythag: %s" % self.pythag)
         return "| ".join(attribute_list)
 
-    def set_tourney_seed(self, tourney_seed):
+    def set_tourney_seed(self, tourney_seed, regions):
         self.tourney_seed = tourney_seed
-        self.division = self.regions[tourney_seed[0]]
+        self.division = regions[tourney_seed[0]]
         self.division_seed = tourney_seed[1:]
 
     def retrieve_kenpom(self):
@@ -128,8 +166,8 @@ if __name__ == "__main__":
         # create Season object
         season = Season(id=row['season'], years=row['years'], day_zero =row['dayzero'])
         season.set_regions(region_w=row['regionW'], region_x=row['regionX'], region_y=row['regionY'], region_z=row['regionZ'])
-        # create Team objects within Season
+
+        # build teams and generate kaggle submission file
         season.build_teams()
-        # run tournament
-        season.run_tournament()
-        print(season)
+        season.generate_kaggle_submission()
+        raw_input("continue?")
