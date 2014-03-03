@@ -221,8 +221,8 @@ class Season(object):
         - row 1: identifies season and two teams playing
         - row 2: probability that team1 beats team2
         """
-        if not self.check_kenpom_available():
-            print("%s:%s: No KenPom data for year '%s'." % (self.__class__.__name__, inspect.stack()[0][3], self.tournament_year))
+        if not self.check_kenpom_available() or self.tournament_year < '2009':
+            print("%s:%s: Not adding '%s' to Kaggle results, only adding last 5 years." % (self.__class__.__name__, inspect.stack()[0][3], self.tournament_year))
             return
 
         # if necessary make kaggle_submission_dir directory
@@ -231,10 +231,7 @@ class Season(object):
             os.mkdir(kaggle_submission_dir)
 
         # open csv writer
-        file_path = os.path.join(kaggle_submission_dir, "kaggle_season%s.csv" % self.id)
-        if os.path.isfile(file_path):
-            os.remove(file_path)
-        handle = open(file_path, "w")
+        handle = open(Constants.KAGGLE_OUTPUT, "a")
         csv_writer = csv.writer(handle)
         csv_writer.writerow(["id", "pred"])
 
@@ -374,6 +371,11 @@ class Team(object):
         return adj_total_eff
 
 if __name__ == "__main__":
+    #check if KAGGLE_OUTPUT file exists
+    if os.path.isfile(Constants.KAGGLE_OUTPUT):
+        os.remove(Constants.KAGGLE_OUTPUT)
+
+    #analyze each available season
     for _, row in Constants.KAGGLE_DATA['seasons'].iterrows():
         # create Season object
         season = Season(id=row['season'], years=row['years'], day_zero =row['dayzero'])
