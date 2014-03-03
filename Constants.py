@@ -24,41 +24,41 @@ for _file_name in os.listdir(_kenpom_dir):
 
 
 TOURNAMENT_BRACKET = {
-    'R01': {
+    'R00': {
         'W01': None, 'W02': None, 'W03': None, 'W04': None, 'W05': None, 'W06': None, 'W07': None, 'W08': None, 'W09': None, 'W10': None, 'W11': None, 'W12': None, 'W13': None, 'W14': None, 'W15': None, 'W16': None,
         'X01': None, 'X02': None, 'X03': None, 'X04': None, 'X05': None, 'X06': None, 'X07': None, 'X08': None, 'X09': None, 'X10': None, 'X11': None, 'X12': None, 'X13': None, 'X14': None, 'X15': None, 'X16': None,
         'Y01': None, 'Y02': None, 'Y03': None, 'Y04': None, 'Y05': None, 'Y06': None, 'Y07': None, 'Y08': None, 'Y09': None, 'Y10': None, 'Y11': None, 'Y12': None, 'Y13': None, 'Y14': None, 'Y15': None, 'Y16': None,
         'Z01': None, 'Z02': None, 'Z03': None, 'Z04': None, 'Z05': None, 'Z06': None, 'Z07': None, 'Z08': None, 'Z09': None, 'Z10': None, 'Z11': None, 'Z12': None, 'Z13': None, 'Z14': None, 'Z15': None, 'Z16': None,
     },
-    'R02': {
+    'R01': {
         'W01': None, 'W02': None, 'W03': None, 'W04': None, 'W05': None, 'W06': None, 'W07': None, 'W08': None,
         'X01': None, 'X02': None, 'X03': None, 'X04': None, 'X05': None, 'X06': None, 'X07': None, 'X08': None,
         'Y01': None, 'Y02': None, 'Y03': None, 'Y04': None, 'Y05': None, 'Y06': None, 'Y07': None, 'Y08': None,
         'Z01': None, 'Z02': None, 'Z03': None, 'Z04': None, 'Z05': None, 'Z06': None, 'Z07': None, 'Z08': None,
     },
-    'R03': {
+    'R02': {
         'W01': None, 'W02': None, 'W03': None, 'W04': None,
         'X01': None, 'X02': None, 'X03': None, 'X04': None,
         'Y01': None, 'Y02': None, 'Y03': None, 'Y04': None,
         'Z01': None, 'Z02': None, 'Z03': None, 'Z04': None,
     },
-    'R04': {
+    'R03': {
         'W01': None, 'W02': None,
         'X01': None, 'X02': None,
         'Y01': None, 'Y02': None,
         'Z01': None, 'Z02': None,
     },
-    'R05': {
+    'R04': {
         'W01': None,
         'X01': None,
         'Y01': None,
         'Z01': None,
     },
-    'R06': {
-        'W0X0': None,
-        'Y0Z0': None,
+    'R05': {
+        'WX': None,
+        'YZ': None,
     },
-    'R07': {
+    'R06': {
         'CH': None
     }
 }
