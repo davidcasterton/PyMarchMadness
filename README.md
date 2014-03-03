@@ -7,7 +7,7 @@ InputData Sources:
 - Kaggle: http://www.kaggle.com/c/march-machine-learning-mania/data
 - BracketScience: http://wp.bracketscience.com/
 - KenPom: http://kenpom.com/
-- KenPomWithIds: generated using AddKaggleIdToKenPomData.py to insert Kaggle team_ids into KenPom files
+- KenPomWithIds: generated from AddKaggleIdToKenPomData.py
 
 Analysis Files:
 - Constants.py : Contains unchanging variables.
