@@ -213,11 +213,12 @@ class Season(object):
 
         return team
 
-    def generate_kaggle_submission(self):
+    def generate_kaggle_probabilities(self):
         """
-        Generate .csv file formatted for submission to Kaggle March Madness competition.
+        Generate matchup probabilities formatted for submission to Kaggle March Madness competition.
 
-        This file contains win probabilities for every possible team match-up. Output is formatted into 2 rows:
+        This function will write win probabilities to a .csv file for every possible team combination.
+        Output is formatted into 2 rows:
         - row 1: identifies season and two teams playing
         - row 2: probability that team1 beats team2
         """
@@ -278,6 +279,10 @@ class Season(object):
         self.predict_bracket_round(4)
         self.predict_bracket_round(5)
         self.predict_bracket_round(6)
+
+        handle = open(Constants.BRACKET_OUTPUT, "a")
+        handle.write(self.get_bracket() + "\n")
+        handle.close()
 
     def predict_winner(self, team_1, team_2):
         """
@@ -371,9 +376,11 @@ class Team(object):
         return adj_total_eff
 
 if __name__ == "__main__":
-    #check if KAGGLE_OUTPUT file exists
+    # if output files exist, then delete them
     if os.path.isfile(Constants.KAGGLE_OUTPUT):
         os.remove(Constants.KAGGLE_OUTPUT)
+    if os.path.isfile(Constants.BRACKET_OUTPUT):
+        os.remove(Constants.BRACKET_OUTPUT)
 
     #analyze each available season
     for _, row in Constants.KAGGLE_DATA['seasons'].iterrows():
@@ -383,8 +390,8 @@ if __name__ == "__main__":
 
         # build teams
         season.build_teams()
-        # generate Kaggle submission files
-        season.generate_kaggle_submission()
+        # generate Kaggle probabilities
+        season.generate_kaggle_probabilities()
         # generate and print bracket
         season.generate_bracket()
         bracket = season.get_bracket()

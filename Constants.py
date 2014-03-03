@@ -5,6 +5,7 @@ import pandas
 INPUT_DATA = "InputData"
 OUTPUT_DATA = "OutputData"
 KAGGLE_OUTPUT = os.path.join(OUTPUT_DATA, "kaggle_submission.csv")
+BRACKET_OUTPUT = os.path.join(OUTPUT_DATA, "bracket_predictions.txt")
 
 # Kaggle data from http://www.kaggle.com/c/march-machine-learning-mania/data
 KAGGLE_DATA = {}  # dictionary storing DataFrames of data from Kaggle.com
