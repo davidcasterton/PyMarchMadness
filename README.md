@@ -3,6 +3,9 @@ March-Madness
 
 Python analysis for Kaggle March Madness competition (http://www.kaggle.com/c/march-machine-learning-mania).
 
+####Usage:
+python Main.py
+
 ####Input Data Sources:
 - **Kaggle**: http://www.kaggle.com/c/march-machine-learning-mania/data
 - **BracketScience**: http://wp.bracketscience.com/
