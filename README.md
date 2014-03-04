@@ -11,10 +11,11 @@ Python analysis for Kaggle March Madness competition (http://www.kaggle.com/c/ma
 
 ####Analysis Files:
 - **Constants.py** : Constant "variables".
+- **Main.py** : 1) Generates win probabilities for all possible matchups in each years March Madness tournament, this is the submission format for the Kaggle competition. 2) Generates March Madness Bracket predictions.
+- **Misc.py** : helper functions
+- **Season.py** : Season & Bracket classes representing 1 NCAA basketball season
+- **Team.py** : Team class representing 1 NCAA basketball Team for 1 season
 - **WrangleKenPom.py** : Generates InputData/KenPomWithIds/ directory, which adds TeamId column to all files from InputData/KenPom/. The TeamId column enables correlation of teams between Kaggle and KenPom files.
-- **Main.py** : 1) Generates win probabilities for all possible matchups in each years NCAA March Madness tournament, this is the submission format for the Kaggle competition. 2) Generates NCAA March Madness Bracket predictions.
-- **Season.py** : Class representing 1 NCAA season
-- **Team.py** : Class representing 1 NCAA Team for 1 season
 
 ####Software Dependencies:
 - Python 2.7
