@@ -1,9 +1,9 @@
 import csv
 import os
 import pdb
-import re
 
 import Constants
+
 
 # variable init
 KAGGLE_NAME_TO_KAGGLE_ID = {}
