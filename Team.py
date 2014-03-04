@@ -27,7 +27,7 @@ class Team(object):
 
     def __str__(self):
         # define how team object will look if printed
-        attribute_list = []
+        attribute_list = list()
         attribute_list.append(self.name.ljust(20))
         attribute_list.append(("year: %s" % self.tournament_year).ljust(10))
         attribute_list.append(("id: %s" % self.id).ljust(10))
@@ -67,14 +67,14 @@ class Team(object):
                 self.offense_efficiency = self.kenpom_data_frame.AdjOE.iloc[0]
                 self.defense_efficiency = self.kenpom_data_frame.AdjDE.iloc[0]
             else:
-                raise Exception("KenPom data not found for team name:%s, id:%s" % (self.name, self.id))
+                raise Exception("KenPom data not found for team name:'%s', id:'%s'" % (self.name, self.id))
 
     def calculate_efficiency(self, season_max_offensive_efficiency, season_max_defensive_efficiency,
                              season_min_offensive_efficiency, season_min_defensive_efficiency,):
         """
         Calculate total adjusted efficiency.
         """
-        #TODO delete this?
+        #TODO delete?
         adj_off_eff = (self.offense_efficiency - season_min_offensive_efficiency) / \
                       (season_max_offensive_efficiency - season_min_offensive_efficiency)
         adj_def_eff = (self.defense_efficiency - season_min_defensive_efficiency) / \

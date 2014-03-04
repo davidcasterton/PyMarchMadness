@@ -14,19 +14,20 @@ BRACKET_OUTPUT = os.path.join(OUTPUT_FOLDER, "bracket_predictions.txt")
 # load Kaggle data from http://www.kaggle.com/c/march-machine-learning-mania/data
 _kaggle_dir = os.path.join(INPUT_FOLDER, "Kaggle")
 for _file_name in os.listdir(_kaggle_dir):
-        _file_path = os.path.join(_kaggle_dir, _file_name)
-        _file_base_name = _file_name.split(".")[0]
-        KAGGLE_INPUT[_file_base_name] = pandas.read_csv(_file_path)
+    _file_path = os.path.join(_kaggle_dir, _file_name)
+    _file_base_name = _file_name.split(".")[0]
+    KAGGLE_INPUT[_file_base_name] = pandas.read_csv(_file_path)
 
 
 # load KenPom data from http://kenpom.com/
 _kenpom_dir = os.path.join(INPUT_FOLDER, "KenPomWithIds")
 for _file_name in os.listdir(_kenpom_dir):
-        _file_path = os.path.join(_kenpom_dir, _file_name)
-        _file_base_name = _file_name.split(".")[0]
-        KENPOM_INPUT[_file_base_name] = pandas.read_csv(_file_path)
+    _file_path = os.path.join(_kenpom_dir, _file_name)
+    _file_base_name = _file_name.split(".")[0]
+    KENPOM_INPUT[_file_base_name] = pandas.read_csv(_file_path)
 
 
+# blank tournament bracket
 TOURNAMENT_BRACKET = {
     'R00': {
         'W01': None, 'W02': None, 'W03': None, 'W04': None, 'W05': None, 'W06': None, 'W07': None, 'W08': None, 'W09': None, 'W10': None, 'W11': None, 'W12': None, 'W13': None, 'W14': None, 'W15': None, 'W16': None,
