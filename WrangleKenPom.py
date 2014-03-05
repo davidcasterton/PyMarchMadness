@@ -6,11 +6,11 @@ import Constants
 
 
 # variable init
-KAGGLE_NAME_TO_KAGGLE_ID = {}
-KENPOM_NAME_TO_KAGGLE_ID = {}
+kaggle_name_to_kaggle_id = {}
+kenpom_name_to_kaggle_id = {}
 
 ################################################################################
-# read Kaggle/teams.csv and build KAGGLE_NAME_TO_KAGGLE_ID dictionary with
+# read Kaggle/teams.csv and build kaggle_name_to_kaggle_id dictionary with
 # relationships between team names and ids
 ################################################################################
 file_path = os.path.join(Constants.INPUT_FOLDER, "Kaggle", "teams.csv")
@@ -19,7 +19,7 @@ reader = csv.reader(handle)
 for row in reader:
     team_name = row[1]
     team_id = row[0]
-    KAGGLE_NAME_TO_KAGGLE_ID[team_name] = team_id
+    kaggle_name_to_kaggle_id[team_name] = team_id
 handle.close()
 
 ################################################################################
@@ -61,20 +61,20 @@ for source_file_name in os.listdir(source_kenpom_dir):
             continue
 
         # exactly matched kenpom_team_name, insert team_id into row
-        if KAGGLE_NAME_TO_KAGGLE_ID.get(kenpom_team_name):
-            row.insert(0, KAGGLE_NAME_TO_KAGGLE_ID.get(kenpom_team_name))
+        if kaggle_name_to_kaggle_id.get(kenpom_team_name):
+            row.insert(0, kaggle_name_to_kaggle_id.get(kenpom_team_name))
             dest_csv.writerow(row)
             continue
 
         # user already defined mapping for this team name, insert team_id into row
-        if KENPOM_NAME_TO_KAGGLE_ID.get(kenpom_team_name):
-            row.insert(0, KENPOM_NAME_TO_KAGGLE_ID.get(kenpom_team_name))
+        if kenpom_name_to_kaggle_id.get(kenpom_team_name):
+            row.insert(0, kenpom_name_to_kaggle_id.get(kenpom_team_name))
             dest_csv.writerow(row)
             continue
 
         # prompt user to define mapping between KenPom & Kaggle name with CONSOLIDATED list
         kenpom_words = kenpom_team_name.split(" ")
-        kaggle_team_names = KAGGLE_NAME_TO_KAGGLE_ID.keys()
+        kaggle_team_names = kaggle_name_to_kaggle_id.keys()
         kaggle_team_names.sort()
         kaggle_team_names_potential_matches = []
         #search for kaggle names that match any word in kenpom name
@@ -91,8 +91,8 @@ for source_file_name in os.listdir(source_kenpom_dir):
         if index.isdigit():
             #user entered a match
             matched_kaggle_team_name = kaggle_team_names_potential_matches[int(index)]
-            KENPOM_NAME_TO_KAGGLE_ID[kenpom_team_name] = KAGGLE_NAME_TO_KAGGLE_ID.get(matched_kaggle_team_name)
-            row.insert(0, KENPOM_NAME_TO_KAGGLE_ID.get(kenpom_team_name))
+            kenpom_name_to_kaggle_id[kenpom_team_name] = kaggle_name_to_kaggle_id.get(matched_kaggle_team_name)
+            row.insert(0, kenpom_name_to_kaggle_id.get(kenpom_team_name))
             dest_csv.writerow(row)
             continue
 
@@ -104,8 +104,8 @@ for source_file_name in os.listdir(source_kenpom_dir):
         if index.isdigit():
             #user entered a match
             matched_kaggle_team_name = kaggle_team_names[int(index)]
-            KENPOM_NAME_TO_KAGGLE_ID[kenpom_team_name] = KAGGLE_NAME_TO_KAGGLE_ID.get(matched_kaggle_team_name)
-            row.insert(0, KENPOM_NAME_TO_KAGGLE_ID.get(kenpom_team_name))
+            kenpom_name_to_kaggle_id[kenpom_team_name] = kaggle_name_to_kaggle_id.get(matched_kaggle_team_name)
+            row.insert(0, kenpom_name_to_kaggle_id.get(kenpom_team_name))
             dest_csv.writerow(row)
             continue
         else:
