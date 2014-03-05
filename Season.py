@@ -24,10 +24,6 @@ class Season(object):
         self.bracket = Bracket(season=self)
         self.regions = {}  # dictionary of region names, indexed by region id
         self.teams = {}  # dictionary of Team objects, indexed by team_id
-        self.max_offense_efficiency = 0
-        self.max_defense_efficiency = 0
-        self.min_offense_efficiency = 200
-        self.min_defense_efficiency = 200
 
     def __str__(self):
         string = self.years
@@ -60,7 +56,7 @@ class Season(object):
             # create Team object
             team_object = Team.Team(id=team_id, name=team_name, years=self.years)
             team_object.set_tourney_seed(tourney_seed=tourney_seed, regions=self.regions)
-            team_object.retrieve_kenpom()
+            team_object.load_kenpom_data()
 
             self.add_team(team_object)
 
@@ -71,16 +67,6 @@ class Season(object):
         @param team_object  Team object
         """
         self.teams[team_object.id] = team_object
-
-        # check offensive and defensive efficiency against max/min's
-        if team_object.offense_efficiency > self.max_offense_efficiency:
-            self.max_offense_efficiency = team_object.offense_efficiency
-        if team_object.defense_efficiency > self.max_defense_efficiency:
-            self.max_defense_efficiency = team_object.defense_efficiency
-        if team_object.offense_efficiency < self.min_offense_efficiency:
-            self.min_offense_efficiency = team_object.offense_efficiency
-        if team_object.defense_efficiency < self.min_defense_efficiency:
-            self.min_defense_efficiency = team_object.defense_efficiency
 
     def generate_kaggle_probabilities(self, analysis):
         """

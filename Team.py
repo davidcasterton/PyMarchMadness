@@ -54,13 +54,13 @@ class Team(object):
         self.division = regions[tourney_seed[0]]
         self.division_seed = tourney_seed[1:]
 
-    def retrieve_kenpom(self):
+    def load_kenpom_data(self):
         """
         Retrieve KenPom statistics for this team from KENPOM_INPUT.
         """
-        file_name = 'summary%s' % str(self.tournament_year)[-2:]
-        if file_name in Constants.KENPOM_INPUT.keys():
-            df = Constants.KENPOM_INPUT[file_name]
+        input_file_name = 'summary%s' % str(self.tournament_year)[-2:]
+        if input_file_name in Constants.KENPOM_INPUT.keys():
+            df = Constants.KENPOM_INPUT[input_file_name]
             self.kenpom_data_frame = df[df.TeamId == self.id]  # single row from summaryXX.csv for this team
             if not self.kenpom_data_frame.empty:
                 self.pythag = self.kenpom_data_frame.Pythag.iloc[0]
@@ -68,17 +68,3 @@ class Team(object):
                 self.defense_efficiency = self.kenpom_data_frame.AdjDE.iloc[0]
             else:
                 raise Exception("KenPom data not found for team name:'%s', id:'%s'" % (self.name, self.id))
-
-    def calculate_efficiency(self, season_max_offensive_efficiency, season_max_defensive_efficiency,
-                             season_min_offensive_efficiency, season_min_defensive_efficiency,):
-        """
-        Calculate total adjusted efficiency.
-        """
-        #TODO delete?
-        adj_off_eff = (self.offense_efficiency - season_min_offensive_efficiency) / \
-                      (season_max_offensive_efficiency - season_min_offensive_efficiency)
-        adj_def_eff = (self.defense_efficiency - season_min_defensive_efficiency) / \
-                      (season_max_defensive_efficiency - season_min_defensive_efficiency)
-        adj_total_eff = (adj_off_eff + adj_def_eff) / 2
-
-        return adj_total_eff
