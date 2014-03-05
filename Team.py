@@ -50,9 +50,9 @@ class Team(object):
         @param  tourney_seed    string  string encoding this teams division and seed
         @param  regions         dict    dictionary to map between division id's and division names
         """
-        self.tourney_seed = tourney_seed
-        self.division = regions[tourney_seed[0]]
-        self.division_seed = tourney_seed[1:]
+        self.tourney_seed = str(tourney_seed)
+        self.division = regions[self.tourney_seed[0]]
+        self.division_seed = int(self.tourney_seed[1:2])
 
     def load_kenpom_data(self):
         """

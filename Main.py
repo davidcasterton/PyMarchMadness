@@ -1,3 +1,5 @@
+import pdb
+
 import Analysis
 import Constants
 import Misc
@@ -5,7 +7,7 @@ import Season
 
 
 if __name__ == "__main__":
-    #Predict outcome of NCAA March Madness tournaments.
+    # Predict outcome of NCAA March Madness tournaments.
 
     seasons = {}
     analysis_method = Analysis.KenPom()
@@ -24,6 +26,6 @@ if __name__ == "__main__":
         seasons[year].generate_kaggle_probabilities(analysis_method)
         seasons[year].generate_bracket(analysis_method)
 
-    #write output to files
+    # write output to files
     Misc.write_bracket_file(seasons)
     Misc.write_kaggle_probabilities_file(seasons)

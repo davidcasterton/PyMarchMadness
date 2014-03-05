@@ -1,5 +1,6 @@
 import copy
 import pandas
+import pdb
 import re
 
 import Constants
@@ -124,7 +125,7 @@ class Bracket(object):
         bracket_string = self.season.years
         for round_int in range(7):
             round_id = "R%02d" % round_int
-            bracket_string += "\nRound %d:  " % round_int
+            bracket_string += "\nRound %d:  " % (round_int + 1)
             round_list = []
             for bracket_index, team in self.bracket[round_id].iteritems():
                 round_list.append("%s: %s" % (bracket_index, team.name if team else ""))
