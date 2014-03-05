@@ -44,18 +44,6 @@ class Season(object):
             "Z": region_z,
         }
 
-    def kenpom_available(self):
-        """
-        Check if KenPom data is available for this Season's year.
-
-        @return result  bool    True if KenPom data is available
-        """
-        if self.tournament_year >= Constants.KENPOM_START_YEAR and self.tournament_year != Constants.CURRENT_YEAR:
-            result = True
-        else:
-            result = False
-        return result
-
     def build_teams(self):
         """
         Build Team objects for this season from KAGGLE_INPUT.
@@ -94,11 +82,11 @@ class Season(object):
         if team_object.defense_efficiency < self.min_defense_efficiency:
             self.min_defense_efficiency = team_object.defense_efficiency
 
-    def generate_kaggle_probabilities(self):
+    def generate_kaggle_probabilities(self, analysis):
         """
         Generate matchup probabilities formatted for submission to Kaggle March Madness competition.
         """
-        if not self.kenpom_available():
+        if not analysis.data_available(season=self):
             return
 
         # variable init
@@ -113,23 +101,25 @@ class Season(object):
                 team_2 = self.teams[team_ids[k]]
 
                 id = "%s_%s_%s" % (self.id, team_1.id, team_2.id)
-                pred = Misc.calculate_win_probability(team_1, team_2)
+                pred = analysis.calculate_win_probability(team_1, team_2)
 
                 probabilities.append({"id": id, "pred": pred})
 
         self.kaggle_probabilities = self.kaggle_probabilities.append(probabilities, ignore_index=True)
 
-    def generate_bracket(self):
+    def generate_bracket(self, analysis):
         """
         Populate bracket 1st round then predict outcome of all rounds.
+
+        @param analysis         object  Analysis object
         """
-        if not self.kenpom_available():
+        if not analysis.data_available(season=self):
             return
 
         # simulate all rounds of bracket
-        self.bracket.populate_bracket_1st_round()
+        self.bracket.populate_bracket_1st_round(analysis)
         for round_num in range(1, 7):
-            self.bracket.predict_bracket_round(round_num)
+            self.bracket.predict_bracket_round(round_num, analysis)
 
     def get_bracket(self):
         return str(self.bracket)
@@ -193,7 +183,7 @@ class Bracket(object):
 
         return seed
 
-    def populate_bracket_1st_round(self):
+    def populate_bracket_1st_round(self, analysis):
         """
         Populate 1st round of bracket with teams from Kaggle/tourney_slots.csv.
         """
@@ -208,7 +198,7 @@ class Bracket(object):
                 # play-in game
                 team_1 = self.get_team_by_tourney_seed(row.strongseed)
                 team_2 = self.get_team_by_tourney_seed(row.weakseed)
-                winner = Misc.predict_winner(team_1, team_2)
+                winner = analysis.predict_winner(team_1, team_2)
 
                 slot = self.zero_pad_seed(row.slot)
                 self.bracket[round_1][slot] = winner
@@ -220,13 +210,14 @@ class Bracket(object):
             if len(row.seed) == 3:
                 self.bracket[round_1][row.seed] = self.get_team_by_tourney_seed(row.seed)
 
-    def predict_bracket_round(self, tourney_round):
+    def predict_bracket_round(self, tourney_round, analysis):
         """
         Predict winner of a single round of the tournament.
 
         @param tourney_round    int     round of the tournament to predict.
+        @param analysis         object  Analysis object
         """
-        if not self.season.kenpom_available():
+        if not analysis.data_available(self.season):
             return
 
         last_round_id_2digit = "R%02d" % (tourney_round - 1)
@@ -247,7 +238,7 @@ class Bracket(object):
                 team_2 = self.bracket[last_round_id_2digit][weakseed]
                 if not team_1 or not team_2:
                     raise Exception("Cannot predict round '%s', do not have results from prior round." % tourney_round)
-                winner = Misc.predict_winner(team_1, team_2)
+                winner = analysis.predict_winner(team_1, team_2)
 
                 if tourney_round == 5:
                     slot = row.slot[-2:]
