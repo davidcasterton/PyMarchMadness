@@ -1,6 +1,7 @@
 import os
 import pandas
 
+
 CURRENT_YEAR = 2014
 KENPOM_START_YEAR = 2003
 INPUT_FOLDER = "InputData"

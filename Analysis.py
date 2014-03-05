@@ -1,5 +1,5 @@
-import os
 import pandas
+import pdb
 
 import Constants
 
@@ -20,7 +20,8 @@ class KenPom(Analysis):
         """
         Check if KenPom data is available for this Season's year.
 
-        @return result  bool    True if KenPom data is available
+        @param  season  object      Season object
+        @return result  bool        True if KenPom data is available
         """
         if season.tournament_year >= Constants.KENPOM_START_YEAR and season.tournament_year != Constants.CURRENT_YEAR:
             result = True
