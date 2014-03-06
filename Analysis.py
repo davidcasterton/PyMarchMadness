@@ -62,7 +62,7 @@ class Analysis(object):
 
         return winner
 
-    def write_kaggle_probabilities_file(self, seasons):
+    def write_matchup_probabilities_file(self, seasons):
         """
         Write win probabilities to a .csv file for every possible team combination.
         Output is formatted into 2 rows:
@@ -76,7 +76,7 @@ class Analysis(object):
             os.mkdir(Constants.OUTPUT_FOLDER)
 
         #variable init
-        file_path = os.path.join(Constants.OUTPUT_FOLDER, "%s-kaggle_submission.csv" % self.get_name(remove_spaces=True))
+        file_path = os.path.join(Constants.OUTPUT_FOLDER, "%s-matchup_probabilities.csv" % self.get_name(remove_spaces=True))
         all_season_kaggle_probabilities = pandas.DataFrame()
         years = seasons.keys()
         years.sort()
@@ -92,7 +92,7 @@ class Analysis(object):
         #write probabilities file
         all_season_kaggle_probabilities.to_csv(file_path, mode="w", index=False)
 
-        print("Wrote Kaggle probabilities to: '%s'" % file_path)
+        print("Wrote match up probabilities to: '%s'" % file_path)
 
 
     def write_bracket_file(self, seasons):
@@ -106,7 +106,7 @@ class Analysis(object):
             os.mkdir(Constants.OUTPUT_FOLDER)
 
         #variable init
-        file_path = os.path.join(Constants.OUTPUT_FOLDER, "%s-bracket.txt" % self.get_name(remove_spaces=True))
+        file_path = os.path.join(Constants.OUTPUT_FOLDER, "%s-tournament_brackets.txt" % self.get_name(remove_spaces=True))
         years = seasons.keys()
         years.sort()
         handle = open(file_path, "w")
@@ -122,7 +122,7 @@ class Analysis(object):
 
         handle.close()
 
-        print("Wrote Bracket file to: '%s'" % file_path)
+        print("Wrote predicted tournament bracket to: '%s'" % file_path)
 
 class Pythag(Analysis):
     """
@@ -203,3 +203,11 @@ class Random(Analysis):
         team_1_win_probability = round(team_1_win_probability, 6)
 
         return team_1_win_probability
+
+
+# variable init
+available = [
+    Pythag(),
+    Random(),
+]  # list of available Analysis objects
+num_available = len(available)  # number of analysis' available

@@ -102,17 +102,24 @@ class Season(object):
             return
 
         # simulate all rounds of bracket
-        self.tournament.populate_bracket_1st_round(analysis)
+        self.tournament.populate_1st_round(analysis)
         for round_num in range(1, 7):
-            self.tournament.predict_bracket_round(round_num, analysis)
+            self.tournament.predict_round(round_num, analysis)
 
     def get_bracket(self):
         return str(self.tournament)
 
 
 class Tournament(object):
+    """
+    Tournament objects represent 1 NCAA March Madness tournament.
+
+    @param  season      object      Season object
+    @param  analysis    object      Analysis object
+    """
     def __init__(self, season):
         self.season = season
+
         self.year = int(self.season.years.split("-")[1])
         self.bracket = copy.deepcopy(Constants.TOURNAMENT_BRACKET)
 
@@ -134,7 +141,7 @@ class Tournament(object):
 
         return bracket_string
 
-    def get_team_by_tourney_seed(self, seed):
+    def get_team_by_seed(self, seed):
         """
         Get team object from tournament seed string.
 
@@ -169,10 +176,13 @@ class Tournament(object):
 
         return seed
 
-    def populate_bracket_1st_round(self, analysis):
+    def populate_1st_round(self, analysis):
         """
         Populate 1st round of bracket with teams from Kaggle/tourney_slots.csv.
         """
+        if not analysis.data_available(self.season):
+            return
+
         #variable init
         round_1 = "R00"
 
@@ -182,8 +192,8 @@ class Tournament(object):
         for _id, row in tourney_slots.iterrows():
             if row.slot[0] != "R":
                 # play-in game
-                team_1 = self.get_team_by_tourney_seed(row.strongseed)
-                team_2 = self.get_team_by_tourney_seed(row.weakseed)
+                team_1 = self.get_team_by_seed(row.strongseed)
+                team_2 = self.get_team_by_seed(row.weakseed)
                 winner = analysis.predict_winner(team_1, team_2)
 
                 slot = self.zero_pad_seed(row.slot)
@@ -194,9 +204,9 @@ class Tournament(object):
         tourney_seeds = df[df.season == self.season.id]  # slice of tourney_seeds DataFrame for current season
         for _id, row in tourney_seeds.iterrows():
             if len(row.seed) == 3:
-                self.bracket[round_1][row.seed] = self.get_team_by_tourney_seed(row.seed)
+                self.bracket[round_1][row.seed] = self.get_team_by_seed(row.seed)
 
-    def predict_bracket_round(self, tourney_round, analysis):
+    def predict_round(self, tourney_round, analysis):
         """
         Predict winner of a single round of the tournament.
 
