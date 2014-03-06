@@ -1,5 +1,9 @@
+#!/usr/bin/env python
 import os
 import pandas
+
+__author__ = "David Casterton"
+__license__ = "GPL"
 
 
 CURRENT_YEAR = 2014

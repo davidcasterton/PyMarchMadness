@@ -1,8 +1,14 @@
+#!/usr/bin/env python
+"""Insert unique team id's to Ken Pomeroy data files."""
+
 import csv
 import os
 import pdb
 
 import Constants
+
+__author__ = "David Casterton"
+__license__ = "GPL"
 
 
 # variable init

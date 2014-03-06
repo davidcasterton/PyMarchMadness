@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+"""Classes representing single NCAA basketball season."""
+
 import copy
 import pandas
 import pdb
@@ -6,20 +9,24 @@ import re
 import Constants
 import Team
 
+__author__ = "David Casterton"
+__license__ = "GPL"
+
 
 class Season(object):
-    """
-    Season objects represent 1 NCAA backetball season.
-
-    @param id       string  season identifier, defined in Kaggle/seasons.csv season column
-    @param years    string  2 years that NCAA season spans in format 'XXXX-YYYY'
-    """
+    """1 NCAA backetball season."""
     def __init__(self, id, years, day_zero):
+        """
+        Args:
+            id (string):  season identifier, defined in Kaggle/seasons.csv season column
+            years (string):  2 years that NCAA season spans in format 'XXXX-YYYY'
+            day_zero (string): Season start day
+        """
         self.id = id
         self.years = years
         self.day_zero = day_zero
 
-        self.kaggle_probabilities = pandas.DataFrame(columns=["id", "pred"])
+        self.matchup_probabilities = pandas.DataFrame(columns=["id", "pred"])
         self.tournament = Tournament(season=self)
         self.regions = {}  # dictionary of region names, indexed by region id
         self.teams = {}  # dictionary of Team objects, indexed by team_id
@@ -29,9 +36,7 @@ class Season(object):
         return string
 
     def set_regions(self, region_w, region_x, region_y, region_z):
-        """
-        Set mapping between region id's and names, e.g. "W":"East", "X":"MidWest", ...
-        """
+        """Set mapping between region id's and names, e.g. "W":"East", "X":"MidWest", ..."""
         self.regions = {
             "W": region_w,
             "X": region_x,
@@ -40,9 +45,7 @@ class Season(object):
         }
 
     def build_teams(self):
-        """
-        Build Team objects for this season from KAGGLE_INPUT.
-        """
+        """Build Team objects for this season from KAGGLE_INPUT."""
         df = Constants.KAGGLE_INPUT['tourney_seeds']
         tourney_teams = df[df.season == self.id]  # slice of tourney_seeds DataFrame for current season
         for _id, row in tourney_teams.iterrows():
@@ -63,13 +66,17 @@ class Season(object):
         """
         Add Team object to self.teams dictionary, check for updates to min/max efficiency variables.
 
-        @param team_object  Team object
+        Args:
+            team_object (object): Team object
         """
         self.teams[team_object.id] = team_object
 
-    def generate_kaggle_probabilities(self, analysis):
+    def generate_matchup_probabilities(self, analysis):
         """
         Generate matchup probabilities formatted for submission to Kaggle March Madness competition.
+
+        Args:
+            analysis (object): Analysis object
         """
         if not analysis.data_available(season=self):
             return
@@ -90,13 +97,14 @@ class Season(object):
 
                 probabilities.append({"id": id, "pred": pred})
 
-        self.kaggle_probabilities = self.kaggle_probabilities.append(probabilities, ignore_index=True)
+        self.matchup_probabilities = self.matchup_probabilities.append(probabilities, ignore_index=True)
 
     def generate_bracket(self, analysis):
         """
         Populate bracket 1st round then predict outcome of all rounds.
 
-        @param analysis         object  Analysis object
+        Args:
+            analysis (object): Analysis object
         """
         if not analysis.data_available(season=self):
             return
@@ -111,24 +119,18 @@ class Season(object):
 
 
 class Tournament(object):
-    """
-    Tournament objects represent 1 NCAA March Madness tournament.
-
-    @param  season      object      Season object
-    @param  analysis    object      Analysis object
-    """
+    """1 NCAA March Madness tournament."""
     def __init__(self, season):
+        """
+        Args:
+            season (object): Season object
+        """
         self.season = season
 
         self.year = int(self.season.years.split("-")[1])
         self.bracket = copy.deepcopy(Constants.TOURNAMENT_BRACKET)
 
     def __str__(self):
-        """
-        Return formatted string of predicted tournament bracket.
-
-        @return bracket_string     string  formatted tournament bracket
-        """
         bracket_string = self.season.years
         for round_int in range(7):
             round_id = "R%02d" % round_int
@@ -145,8 +147,11 @@ class Tournament(object):
         """
         Get team object from tournament seed string.
 
-        @param  seed    string          tournament seed string
-        @return team    Team object
+        Args:
+            seed (string): tournament seed string
+
+        Returns:
+            team (object): Team object
         """
         df = Constants.KAGGLE_INPUT['tourney_seeds']
         tourney_seeds = df[df.season == self.season.id]  # slice of tourney_seeds DataFrame for current season
@@ -165,8 +170,11 @@ class Tournament(object):
         """
         Ensure that seed string has a 2 digit numeric element, e.g. W1 -> W01.
 
-        @param  original_seed   string  original seed value
-        @return seed            string  seed value with 2 digit numeric element
+        Args:
+            original_seed (string):  original seed value
+
+        Returns:
+            seed (string): seed value with 2 digit numeric element
         """
         match = re.search("([WXYZ])([\d\w]+)", original_seed)
         if match and len(match.group(2)) == 1:
@@ -178,7 +186,10 @@ class Tournament(object):
 
     def populate_1st_round(self, analysis):
         """
-        Populate 1st round of bracket with teams from Kaggle/tourney_slots.csv.
+        Populate 1st round of bracket with teams.
+
+        Args:
+            analysis (object): Analysis object
         """
         if not analysis.data_available(self.season):
             return
@@ -210,8 +221,9 @@ class Tournament(object):
         """
         Predict winner of a single round of the tournament.
 
-        @param tourney_round    int     round of the tournament to predict.
-        @param analysis         object  Analysis object
+        Args:
+            tourney_round (int): round of the tournament to predict.
+            analysis (object): Analysis object
         """
         if not analysis.data_available(self.season):
             return

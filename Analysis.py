@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+"""Classes to implement various analysis methods."""
+
 import os
 import pandas
 import pdb
@@ -6,11 +9,12 @@ import re
 
 import Constants
 
+__author__ = "David Casterton"
+__license__ = "GPL"
+
 
 class Analysis(object):
-    """
-    Analysis base class, must be subclassed to implement analysis methods.
-    """
+    """Analysis base class, must be subclassed to implement analysis methods."""
     def __init__(self):
         self.name = None
 
@@ -22,12 +26,22 @@ class Analysis(object):
         """
         Check if KenPom data is available for this Season's year.
 
-        @param  season  object      Season object
-        @return result  bool        True if KenPom data is available
+        Args:
+            season (object): Season object
+
+        Returns:
+            result (bool): True if KenPom data is available
         """
         raise NotImplementedError
 
     def get_name(self, remove_spaces=False):
+        """
+        Kwargs:
+            remove_spaces (bool, optional): if True then removes spaces from name
+
+        Returns:
+            name (string): name of Analysis method
+        """
         if remove_spaces:
             name = re.sub(" ", "", self.name)
         else:
@@ -39,10 +53,12 @@ class Analysis(object):
         """
         Calculate win probability between 2 teams.
 
-        @param  team_1  Team object
-        @param  team_2  Team object
-        @return team_1_win_probability  float   value between 0.0-1.0 that team 1 will beat team 2. Value > 0.5
-                                                indicates that team 1 will win.
+        Args:
+            team_1 (object): Team object
+            team_2 (object): Team object
+
+        Returns:
+            team_1_win_probability (float): value between 0.0-1.0 that team 1 will beat team 2. Value > 0.5 indicates that team 1 will win.
         """
         raise NotImplementedError
 
@@ -50,9 +66,12 @@ class Analysis(object):
         """
         Predict the winner between 2 teams.
 
-        @param  team_1  Team object
-        @param  team_2  Team object
-        @return winner  Team object     object of Team predicted to win
+        Args:
+            team_1 (object): Team object
+            team_2 (object): Team object
+
+        Returns:
+            winner (object): object of Team predicted to win
         """
         team_1_win_probability = self.win_probability(team_1, team_2)
         if team_1_win_probability >= 0.5:
@@ -65,11 +84,9 @@ class Analysis(object):
     def write_matchup_probabilities_file(self, seasons):
         """
         Write win probabilities to a .csv file for every possible team combination.
-        Output is formatted into 2 rows:
-        - row 1: identifies season and two teams playing
-        - row 2: probability that team1 beats team2
 
-        @param seasons  dict        key : tournament year, value : Season object
+        Args:
+            seasons (dict): key=tournament year, value=Season object
         """
         # if necessary make output directory
         if not os.path.isdir(Constants.OUTPUT_FOLDER):
@@ -77,7 +94,7 @@ class Analysis(object):
 
         #variable init
         file_path = os.path.join(Constants.OUTPUT_FOLDER, "%s-matchup_probabilities.csv" % self.get_name(remove_spaces=True))
-        all_season_kaggle_probabilities = pandas.DataFrame()
+        all_season_matchup_probabilities = pandas.DataFrame()
         years = seasons.keys()
         years.sort()
 
@@ -87,10 +104,12 @@ class Analysis(object):
                 continue
 
             season = seasons[year]
-            all_season_kaggle_probabilities = all_season_kaggle_probabilities.append(season.kaggle_probabilities)
+            all_season_matchup_probabilities = all_season_matchup_probabilities.append(season.matchup_probabilities)
 
-        #write probabilities file
-        all_season_kaggle_probabilities.to_csv(file_path, mode="w", index=False)
+        # Write probabilities file. Output is formatted into 2 rows:
+        #   row 1: identifies season and two teams playing
+        #   row 2: probability that team1 beats team2
+        all_season_matchup_probabilities.to_csv(file_path, mode="w", index=False)
 
         print("Wrote match up probabilities to: '%s'" % file_path)
 
@@ -99,7 +118,8 @@ class Analysis(object):
         """
         Write tournament bracket to .txt file.
 
-        @param seasons  dict        key : tournament year, value : Season object
+        Args:
+            seasons (dict): key=tournament year, value=Season object
         """
         # if necessary make output directory
         if not os.path.isdir(Constants.OUTPUT_FOLDER):
@@ -206,6 +226,7 @@ class Random(Analysis):
 
 
 # variable init
+# Note: since variables use Analysis classes, they have to be defined after the classes
 available = [
     Pythag(),
     Random(),

@@ -1,17 +1,23 @@
+#!/usr/bin/env python
+"""Classes representing a NCAA basketball team."""
+
 import pandas
 
 import Constants
 
+__author__ = "David Casterton"
+__license__ = "GPL"
+
 
 class Team(object):
-    """
-    Team object representing 1 NCAA backetball team for 1 NCAA season.
-
-    @param years    string  2 years that NCAA season spans in format 'XXXX-YYYY'
-    @param id       string  team identifier, defined in Kaggle/teams.csv id column
-    @param name     string  team name, defined in Kaggle/teams.csv name column
-    """
+    """1 NCAA backetball team for 1 NCAA season."""
     def __init__(self, id, name, years):
+        """
+        Args:
+            id (string):  team identifier, defined in Kaggle/teams.csv id column
+            name (string):  team name, defined in Kaggle/teams.csv name column
+            years (string):  2 years that NCAA season spans in format 'XXXX-YYYY'
+        """
         self.id = id
         self.name = name
         self.years = years
@@ -26,7 +32,6 @@ class Team(object):
         self.defense_efficiency = None
 
     def __str__(self):
-        # define how team object will look if printed
         attribute_list = list()
         attribute_list.append(self.name.ljust(20))
         attribute_list.append(("season: %s" % self.years).ljust(10))
@@ -47,17 +52,16 @@ class Team(object):
         """
         Set this teams seed in the tournament.
 
-        @param  tourney_seed    string  string encoding this teams division and seed
-        @param  regions         dict    dictionary to map between division id's and division names
+        Args:
+            tourney_seed (string): string encoding this teams division and seed
+            regions (dict): dictionary to map between division id's and division names
         """
         self.tourney_seed = str(tourney_seed)
         self.division = regions[self.tourney_seed[0]]
         self.division_seed = int(self.tourney_seed[1:2])
 
     def load_kenpom_data(self):
-        """
-        Retrieve KenPom statistics for this team from KENPOM_INPUT.
-        """
+        """Retrieve KenPom statistics for this team."""
         input_file_name = 'summary%s' % str(self.tournament_year)[-2:]
         if input_file_name in Constants.KENPOM_INPUT.keys():
             df = Constants.KENPOM_INPUT[input_file_name]

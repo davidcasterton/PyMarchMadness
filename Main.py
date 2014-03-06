@@ -1,12 +1,21 @@
+#!/usr/bin/env python
+"""
+Predict outcome of NCAA March Madness tournaments.
+
+Load data, analyze, and output results.
+"""
+
 import pdb
 
 import Analysis
 import Constants
 import Season
 
+__author__ = "David Casterton"
+__license__ = "GPL"
+
 
 if __name__ == "__main__":
-    # Predict outcome of NCAA March Madness tournaments.
     seasons = {}
 
     # prompt user to select analysis method
@@ -30,7 +39,7 @@ if __name__ == "__main__":
 
         # build Teams and run analysis
         seasons[year].build_teams()
-        seasons[year].generate_kaggle_probabilities(analysis_method)
+        seasons[year].generate_matchup_probabilities(analysis_method)
         seasons[year].generate_bracket(analysis_method)
 
     # write output to files
