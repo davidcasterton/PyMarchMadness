@@ -17,11 +17,10 @@ class Season(object):
     def __init__(self, id, years, day_zero):
         self.id = id
         self.years = years
-        self.tournament_year = int(self.years.split("-")[1])
         self.day_zero = day_zero
 
         self.kaggle_probabilities = pandas.DataFrame(columns=["id", "pred"])
-        self.bracket = Bracket(season=self)
+        self.tournament = Tournament(season=self)
         self.regions = {}  # dictionary of region names, indexed by region id
         self.teams = {}  # dictionary of Team objects, indexed by team_id
 
@@ -103,17 +102,18 @@ class Season(object):
             return
 
         # simulate all rounds of bracket
-        self.bracket.populate_bracket_1st_round(analysis)
+        self.tournament.populate_bracket_1st_round(analysis)
         for round_num in range(1, 7):
-            self.bracket.predict_bracket_round(round_num, analysis)
+            self.tournament.predict_bracket_round(round_num, analysis)
 
     def get_bracket(self):
-        return str(self.bracket)
+        return str(self.tournament)
 
 
-class Bracket(object):
+class Tournament(object):
     def __init__(self, season):
         self.season = season
+        self.year = int(self.season.years.split("-")[1])
         self.bracket = copy.deepcopy(Constants.TOURNAMENT_BRACKET)
 
     def __str__(self):

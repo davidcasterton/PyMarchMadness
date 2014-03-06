@@ -106,7 +106,7 @@ class Analysis(object):
             os.mkdir(Constants.OUTPUT_FOLDER)
 
         #variable init
-        file_path = os.path.join(Constants.OUTPUT_FOLDER, "%s-bracket.csv" % self.get_name(remove_spaces=True))
+        file_path = os.path.join(Constants.OUTPUT_FOLDER, "%s-bracket.txt" % self.get_name(remove_spaces=True))
         years = seasons.keys()
         years.sort()
         handle = open(file_path, "w")
@@ -114,7 +114,7 @@ class Analysis(object):
         for year in years:
             season = seasons[year]
 
-            if season.bracket.bracket == Constants.TOURNAMENT_BRACKET:
+            if season.tournament.bracket == Constants.TOURNAMENT_BRACKET:
                 continue
 
             # write bracket to  file
@@ -132,7 +132,7 @@ class Pythag(Analysis):
         self.name = "Ken Pomeroy Pythag"
 
     def data_available(self, season):
-        file_name = 'summary%s' % str(season.tournament_year)[-2:]
+        file_name = 'summary%s' % str(season.tournament.year)[-2:]
         if file_name in Constants.KENPOM_INPUT.keys():
             kenpom_available = True
         else:

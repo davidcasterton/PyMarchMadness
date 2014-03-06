@@ -29,7 +29,7 @@ class Team(object):
         # define how team object will look if printed
         attribute_list = list()
         attribute_list.append(self.name.ljust(20))
-        attribute_list.append(("year: %s" % self.tournament_year).ljust(10))
+        attribute_list.append(("season: %s" % self.years).ljust(10))
         attribute_list.append(("id: %s" % self.id).ljust(10))
         if self.division:
             attribute_list.append(("division: %s" % self.division).ljust(20))
