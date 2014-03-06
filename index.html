@@ -34,28 +34,15 @@
         <h1>
 <a name="pymarchmadness" class="anchor" href="#pymarchmadness"><span class="octicon octicon-link"></span></a>PyMarchMadness</h1>
 
-<p>Python analysis for Kaggle March Madness competition (<a href="http://www.kaggle.com/c/march-machine-learning-mania">http://www.kaggle.com/c/march-machine-learning-mania</a>).</p>
-
-<h4>
-<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage:</h4>
-
-<p><code>python Main.py</code></p>
+<p>Python analysis of NCAA March Madness tournament.</p>
 
 <h4>
 <a name="input-data-sources" class="anchor" href="#input-data-sources"><span class="octicon octicon-link"></span></a>Input Data Sources:</h4>
 
 <ul>
-<li>
-<strong>Kaggle:</strong> <a href="http://www.kaggle.com/c/march-machine-learning-mania/data">http://www.kaggle.com/c/march-machine-learning-mania/data</a>
-</li>
-<li>
-<strong>BracketScience:</strong> <a href="http://wp.bracketscience.com/">http://wp.bracketscience.com/</a>
-</li>
-<li>
-<strong>KenPom:</strong> <a href="http://kenpom.com/">http://kenpom.com/</a>
-</li>
-<li>
-<strong>KenPomWithIds:</strong> generated from WrangleKenPom.py</li>
+<li><a href="http://www.kaggle.com/c/march-machine-learning-mania/data"><strong>Kaggle</strong></a></li>
+<li><a href="http://wp.bracketscience.com/"><strong>BracketScience</strong></a></li>
+<li><a href="http://kenpom.com/"><strong>KenPom</strong></a></li>
 </ul><h4>
 <a name="python-files" class="anchor" href="#python-files"><span class="octicon octicon-link"></span></a>Python Files:</h4>
 
@@ -63,22 +50,31 @@
 <li>
 <strong>Analysis.py:</strong> Analysis classes. Changing classes enables easy switching between analysis methods.</li>
 <li>
-<strong>Constants.py:</strong> Constant "variables".</li>
+<strong>Constants.py:</strong> Loads input data files and defines constant values.</li>
 <li>
-<strong>Main.py:</strong> 1) Generates win probabilities for all possible matchups in each years March Madness tournament, this is the submission format for the Kaggle competition. 2) Generates March Madness Tournament predictions.</li>
+<strong>Main.py:</strong>
+
+<ul>
+<li>Generates win probabilities for all possible matchups in each years March Madness tournament.</li>
+<li>Generates March Madness Tournament predictions.</li>
+</ul>
+</li>
 <li>
-<strong>Season.py:</strong> Season &amp; Tournament classes representing 1 NCAA basketball season</li>
+<strong>Season.py:</strong> Season &amp; Tournament classes representing 1 NCAA basketball season.</li>
 <li>
-<strong>Team.py:</strong> Team class representing 1 NCAA basketball Team for 1 season</li>
+<strong>Team.py:</strong> Team class representing 1 NCAA basketball Team for 1 season.</li>
 <li>
-<strong>WrangleKenPom.py:</strong> Generates InputData/KenPomWithIds/ directory, which adds TeamId column to all files from InputData/KenPom/. The TeamId column enables correlation of teams between Kaggle and KenPom files.</li>
+<strong>WrangleKenPom.py:</strong> Generates InputData/KenPomWithIds/ directory, which adds TeamId column to all files from InputData/KenPom/. TeamId values provide a unique id for each team across all input files.</li>
 </ul><h4>
 <a name="software-dependencies" class="anchor" href="#software-dependencies"><span class="octicon octicon-link"></span></a>Software Dependencies:</h4>
 
 <ul>
 <li>Python 2.7</li>
 <li>Python pandas package</li>
-</ul>
+</ul><h4>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage:</h4>
+
+<p><code>python Main.py</code></p>
       </section>
     </div>
 
