@@ -16,7 +16,7 @@ Python analysis of NCAA March Madness tournament.
  - Generates March Madness Tournament predictions.
 - **Season.py:** Season & Tournament classes representing 1 NCAA basketball season.
 - **Team.py:** Team class representing 1 NCAA basketball Team for 1 season.
-- **WrangleKenPom.py:** Generates InputData/KenPomWithIds/ directory, which adds TeamId column to all files from InputData/KenPom/. TeamId values provide a unique id for each team across all input files.
+- **WrangleKenPom.py:** Generates InputData/KenPomWithIds/ directory, which adds TeamId column to all files from InputData/KenPom/.
 
 ####Software Dependencies:
 - Python 2.7
