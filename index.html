@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="March Madness : Python analysis of NCAA March Madness tournaments" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>March Madness</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/davidcasterton/March-Madness">View on GitHub</a>
+
+          <h1 id="project_title">March Madness</h1>
+          <h2 id="project_tagline">Python analysis of NCAA March Madness tournaments</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/davidcasterton/March-Madness/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/davidcasterton/March-Madness/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="march-madness" class="anchor" href="#march-madness"><span class="octicon octicon-link"></span></a>March-Madness</h1>
+
+<p>Python analysis for Kaggle March Madness competition (<a href="http://www.kaggle.com/c/march-machine-learning-mania">http://www.kaggle.com/c/march-machine-learning-mania</a>).</p>
+
+<h4>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage:</h4>
+
+<p><code>python Main.py</code></p>
+
+<h4>
+<a name="input-data-sources" class="anchor" href="#input-data-sources"><span class="octicon octicon-link"></span></a>Input Data Sources:</h4>
+
+<ul>
+<li>
+<strong>Kaggle:</strong> <a href="http://www.kaggle.com/c/march-machine-learning-mania/data">http://www.kaggle.com/c/march-machine-learning-mania/data</a>
+</li>
+<li>
+<strong>BracketScience:</strong> <a href="http://wp.bracketscience.com/">http://wp.bracketscience.com/</a>
+</li>
+<li>
+<strong>KenPom:</strong> <a href="http://kenpom.com/">http://kenpom.com/</a>
+</li>
+<li>
+<strong>KenPomWithIds:</strong> generated from WrangleKenPom.py</li>
+</ul><h4>
+<a name="python-files" class="anchor" href="#python-files"><span class="octicon octicon-link"></span></a>Python Files:</h4>
+
+<ul>
+<li>
+<strong>Analysis.py:</strong> Analysis classes. Changing classes enables easy switching between analysis methods.</li>
+<li>
+<strong>Constants.py:</strong> Constant "variables".</li>
+<li>
+<strong>Main.py:</strong> 1) Generates win probabilities for all possible matchups in each years March Madness tournament, this is the submission format for the Kaggle competition. 2) Generates March Madness Tournament predictions.</li>
+<li>
+<strong>Season.py:</strong> Season &amp; Tournament classes representing 1 NCAA basketball season</li>
+<li>
+<strong>Team.py:</strong> Team class representing 1 NCAA basketball Team for 1 season</li>
+<li>
+<strong>WrangleKenPom.py:</strong> Generates InputData/KenPomWithIds/ directory, which adds TeamId column to all files from InputData/KenPom/. The TeamId column enables correlation of teams between Kaggle and KenPom files.</li>
+</ul><h4>
+<a name="software-dependencies" class="anchor" href="#software-dependencies"><span class="octicon octicon-link"></span></a>Software Dependencies:</h4>
+
+<ul>
+<li>Python 2.7</li>
+<li>Python pandas package</li>
+</ul>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">March Madness maintained by <a href="https://github.com/davidcasterton">davidcasterton</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
