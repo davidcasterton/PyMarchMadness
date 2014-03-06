@@ -4,8 +4,9 @@ Predict outcome of NCAA March Madness tournaments.
 
 Load data, analyze, and output results.
 """
-
+import os
 import pdb
+import sys
 
 import Analysis
 import Constants
@@ -14,6 +15,10 @@ import Season
 __author__ = "David Casterton"
 __license__ = "GPL"
 
+
+# add base directory to python path
+base_dir = os.path.dirname(__file__)
+sys.path.insert(0, base_dir)
 
 if __name__ == "__main__":
     seasons = {}

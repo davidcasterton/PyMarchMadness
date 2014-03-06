@@ -1,10 +1,9 @@
 #!/usr/bin/env python
-"""Classes to implement various analysis methods."""
+"""Parent Analysis class, all classes in Analysis/ directory inherit from here."""
 
 import os
 import pandas
 import pdb
-import random
 import re
 
 import Constants
@@ -13,8 +12,8 @@ __author__ = "David Casterton"
 __license__ = "GPL"
 
 
-class Analysis(object):
-    """Analysis base class, must be subclassed to implement analysis methods."""
+class AnalysisBase(object):
+    """Analysis parent class, must be inherited into children classes which implement analysis details."""
     def __init__(self):
         self.name = None
 
@@ -143,92 +142,3 @@ class Analysis(object):
         handle.close()
 
         print("Wrote predicted tournament bracket to: '%s'" % file_path)
-
-class Pythag(Analysis):
-    """
-    Win probability calculated as difference from Ken Pomeroy Pythag values.
-    """
-    def __init__(self):
-        self.name = "Ken Pomeroy Pythag"
-
-    def data_available(self, season):
-        file_name = 'summary%s' % str(season.tournament.year)[-2:]
-        if file_name in Constants.KENPOM_INPUT.keys():
-            kenpom_available = True
-        else:
-            kenpom_available = False
-
-        df = Constants.KAGGLE_INPUT['tourney_seeds']
-        tourney_teams = df[df.season == season.id]  # slice of tourney_seeds DataFrame for current season
-        if not tourney_teams.empty:
-            seeds_available = True
-        else:
-            seeds_available = False
-
-        if kenpom_available and seeds_available:
-            result = True
-        else:
-            result = False
-
-        return result
-
-    def win_probability(self, team_1, team_2):
-        team_1_win_probability = (((team_1.pythag - team_2.pythag) + 1) / 2)
-        team_1_win_probability = round(team_1_win_probability, 6)
-
-        return team_1_win_probability
-
-
-class HighSeed(Analysis):
-    """
-    Win probability calculated as difference from division seed values.
-    """
-    def __init__(self):
-        self.name = "High Seed"
-
-    def data_available(self, season):
-        df = Constants.KAGGLE_INPUT['tourney_seeds']
-        tourney_seeds = df[df.season == season.id]
-        if not tourney_seeds.empty:
-            result = True
-        else:
-            result = False
-
-        return result
-
-    def win_probability(self, team_1, team_2):
-        max_seed = 16
-        return float((max_seed - team_1.division_seed) - (max_seed - team_2.division_seed)) / max_seed + 0.5
-
-
-class Random(Analysis):
-    """
-    Win probability randomly generated.
-    """
-    def __init__(self):
-        self.name = "Random"
-
-    def data_available(self, season):
-        df = Constants.KAGGLE_INPUT['tourney_seeds']
-        tourney_seeds = df[df.season == season.id]
-        if not tourney_seeds.empty:
-            result = True
-        else:
-            result = False
-
-        return result
-
-    def win_probability(self, team_1, team_2):
-        team_1_win_probability = random.random()
-        team_1_win_probability = round(team_1_win_probability, 6)
-
-        return team_1_win_probability
-
-
-# variable init
-# Note: since variables use Analysis classes, they have to be defined after the classes
-available = [
-    Pythag(),
-    Random(),
-]  # list of available Analysis objects
-num_available = len(available)  # number of analysis' available
