@@ -87,7 +87,7 @@ class Season(object):
                 team_2 = self.teams[team_ids[k]]
 
                 id = "%s_%s_%s" % (self.id, team_1.id, team_2.id)
-                pred = analysis.calculate_win_probability(team_1, team_2)
+                pred = analysis.win_probability(team_1, team_2)
 
                 probabilities.append({"id": id, "pred": pred})
 

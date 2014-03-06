@@ -8,8 +8,6 @@ INPUT_FOLDER = "InputData"
 OUTPUT_FOLDER = "OutputData"
 KAGGLE_INPUT = {}  # dictionary storing DataFrames of data from Kaggle.com
 KENPOM_INPUT = {}  # dictionary storing DataFrames of data from KenPom.com
-KAGGLE_OUTPUT = os.path.join(OUTPUT_FOLDER, "kaggle_submission.csv")
-BRACKET_OUTPUT = os.path.join(OUTPUT_FOLDER, "bracket_predictions.txt")
 
 
 # load Kaggle data from http://www.kaggle.com/c/march-machine-learning-mania/data
