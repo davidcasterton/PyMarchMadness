@@ -14,7 +14,7 @@ Contents:
    PyMarchMadness.rst
 
 .. inheritance-diagram:: PyMarchMadness PyMarchMadness.Season PyMarchMadness.Team PyMarchMadness.Analysis PyMarchMadness.Analysis.Analysis PyMarchMadness.Analysis.Random PyMarchMadness.Analysis.HighSeed PyMarchMadness.Analysis.Pythag
-   :parts: 2
+   :parts: 3
 
 Indices and tables
 ==================
