@@ -18,7 +18,7 @@ class AnalysisBase(object):
         self.name = None
 
         #prevent base class from being called directly
-        if type(self) == Analysis:
+        if type(self) == AnalysisBase:
             raise Exception("Analysis must be subclassed.")
 
     def data_available(self, season):

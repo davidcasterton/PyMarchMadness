@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+"""Win probability calculated as difference from Ken Pomeroy Pythag values."""
 
 import AnalysisBase
 import Constants
@@ -8,9 +9,6 @@ __license__ = "GPL"
 
 
 class Pythag(AnalysisBase.AnalysisBase):
-    """
-    Win probability calculated as difference from Ken Pomeroy Pythag values.
-    """
     def __init__(self):
         self.name = "Ken Pomeroy Pythag"
 

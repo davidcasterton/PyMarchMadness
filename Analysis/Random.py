@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+"""Win probability randomly generated."""
 
 import random
 
@@ -10,9 +11,6 @@ __license__ = "GPL"
 
 
 class Random(AnalysisBase.AnalysisBase):
-    """
-    Win probability randomly generated.
-    """
     def __init__(self):
         self.name = "Random"
 
