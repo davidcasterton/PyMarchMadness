@@ -3,7 +3,7 @@ PyMarchMadness Overview
 
 ####Information:
 - **Code Documentation:** http://pymarchmadness.readthedocs.org/
-- **Public Site:** http://davidcasterton.github.io/March-Madness
+- **Download Site:** http://davidcasterton.github.io/March-Madness
 - **File Overview:**
   - **\__main\__.py :**
     - Generates win probabilities for all possible matchups in each years March Madness tournament.
