@@ -4,6 +4,14 @@ PyMarchMadness.Analysis package
 Submodules
 ----------
 
+PyMarchMadness.Analysis.Analysis module
+---------------------------------------
+
+.. automodule:: PyMarchMadness.Analysis.Analysis
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 PyMarchMadness.Analysis.HighSeed module
 ---------------------------------------
 

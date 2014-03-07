@@ -11,14 +11,6 @@ Subpackages
 Submodules
 ----------
 
-PyMarchMadness.AnalysisBase module
-----------------------------------
-
-.. automodule:: PyMarchMadness.AnalysisBase
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 PyMarchMadness.Constants module
 -------------------------------
 
