@@ -3,6 +3,7 @@ import os
 import sys
 
 __author__ = "David Casterton"
+__email__ = "david.casterton [AT] gmail.com"
 __license__ = "GPL"
 __version__ = 1
 

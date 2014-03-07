@@ -11,7 +11,7 @@ def read(fname):
 NAME = "PyMarchMadness"
 DESCRIPTION = "Python March Madness analysis"
 AUTHOR = "David Casterton"
-AUTHOR_EMAIL = "david.casterton [AT] gmail.com"
+AUTHOR_EMAIL = __import__(NAME).__email__
 URL = ""
 VERSION = __import__(NAME).__version__
 
