@@ -1,0 +1,7 @@
+PyMarchMadness.Constants module
+===============================
+
+.. automodule:: PyMarchMadness.Constants
+    :members:
+    :undoc-members:
+    :show-inheritance:

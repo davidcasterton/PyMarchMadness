@@ -1,3 +1,4 @@
-
 *.pyc
-OutputData/*
+PyMarchMadness/OutputData/
+gen_docs.sh
+Makefile

@@ -1,0 +1,584 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMarchMadness package &mdash; PyMarchMadness</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="PyMarchMadness" href="index.html" />
+    <link rel="next" title="PyMarchMadness.Analysis package" href="PyMarchMadness.Analysis.html" />
+    <link rel="prev" title="Welcome to PyMarchMadness’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="PyMarchMadness.Analysis.html" title="PyMarchMadness.Analysis package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to PyMarchMadness’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">PyMarchMadness</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="pymarchmadness-package">
+<h1>PyMarchMadness package<a class="headerlink" href="#pymarchmadness-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="PyMarchMadness.Analysis.html">PyMarchMadness.Analysis package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PyMarchMadness.Analysis.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PyMarchMadness.Analysis.html#module-PyMarchMadness.Analysis.HighSeed">PyMarchMadness.Analysis.HighSeed module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PyMarchMadness.Analysis.html#module-PyMarchMadness.Analysis.Pythag">PyMarchMadness.Analysis.Pythag module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PyMarchMadness.Analysis.html#module-PyMarchMadness.Analysis.Random">PyMarchMadness.Analysis.Random module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PyMarchMadness.Analysis.html#module-PyMarchMadness.Analysis">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-PyMarchMadness.AnalysisBase">
+<span id="pymarchmadness-analysisbase-module"></span><h2>PyMarchMadness.AnalysisBase module<a class="headerlink" href="#module-PyMarchMadness.AnalysisBase" title="Permalink to this headline">¶</a></h2>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">module:</th><td class="field-body">Base Analysis class, all classes in Analysis/ directory inherit from here.</td>
+</tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="PyMarchMadness.AnalysisBase.AnalysisBase">
+<em class="property">class </em><tt class="descclassname">PyMarchMadness.AnalysisBase.</tt><tt class="descname">AnalysisBase</tt><a class="reference internal" href="_modules/PyMarchMadness/AnalysisBase.html#AnalysisBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyMarchMadness.AnalysisBase.AnalysisBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Class:</th><td class="field-body">Analysis base class, derived classes implement actual analysis methods.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="PyMarchMadness.AnalysisBase.AnalysisBase.data_available">
+<tt class="descname">data_available</tt><big>(</big><em>season</em><big>)</big><a class="reference internal" href="_modules/PyMarchMadness/AnalysisBase.html#AnalysisBase.data_available"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyMarchMadness.AnalysisBase.AnalysisBase.data_available" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Method:</th><td class="field-body">Check if KenPom data is available for this Season&#8217;s year.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><strong>season</strong> (<em>object</em>) &#8211; Season object</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if KenPom data is available</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyMarchMadness.AnalysisBase.AnalysisBase.get_name">
+<tt class="descname">get_name</tt><big>(</big><em>remove_spaces=False</em><big>)</big><a class="reference internal" href="_modules/PyMarchMadness/AnalysisBase.html#AnalysisBase.get_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyMarchMadness.AnalysisBase.AnalysisBase.get_name" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>remove_spaces</strong> (<em>bool</em>) &#8211; if True then removes spaces from name</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">name of current Analysis class</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">string</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyMarchMadness.AnalysisBase.AnalysisBase.predict_winner">
+<tt class="descname">predict_winner</tt><big>(</big><em>team_1</em>, <em>team_2</em><big>)</big><a class="reference internal" href="_modules/PyMarchMadness/AnalysisBase.html#AnalysisBase.predict_winner"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyMarchMadness.AnalysisBase.AnalysisBase.predict_winner" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Method:</th><td class="field-body"><p class="first">Predict the winner between 2 teams.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>team_1</strong> (<em>object</em>) &#8211; Team object</li>
+<li><strong>team_2</strong> (<em>object</em>) &#8211; Team object</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Team predicted to win</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">object</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyMarchMadness.AnalysisBase.AnalysisBase.win_probability">
+<tt class="descname">win_probability</tt><big>(</big><em>team_1</em>, <em>team_2</em><big>)</big><a class="reference internal" href="_modules/PyMarchMadness/AnalysisBase.html#AnalysisBase.win_probability"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyMarchMadness.AnalysisBase.AnalysisBase.win_probability" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Method:</th><td class="field-body"><p class="first">Calculate win probability between 2 teams.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>team_1</strong> (<em>object</em>) &#8211; Team object</li>
+<li><strong>team_2</strong> (<em>object</em>) &#8211; Team object</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">probability that team 1 will beat team 2. Value &gt; 0.5 indicates that team 1 will win.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyMarchMadness.AnalysisBase.AnalysisBase.write_bracket_file">
+<tt class="descname">write_bracket_file</tt><big>(</big><em>seasons</em><big>)</big><a class="reference internal" href="_modules/PyMarchMadness/AnalysisBase.html#AnalysisBase.write_bracket_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyMarchMadness.AnalysisBase.AnalysisBase.write_bracket_file" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Method:</th><td class="field-body">Write tournament bracket to .txt file.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><strong>seasons</strong> (<em>dict</em>) &#8211; key=tournament year, value=Season object</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyMarchMadness.AnalysisBase.AnalysisBase.write_matchup_probabilities_file">
+<tt class="descname">write_matchup_probabilities_file</tt><big>(</big><em>seasons</em><big>)</big><a class="reference internal" href="_modules/PyMarchMadness/AnalysisBase.html#AnalysisBase.write_matchup_probabilities_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyMarchMadness.AnalysisBase.AnalysisBase.write_matchup_probabilities_file" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Method:</th><td class="field-body">Write win probabilities to a .csv file for every possible team combination.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><strong>seasons</strong> (<em>dict</em>) &#8211; key=tournament year, value=Season object</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-PyMarchMadness.Constants">
+<span id="pymarchmadness-constants-module"></span><h2>PyMarchMadness.Constants module<a class="headerlink" href="#module-PyMarchMadness.Constants" title="Permalink to this headline">¶</a></h2>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">module:</th><td class="field-body">Loads input data files and defines constant values.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="module-PyMarchMadness.Main">
+<span id="pymarchmadness-main-module"></span><h2>PyMarchMadness.Main module<a class="headerlink" href="#module-PyMarchMadness.Main" title="Permalink to this headline">¶</a></h2>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">module:</th><td class="field-body">Predict outcome of NCAA March Madness tournaments. Load data, analyze, and output results.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="module-PyMarchMadness.Season">
+<span id="pymarchmadness-season-module"></span><h2>PyMarchMadness.Season module<a class="headerlink" href="#module-PyMarchMadness.Season" title="Permalink to this headline">¶</a></h2>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">module:</th><td class="field-body">Classes representing single NCAA basketball season.</td>
+</tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="PyMarchMadness.Season.Season">
+<em class="property">class </em><tt class="descclassname">PyMarchMadness.Season.</tt><tt class="descname">Season</tt><big>(</big><em>id</em>, <em>years</em>, <em>day_zero</em><big>)</big><a class="reference internal" href="_modules/PyMarchMadness/Season.html#Season"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyMarchMadness.Season.Season" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Class:</th><td class="field-body">1 NCAA backetball season.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="PyMarchMadness.Season.Season.add_team">
+<tt class="descname">add_team</tt><big>(</big><em>team_object</em><big>)</big><a class="reference internal" href="_modules/PyMarchMadness/Season.html#Season.add_team"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyMarchMadness.Season.Season.add_team" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Method:</th><td class="field-body">Add Team object to self.teams dictionary, check for updates to min/max efficiency variables.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><strong>team_object</strong> (<em>object</em>) &#8211; Team object</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyMarchMadness.Season.Season.build_teams">
+<tt class="descname">build_teams</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/PyMarchMadness/Season.html#Season.build_teams"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyMarchMadness.Season.Season.build_teams" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Method:</th><td class="field-body">Build Team objects for this season from KAGGLE_INPUT.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyMarchMadness.Season.Season.generate_bracket">
+<tt class="descname">generate_bracket</tt><big>(</big><em>analysis</em><big>)</big><a class="reference internal" href="_modules/PyMarchMadness/Season.html#Season.generate_bracket"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyMarchMadness.Season.Season.generate_bracket" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Method:</th><td class="field-body">Populate bracket 1st round then predict outcome of all rounds.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><strong>analysis</strong> (<em>object</em>) &#8211; Analysis object</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyMarchMadness.Season.Season.generate_matchup_probabilities">
+<tt class="descname">generate_matchup_probabilities</tt><big>(</big><em>analysis</em><big>)</big><a class="reference internal" href="_modules/PyMarchMadness/Season.html#Season.generate_matchup_probabilities"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyMarchMadness.Season.Season.generate_matchup_probabilities" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Method:</th><td class="field-body">Generate matchup probabilities formatted for submission to Kaggle March Madness competition.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><strong>analysis</strong> (<em>object</em>) &#8211; Analysis object</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyMarchMadness.Season.Season.get_bracket">
+<tt class="descname">get_bracket</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/PyMarchMadness/Season.html#Season.get_bracket"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyMarchMadness.Season.Season.get_bracket" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">current bracket</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">string</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyMarchMadness.Season.Season.set_regions">
+<tt class="descname">set_regions</tt><big>(</big><em>region_w</em>, <em>region_x</em>, <em>region_y</em>, <em>region_z</em><big>)</big><a class="reference internal" href="_modules/PyMarchMadness/Season.html#Season.set_regions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyMarchMadness.Season.Season.set_regions" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Method:</th><td class="field-body">Set mapping between region id&#8217;s and names, e.g. &#8220;W&#8221;:&#8221;East&#8221;, &#8220;X&#8221;:&#8221;MidWest&#8221;, ...</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="PyMarchMadness.Season.Tournament">
+<em class="property">class </em><tt class="descclassname">PyMarchMadness.Season.</tt><tt class="descname">Tournament</tt><big>(</big><em>season</em><big>)</big><a class="reference internal" href="_modules/PyMarchMadness/Season.html#Tournament"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyMarchMadness.Season.Tournament" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Class:</th><td class="field-body">1 NCAA March Madness tournament.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="PyMarchMadness.Season.Tournament.get_team_by_seed">
+<tt class="descname">get_team_by_seed</tt><big>(</big><em>seed</em><big>)</big><a class="reference internal" href="_modules/PyMarchMadness/Season.html#Tournament.get_team_by_seed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyMarchMadness.Season.Tournament.get_team_by_seed" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Method:</th><td class="field-body">Get team object from tournament seed string.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><strong>seed</strong> (<em>string</em>) &#8211; tournament seed string</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Team object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">object</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyMarchMadness.Season.Tournament.populate_1st_round">
+<tt class="descname">populate_1st_round</tt><big>(</big><em>analysis</em><big>)</big><a class="reference internal" href="_modules/PyMarchMadness/Season.html#Tournament.populate_1st_round"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyMarchMadness.Season.Tournament.populate_1st_round" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Method:</th><td class="field-body">Populate 1st round of bracket with teams.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><strong>analysis</strong> (<em>object</em>) &#8211; Analysis object</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyMarchMadness.Season.Tournament.predict_round">
+<tt class="descname">predict_round</tt><big>(</big><em>tourney_round</em>, <em>analysis</em><big>)</big><a class="reference internal" href="_modules/PyMarchMadness/Season.html#Tournament.predict_round"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyMarchMadness.Season.Tournament.predict_round" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Method:</th><td class="field-body"><p class="first">Predict winner of a single round of the tournament.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>tourney_round</strong> (<em>int</em>) &#8211; round of the tournament to predict.</li>
+<li><strong>analysis</strong> (<em>object</em>) &#8211; Analysis object</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="PyMarchMadness.Season.Tournament.zero_pad_seed">
+<em class="property">static </em><tt class="descname">zero_pad_seed</tt><big>(</big><em>original_seed</em><big>)</big><a class="reference internal" href="_modules/PyMarchMadness/Season.html#Tournament.zero_pad_seed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyMarchMadness.Season.Tournament.zero_pad_seed" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Method:</th><td class="field-body">Ensure that seed string has a 2 digit numeric element, e.g. W1 -&gt; W01.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><strong>original_seed</strong> (<em>string</em>) &#8211; original seed value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">seed value with 2 digit numeric element</td>
+</tr>
+</tbody>
+</table>
+<p>:rtype string</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-PyMarchMadness.Team">
+<span id="pymarchmadness-team-module"></span><h2>PyMarchMadness.Team module<a class="headerlink" href="#module-PyMarchMadness.Team" title="Permalink to this headline">¶</a></h2>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">module:</th><td class="field-body">Classes representing a NCAA basketball team.</td>
+</tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="PyMarchMadness.Team.Team">
+<em class="property">class </em><tt class="descclassname">PyMarchMadness.Team.</tt><tt class="descname">Team</tt><big>(</big><em>id</em>, <em>name</em>, <em>years</em><big>)</big><a class="reference internal" href="_modules/PyMarchMadness/Team.html#Team"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyMarchMadness.Team.Team" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Class:</th><td class="field-body">1 NCAA backetball team for 1 NCAA season.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="PyMarchMadness.Team.Team.load_kenpom_data">
+<tt class="descname">load_kenpom_data</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/PyMarchMadness/Team.html#Team.load_kenpom_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyMarchMadness.Team.Team.load_kenpom_data" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Method:</th><td class="field-body">Search KenPom dataframes and populate member variables.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyMarchMadness.Team.Team.set_tourney_seed">
+<tt class="descname">set_tourney_seed</tt><big>(</big><em>tourney_seed</em>, <em>regions</em><big>)</big><a class="reference internal" href="_modules/PyMarchMadness/Team.html#Team.set_tourney_seed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyMarchMadness.Team.Team.set_tourney_seed" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Method:</th><td class="field-body"><p class="first">Set this teams seed in the tournament.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>tourney_seed</strong> (<em>string</em>) &#8211; string encoding this teams division and seed</li>
+<li><strong>regions</strong> (<em>dict</em>) &#8211; dictionary to map between division id&#8217;s and division names</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-PyMarchMadness.WrangleKenPom">
+<span id="pymarchmadness-wranglekenpom-module"></span><h2>PyMarchMadness.WrangleKenPom module<a class="headerlink" href="#module-PyMarchMadness.WrangleKenPom" title="Permalink to this headline">¶</a></h2>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">module:</th><td class="field-body">Insert unique team id&#8217;s to Ken Pomeroy data files.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="module-PyMarchMadness">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-PyMarchMadness" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">PyMarchMadness package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-PyMarchMadness.AnalysisBase">PyMarchMadness.AnalysisBase module</a></li>
+<li><a class="reference internal" href="#module-PyMarchMadness.Constants">PyMarchMadness.Constants module</a></li>
+<li><a class="reference internal" href="#module-PyMarchMadness.Main">PyMarchMadness.Main module</a></li>
+<li><a class="reference internal" href="#module-PyMarchMadness.Season">PyMarchMadness.Season module</a></li>
+<li><a class="reference internal" href="#module-PyMarchMadness.Team">PyMarchMadness.Team module</a></li>
+<li><a class="reference internal" href="#module-PyMarchMadness.WrangleKenPom">PyMarchMadness.WrangleKenPom module</a></li>
+<li><a class="reference internal" href="#module-PyMarchMadness">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to PyMarchMadness&#8217;s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="PyMarchMadness.Analysis.html"
+                        title="next chapter">PyMarchMadness.Analysis package</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/PyMarchMadness.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="PyMarchMadness.Analysis.html" title="PyMarchMadness.Analysis package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to PyMarchMadness’s documentation!"
+             >previous</a> |</li>
+        <li><a href="index.html">PyMarchMadness</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, David Casterton.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

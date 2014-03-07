@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMarchMadness.AnalysisBase module &mdash; PyMarchMadness 1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="PyMarchMadness 1 documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">PyMarchMadness 1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-PyMarchMadness.AnalysisBase">
+<span id="pymarchmadness-analysisbase-module"></span><h1>PyMarchMadness.AnalysisBase module<a class="headerlink" href="#module-PyMarchMadness.AnalysisBase" title="Permalink to this headline">¶</a></h1>
+<p>Parent Analysis class, all classes in Analysis/ directory inherit from here.</p>
+<dl class="class">
+<dt id="PyMarchMadness.AnalysisBase.AnalysisBase">
+<em class="property">class </em><tt class="descclassname">PyMarchMadness.AnalysisBase.</tt><tt class="descname">AnalysisBase</tt><a class="reference internal" href="_modules/PyMarchMadness/AnalysisBase.html#AnalysisBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyMarchMadness.AnalysisBase.AnalysisBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Analysis parent class, must be inherited into children classes which implement analysis details.</p>
+<dl class="method">
+<dt id="PyMarchMadness.AnalysisBase.AnalysisBase.data_available">
+<tt class="descname">data_available</tt><big>(</big><em>season</em><big>)</big><a class="reference internal" href="_modules/PyMarchMadness/AnalysisBase.html#AnalysisBase.data_available"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyMarchMadness.AnalysisBase.AnalysisBase.data_available" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if KenPom data is available for this Season&#8217;s year.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>season (object): Season object</dd>
+<dt>Returns:</dt>
+<dd>result (bool): True if KenPom data is available</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyMarchMadness.AnalysisBase.AnalysisBase.get_name">
+<tt class="descname">get_name</tt><big>(</big><em>remove_spaces=False</em><big>)</big><a class="reference internal" href="_modules/PyMarchMadness/AnalysisBase.html#AnalysisBase.get_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyMarchMadness.AnalysisBase.AnalysisBase.get_name" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Kwargs:</dt>
+<dd>remove_spaces (bool, optional): if True then removes spaces from name</dd>
+<dt>Returns:</dt>
+<dd>name (string): name of Analysis method</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyMarchMadness.AnalysisBase.AnalysisBase.predict_winner">
+<tt class="descname">predict_winner</tt><big>(</big><em>team_1</em>, <em>team_2</em><big>)</big><a class="reference internal" href="_modules/PyMarchMadness/AnalysisBase.html#AnalysisBase.predict_winner"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyMarchMadness.AnalysisBase.AnalysisBase.predict_winner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Predict the winner between 2 teams.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>team_1 (object): Team object
+team_2 (object): Team object</dd>
+<dt>Returns:</dt>
+<dd>winner (object): object of Team predicted to win</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyMarchMadness.AnalysisBase.AnalysisBase.win_probability">
+<tt class="descname">win_probability</tt><big>(</big><em>team_1</em>, <em>team_2</em><big>)</big><a class="reference internal" href="_modules/PyMarchMadness/AnalysisBase.html#AnalysisBase.win_probability"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyMarchMadness.AnalysisBase.AnalysisBase.win_probability" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate win probability between 2 teams.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>team_1 (object): Team object
+team_2 (object): Team object</dd>
+<dt>Returns:</dt>
+<dd>team_1_win_probability (float): value between 0.0-1.0 that team 1 will beat team 2. Value &gt; 0.5 indicates that team 1 will win.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyMarchMadness.AnalysisBase.AnalysisBase.write_bracket_file">
+<tt class="descname">write_bracket_file</tt><big>(</big><em>seasons</em><big>)</big><a class="reference internal" href="_modules/PyMarchMadness/AnalysisBase.html#AnalysisBase.write_bracket_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyMarchMadness.AnalysisBase.AnalysisBase.write_bracket_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write tournament bracket to .txt file.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>seasons (dict): key=tournament year, value=Season object</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="PyMarchMadness.AnalysisBase.AnalysisBase.write_matchup_probabilities_file">
+<tt class="descname">write_matchup_probabilities_file</tt><big>(</big><em>seasons</em><big>)</big><a class="reference internal" href="_modules/PyMarchMadness/AnalysisBase.html#AnalysisBase.write_matchup_probabilities_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PyMarchMadness.AnalysisBase.AnalysisBase.write_matchup_probabilities_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write win probabilities to a .csv file for every possible team combination.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>seasons (dict): key=tournament year, value=Season object</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/PyMarchMadness.AnalysisBase.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">PyMarchMadness 1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, David Casterton.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

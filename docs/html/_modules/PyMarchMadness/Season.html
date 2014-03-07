@@ -1,0 +1,342 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMarchMadness.Season &mdash; PyMarchMadness</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="PyMarchMadness" href="../../index.html" />
+    <link rel="up" title="PyMarchMadness" href="../PyMarchMadness.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">PyMarchMadness</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li>
+          <li><a href="../PyMarchMadness.html" accesskey="U">PyMarchMadness</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for PyMarchMadness.Season</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/env python</span>
+<span class="sd">&quot;&quot;&quot;:module: Classes representing single NCAA basketball season.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">pandas</span>
+<span class="kn">import</span> <span class="nn">pdb</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="kn">import</span> <span class="nn">Constants</span>
+<span class="kn">import</span> <span class="nn">Team</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="s">&quot;David Casterton&quot;</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s">&quot;GPL&quot;</span>
+
+
+<div class="viewcode-block" id="Season"><a class="viewcode-back" href="../../PyMarchMadness.html#PyMarchMadness.Season.Season">[docs]</a><span class="k">class</span> <span class="nc">Season</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;:class: 1 NCAA backetball season.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">years</span><span class="p">,</span> <span class="n">day_zero</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param string id: season identifier, defined in Kaggle/seasons.csv season column</span>
+<span class="sd">        :param string years:  2 years that NCAA season spans in format &#39;XXXX-YYYY&#39;</span>
+<span class="sd">        :param string day_zero: Season start day</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">years</span> <span class="o">=</span> <span class="n">years</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">day_zero</span> <span class="o">=</span> <span class="n">day_zero</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">matchup_probabilities</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;id&quot;</span><span class="p">,</span> <span class="s">&quot;pred&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tournament</span> <span class="o">=</span> <span class="n">Tournament</span><span class="p">(</span><span class="n">season</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">regions</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c"># dictionary of region names, indexed by region id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">teams</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c"># dictionary of Team objects, indexed by team_id</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">years</span>
+        <span class="k">return</span> <span class="n">string</span>
+
+<div class="viewcode-block" id="Season.set_regions"><a class="viewcode-back" href="../../PyMarchMadness.html#PyMarchMadness.Season.Season.set_regions">[docs]</a>    <span class="k">def</span> <span class="nf">set_regions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">region_w</span><span class="p">,</span> <span class="n">region_x</span><span class="p">,</span> <span class="n">region_y</span><span class="p">,</span> <span class="n">region_z</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;:method: Set mapping between region id&#39;s and names, e.g. &quot;W&quot;:&quot;East&quot;, &quot;X&quot;:&quot;MidWest&quot;, ...&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">regions</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s">&quot;W&quot;</span><span class="p">:</span> <span class="n">region_w</span><span class="p">,</span>
+            <span class="s">&quot;X&quot;</span><span class="p">:</span> <span class="n">region_x</span><span class="p">,</span>
+            <span class="s">&quot;Y&quot;</span><span class="p">:</span> <span class="n">region_y</span><span class="p">,</span>
+            <span class="s">&quot;Z&quot;</span><span class="p">:</span> <span class="n">region_z</span><span class="p">,</span>
+        <span class="p">}</span>
+</div>
+<div class="viewcode-block" id="Season.build_teams"><a class="viewcode-back" href="../../PyMarchMadness.html#PyMarchMadness.Season.Season.build_teams">[docs]</a>    <span class="k">def</span> <span class="nf">build_teams</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;:method: Build Team objects for this season from KAGGLE_INPUT.&quot;&quot;&quot;</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">Constants</span><span class="o">.</span><span class="n">KAGGLE_INPUT</span><span class="p">[</span><span class="s">&#39;tourney_seeds&#39;</span><span class="p">]</span>
+        <span class="n">tourney_teams</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">season</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">]</span>  <span class="c"># slice of tourney_seeds DataFrame for current season</span>
+        <span class="k">for</span> <span class="n">_id</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">tourney_teams</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+            <span class="c"># define variables relevant to Team</span>
+            <span class="n">team_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">team</span><span class="p">)</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">Constants</span><span class="o">.</span><span class="n">KAGGLE_INPUT</span><span class="p">[</span><span class="s">&#39;teams&#39;</span><span class="p">]</span>
+            <span class="n">team_name</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">team_id</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">tourney_seed</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">seed</span>
+
+            <span class="c"># create Team object</span>
+            <span class="n">team_object</span> <span class="o">=</span> <span class="n">Team</span><span class="o">.</span><span class="n">Team</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">team_id</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">team_name</span><span class="p">,</span> <span class="n">years</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">years</span><span class="p">)</span>
+            <span class="n">team_object</span><span class="o">.</span><span class="n">set_tourney_seed</span><span class="p">(</span><span class="n">tourney_seed</span><span class="o">=</span><span class="n">tourney_seed</span><span class="p">,</span> <span class="n">regions</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">regions</span><span class="p">)</span>
+            <span class="n">team_object</span><span class="o">.</span><span class="n">load_kenpom_data</span><span class="p">()</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_team</span><span class="p">(</span><span class="n">team_object</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Season.add_team"><a class="viewcode-back" href="../../PyMarchMadness.html#PyMarchMadness.Season.Season.add_team">[docs]</a>    <span class="k">def</span> <span class="nf">add_team</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">team_object</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :method: Add Team object to self.teams dictionary, check for updates to min/max efficiency variables.</span>
+
+<span class="sd">        :param object team_object: Team object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">teams</span><span class="p">[</span><span class="n">team_object</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">team_object</span>
+</div>
+<div class="viewcode-block" id="Season.generate_matchup_probabilities"><a class="viewcode-back" href="../../PyMarchMadness.html#PyMarchMadness.Season.Season.generate_matchup_probabilities">[docs]</a>    <span class="k">def</span> <span class="nf">generate_matchup_probabilities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">analysis</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :method: Generate matchup probabilities formatted for submission to Kaggle March Madness competition.</span>
+
+<span class="sd">        :param object analysis: Analysis object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">analysis</span><span class="o">.</span><span class="n">data_available</span><span class="p">(</span><span class="n">season</span><span class="o">=</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span>
+
+        <span class="c"># variable init</span>
+        <span class="n">team_ids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">teams</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+        <span class="n">team_ids</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+        <span class="n">probabilities</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c"># loop through all possible match ups in tournament and write probability of team1 win to .csv</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">team_ids</span><span class="p">)):</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">team_ids</span><span class="p">)):</span>
+                <span class="n">team_1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">teams</span><span class="p">[</span><span class="n">team_ids</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+                <span class="n">team_2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">teams</span><span class="p">[</span><span class="n">team_ids</span><span class="p">[</span><span class="n">k</span><span class="p">]]</span>
+
+                <span class="nb">id</span> <span class="o">=</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s">_</span><span class="si">%s</span><span class="s">_</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">team_1</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">team_2</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+                <span class="n">pred</span> <span class="o">=</span> <span class="n">analysis</span><span class="o">.</span><span class="n">win_probability</span><span class="p">(</span><span class="n">team_1</span><span class="p">,</span> <span class="n">team_2</span><span class="p">)</span>
+
+                <span class="n">probabilities</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s">&quot;id&quot;</span><span class="p">:</span> <span class="nb">id</span><span class="p">,</span> <span class="s">&quot;pred&quot;</span><span class="p">:</span> <span class="n">pred</span><span class="p">})</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">matchup_probabilities</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">matchup_probabilities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">probabilities</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Season.generate_bracket"><a class="viewcode-back" href="../../PyMarchMadness.html#PyMarchMadness.Season.Season.generate_bracket">[docs]</a>    <span class="k">def</span> <span class="nf">generate_bracket</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">analysis</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :method: Populate bracket 1st round then predict outcome of all rounds.</span>
+
+<span class="sd">        :param object analysis: Analysis object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">analysis</span><span class="o">.</span><span class="n">data_available</span><span class="p">(</span><span class="n">season</span><span class="o">=</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span>
+
+        <span class="c"># simulate all rounds of bracket</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tournament</span><span class="o">.</span><span class="n">populate_1st_round</span><span class="p">(</span><span class="n">analysis</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">round_num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tournament</span><span class="o">.</span><span class="n">predict_round</span><span class="p">(</span><span class="n">round_num</span><span class="p">,</span> <span class="n">analysis</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Season.get_bracket"><a class="viewcode-back" href="../../PyMarchMadness.html#PyMarchMadness.Season.Season.get_bracket">[docs]</a>    <span class="k">def</span> <span class="nf">get_bracket</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :returns: current bracket</span>
+<span class="sd">        :rtype: string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tournament</span><span class="p">)</span>
+
+</div></div>
+<div class="viewcode-block" id="Tournament"><a class="viewcode-back" href="../../PyMarchMadness.html#PyMarchMadness.Season.Tournament">[docs]</a><span class="k">class</span> <span class="nc">Tournament</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;:class: 1 NCAA March Madness tournament.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">season</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param object season: Season object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">season</span> <span class="o">=</span> <span class="n">season</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">season</span><span class="o">.</span><span class="n">years</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;-&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bracket</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">Constants</span><span class="o">.</span><span class="n">TOURNAMENT_BRACKET</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">bracket_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">season</span><span class="o">.</span><span class="n">years</span>
+        <span class="k">for</span> <span class="n">round_int</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">7</span><span class="p">):</span>
+            <span class="n">round_id</span> <span class="o">=</span> <span class="s">&quot;R</span><span class="si">%02d</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">round_int</span>
+            <span class="n">bracket_string</span> <span class="o">+=</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">Round </span><span class="si">%d</span><span class="s">:  &quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">round_int</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">round_list</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">bracket_index</span><span class="p">,</span> <span class="n">team</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">bracket</span><span class="p">[</span><span class="n">round_id</span><span class="p">]</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+                <span class="n">round_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s">: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">bracket_index</span><span class="p">,</span> <span class="n">team</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">team</span> <span class="k">else</span> <span class="s">&quot;&quot;</span><span class="p">))</span>
+            <span class="n">round_list</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+            <span class="n">bracket_string</span> <span class="o">+=</span> <span class="s">&quot;,  &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">round_list</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">bracket_string</span>
+
+<div class="viewcode-block" id="Tournament.get_team_by_seed"><a class="viewcode-back" href="../../PyMarchMadness.html#PyMarchMadness.Season.Tournament.get_team_by_seed">[docs]</a>    <span class="k">def</span> <span class="nf">get_team_by_seed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seed</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :method: Get team object from tournament seed string.</span>
+
+<span class="sd">        :param string seed: tournament seed string</span>
+<span class="sd">        :returns: Team object</span>
+<span class="sd">        :rtype: object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">Constants</span><span class="o">.</span><span class="n">KAGGLE_INPUT</span><span class="p">[</span><span class="s">&#39;tourney_seeds&#39;</span><span class="p">]</span>
+        <span class="n">tourney_seeds</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">season</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">season</span><span class="o">.</span><span class="n">id</span><span class="p">]</span>  <span class="c"># slice of tourney_seeds DataFrame for current season</span>
+
+        <span class="n">team_df</span> <span class="o">=</span> <span class="n">tourney_seeds</span><span class="p">[(</span><span class="n">tourney_seeds</span><span class="o">.</span><span class="n">season</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">season</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">tourney_seeds</span><span class="o">.</span><span class="n">seed</span> <span class="o">==</span> <span class="n">seed</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">team_df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="n">team_id</span> <span class="o">=</span> <span class="n">team_df</span><span class="o">.</span><span class="n">team</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">team</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">season</span><span class="o">.</span><span class="n">teams</span><span class="p">[</span><span class="n">team_id</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">team</span> <span class="o">=</span> <span class="bp">None</span>
+
+        <span class="k">return</span> <span class="n">team</span>
+</div>
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Tournament.zero_pad_seed"><a class="viewcode-back" href="../../PyMarchMadness.html#PyMarchMadness.Season.Tournament.zero_pad_seed">[docs]</a>    <span class="k">def</span> <span class="nf">zero_pad_seed</span><span class="p">(</span><span class="n">original_seed</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :method: Ensure that seed string has a 2 digit numeric element, e.g. W1 -&gt; W01.</span>
+
+<span class="sd">        :param string original_seed:  original seed value</span>
+<span class="sd">        :returns: seed value with 2 digit numeric element</span>
+<span class="sd">        :rtype string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">&quot;([WXYZ])([\d\w]+)&quot;</span><span class="p">,</span> <span class="n">original_seed</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">match</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">seed</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;0&quot;</span> <span class="o">+</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">seed</span> <span class="o">=</span> <span class="n">original_seed</span>
+
+        <span class="k">return</span> <span class="n">seed</span>
+</div>
+<div class="viewcode-block" id="Tournament.populate_1st_round"><a class="viewcode-back" href="../../PyMarchMadness.html#PyMarchMadness.Season.Tournament.populate_1st_round">[docs]</a>    <span class="k">def</span> <span class="nf">populate_1st_round</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">analysis</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :method: Populate 1st round of bracket with teams.</span>
+
+<span class="sd">        :param object analysis: Analysis object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">analysis</span><span class="o">.</span><span class="n">data_available</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">season</span><span class="p">):</span>
+            <span class="k">return</span>
+
+        <span class="c">#variable init</span>
+        <span class="n">round_1</span> <span class="o">=</span> <span class="s">&quot;R00&quot;</span>
+
+        <span class="c"># predict winners for play-in games</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">Constants</span><span class="o">.</span><span class="n">KAGGLE_INPUT</span><span class="p">[</span><span class="s">&#39;tourney_slots&#39;</span><span class="p">]</span>
+        <span class="n">tourney_slots</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">season</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">season</span><span class="o">.</span><span class="n">id</span><span class="p">]</span>  <span class="c"># slice of tourney_slots DataFrame for current season</span>
+        <span class="k">for</span> <span class="n">_id</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">tourney_slots</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">row</span><span class="o">.</span><span class="n">slot</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s">&quot;R&quot;</span><span class="p">:</span>
+                <span class="c"># play-in game</span>
+                <span class="n">team_1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_team_by_seed</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">strongseed</span><span class="p">)</span>
+                <span class="n">team_2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_team_by_seed</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">weakseed</span><span class="p">)</span>
+                <span class="n">winner</span> <span class="o">=</span> <span class="n">analysis</span><span class="o">.</span><span class="n">predict_winner</span><span class="p">(</span><span class="n">team_1</span><span class="p">,</span> <span class="n">team_2</span><span class="p">)</span>
+
+                <span class="n">slot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">zero_pad_seed</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">slot</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">bracket</span><span class="p">[</span><span class="n">round_1</span><span class="p">][</span><span class="n">slot</span><span class="p">]</span> <span class="o">=</span> <span class="n">winner</span>
+
+        <span class="c"># populate non-play-in teams</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">Constants</span><span class="o">.</span><span class="n">KAGGLE_INPUT</span><span class="p">[</span><span class="s">&#39;tourney_seeds&#39;</span><span class="p">]</span>
+        <span class="n">tourney_seeds</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">season</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">season</span><span class="o">.</span><span class="n">id</span><span class="p">]</span>  <span class="c"># slice of tourney_seeds DataFrame for current season</span>
+        <span class="k">for</span> <span class="n">_id</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">tourney_seeds</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">seed</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">bracket</span><span class="p">[</span><span class="n">round_1</span><span class="p">][</span><span class="n">row</span><span class="o">.</span><span class="n">seed</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_team_by_seed</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">seed</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Tournament.predict_round"><a class="viewcode-back" href="../../PyMarchMadness.html#PyMarchMadness.Season.Tournament.predict_round">[docs]</a>    <span class="k">def</span> <span class="nf">predict_round</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tourney_round</span><span class="p">,</span> <span class="n">analysis</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :method: Predict winner of a single round of the tournament.</span>
+
+<span class="sd">        :param int tourney_round: round of the tournament to predict.</span>
+<span class="sd">        :param object analysis: Analysis object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">analysis</span><span class="o">.</span><span class="n">data_available</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">season</span><span class="p">):</span>
+            <span class="k">return</span>
+
+        <span class="n">last_round_id_2digit</span> <span class="o">=</span> <span class="s">&quot;R</span><span class="si">%02d</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">tourney_round</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">current_round_id_1digit</span> <span class="o">=</span> <span class="s">&quot;R</span><span class="si">%d</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">tourney_round</span>
+        <span class="n">current_round_id_2digit</span> <span class="o">=</span> <span class="s">&quot;R</span><span class="si">%02d</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">tourney_round</span>
+
+        <span class="n">df</span> <span class="o">=</span> <span class="n">Constants</span><span class="o">.</span><span class="n">KAGGLE_INPUT</span><span class="p">[</span><span class="s">&#39;tourney_slots&#39;</span><span class="p">]</span>
+        <span class="n">tourney_slots</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">season</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">season</span><span class="o">.</span><span class="n">id</span><span class="p">]</span>  <span class="c"># slice of tourney_slots DataFrame for current season</span>
+        <span class="k">for</span> <span class="n">_id</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">tourney_slots</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">row</span><span class="o">.</span><span class="n">slot</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="n">current_round_id_1digit</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">tourney_round</span> <span class="o">==</span> <span class="mi">6</span><span class="p">:</span>
+                    <span class="n">strongseed</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">strongseed</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span>
+                    <span class="n">weakseed</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">weakseed</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">strongseed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">zero_pad_seed</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">strongseed</span><span class="p">)</span>
+                    <span class="n">weakseed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">zero_pad_seed</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">weakseed</span><span class="p">)</span>
+                <span class="n">team_1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bracket</span><span class="p">[</span><span class="n">last_round_id_2digit</span><span class="p">][</span><span class="n">strongseed</span><span class="p">]</span>
+                <span class="n">team_2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bracket</span><span class="p">[</span><span class="n">last_round_id_2digit</span><span class="p">][</span><span class="n">weakseed</span><span class="p">]</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">team_1</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">team_2</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;Cannot predict round &#39;</span><span class="si">%s</span><span class="s">&#39;, do not have results from prior round.&quot;</span> <span class="o">%</span> <span class="n">tourney_round</span><span class="p">)</span>
+                <span class="n">winner</span> <span class="o">=</span> <span class="n">analysis</span><span class="o">.</span><span class="n">predict_winner</span><span class="p">(</span><span class="n">team_1</span><span class="p">,</span> <span class="n">team_2</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">tourney_round</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
+                    <span class="n">slot</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">slot</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">slot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">zero_pad_seed</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">slot</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">bracket</span><span class="p">[</span><span class="n">current_round_id_2digit</span><span class="p">][</span><span class="n">slot</span><span class="p">]</span> <span class="o">=</span> <span class="n">winner</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">PyMarchMadness</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li>
+          <li><a href="../PyMarchMadness.html" >PyMarchMadness</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, David Casterton.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

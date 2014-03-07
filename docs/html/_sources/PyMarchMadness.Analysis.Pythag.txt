@@ -1,0 +1,7 @@
+PyMarchMadness.Analysis.Pythag module
+=====================================
+
+.. automodule:: PyMarchMadness.Analysis.Pythag
+    :members:
+    :undoc-members:
+    :show-inheritance:

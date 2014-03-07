@@ -1,0 +1,7 @@
+PyMarchMadness.Main module
+==========================
+
+.. automodule:: PyMarchMadness.Main
+    :members:
+    :undoc-members:
+    :show-inheritance:
