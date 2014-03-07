@@ -19,7 +19,7 @@ PyMarchMadness.Constants module
     :undoc-members:
     :show-inheritance:
 
-PyMarchMadness.Season module
+PyMarchMadness.Basketball module
 ----------------------------
 
 .. automodule:: PyMarchMadness.Basketball
