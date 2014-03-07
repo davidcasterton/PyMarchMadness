@@ -1,2 +1,4 @@
-pandas==0.13.1
-pandasql==0.4.2
+numpy>=1.8.0
+pandas>=0.13.1
+python-dateutil>=2.2
+pytz>=2013.9
