@@ -1,5 +1,5 @@
-.
-=
+PyMarchMadness
+==============
 
 .. toctree::
    :maxdepth: 4

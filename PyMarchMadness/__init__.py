@@ -2,7 +2,8 @@ import os
 import sys
 
 dirname = os.path.dirname(__file__)
-sys.path.insert(0, dirname)
+if dirname not in sys.path:
+    sys.path.insert(0, dirname)
 
 import Analysis
 import Constants

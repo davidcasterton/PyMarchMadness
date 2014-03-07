@@ -11,7 +11,8 @@ __license__ = "GPL"
 
 # add Analysis directory to python path
 analysis_dir = os.path.dirname(__file__)
-sys.path.insert(0, analysis_dir)
+if analysis_dir not in sys.path:
+    sys.path.insert(0, analysis_dir)
 
 available = []
 
