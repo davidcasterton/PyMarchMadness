@@ -16,8 +16,10 @@ import os
 #import sphinx_bootstrap_theme
 import sys
 
-#base_path = os.path.abspath(os.path.join(os.getcwd(), '..', '..'))
-#sys.path.insert(0, base_path)
+_path = os.path.abspath(os.path.join(os.getcwd(), '..', '..'))
+sys.path.insert(0, _path)
+_path = os.path.abspath(os.path.join(os.getcwd(), '..'))
+sys.path.insert(0, _path)
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
