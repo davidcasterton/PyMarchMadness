@@ -14,3 +14,6 @@ PyMarchMadness
 
 ####Installation:
     python setup.py install
+
+####Usage:
+    python PyMarchMadness
