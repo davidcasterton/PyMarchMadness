@@ -1,11 +1,16 @@
 PyMarchMadness
 =============
 
-Python analysis of NCAA March Madness tournament.
+####Python analysis of NCAA March Madness tournament.
 
-- Source code and input data in PyMarchMadness/ folder
-- Code documentation available at: http://pymarchmadness.readthedocs.org/
+
+- **Code Documentation:** http://pymarchmadness.readthedocs.org/
+- **Source Code:** in PyMarchMadness/
+- **Input Data:** in PyMarchMadness/InputData/
 
 ####Software Dependencies:
 - Python 2.7
 - Python pandas package
+
+####Installation:
+    python setup.py install
