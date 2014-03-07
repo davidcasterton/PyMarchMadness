@@ -22,15 +22,7 @@ PyMarchMadness.Constants module
 PyMarchMadness.Season module
 ----------------------------
 
-.. automodule:: PyMarchMadness.Season
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-PyMarchMadness.Team module
---------------------------
-
-.. automodule:: PyMarchMadness.Team
+.. automodule:: PyMarchMadness.Basketball
     :members:
     :undoc-members:
     :show-inheritance:
