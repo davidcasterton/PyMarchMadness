@@ -15,15 +15,14 @@
 import os
 import sys
 
-_path = os.path.abspath(os.path.join(__file__, '..'))
-sys.path.insert(0, _path)
-_path = os.path.abspath(os.path.join(__file__, '..', 'PyMarchMadness'))
-sys.path.insert(0, _path)
-
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #sys.path.insert(0, os.path.abspath('.'))
+_path = os.path.abspath(os.path.join(__file__, '..'))
+sys.path.insert(0, _path)
+_path = os.path.abspath(os.path.join(__file__, '..', 'PyMarchMadness'))
+sys.path.insert(0, _path)
 
 # -- General configuration ------------------------------------------------
 
@@ -36,6 +35,7 @@ sys.path.insert(0, _path)
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.viewcode',
+    'sphinx.ext.inheritance_diagram',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
