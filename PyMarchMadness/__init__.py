@@ -9,3 +9,5 @@ import Constants
 import Main
 import Season
 import Team
+
+__version__ = Constants.VERSION
