@@ -1,13 +1,16 @@
 PyMarchMadness Overview
 =============
 
+####Code Documentation:
+**http://pymarchmadness.readthedocs.org/**
+
 ####Input Data Sources:
 - [**Kaggle**] (http://www.kaggle.com/c/march-machine-learning-mania/data)
 - [**BracketScience**] (http://wp.bracketscience.com/)
 - [**KenPom**] (http://kenpom.com/)
 
 ####Python Files:
-- **\__init\__.py :**
+- **\__main\__.py :**
  - Generates win probabilities for all possible matchups in each years March Madness tournament.
  - Generates March Madness Tournament predictions.
 - **AnalysisBase.py :** Analysis base class.
@@ -18,4 +21,4 @@ PyMarchMadness Overview
 - **WrangleKenPom.py :** Generates InputData/KenPomWithIds/ directory, which adds TeamId column to all files from InputData/KenPom/.
 
 ####Usage:
-    python Main.py
+    python PyMarchMadness
