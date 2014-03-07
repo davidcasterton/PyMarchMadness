@@ -1,12 +1,12 @@
 PyMarchMadness
 =============
 
-####Python analysis of NCAA March Madness tournament.
+####Modular Python framework to analyze the NCAA March Madness tournament.
 
 
 - **Code Documentation:** http://pymarchmadness.readthedocs.org/
+- **Public Site:** http://davidcasterton.github.io/March-Madness
 - **Source Code:** in PyMarchMadness/
-- **Input Data:** in PyMarchMadness/InputData/
 
 ####Software Dependencies:
 - Python 2.7
