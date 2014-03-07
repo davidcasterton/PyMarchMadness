@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Analysis package, all classes are inherited from AnalysisBase."""
+"""Analysis package, all classes are inherited from Analysis.BaseClass."""
 
 import os
 import pdb
