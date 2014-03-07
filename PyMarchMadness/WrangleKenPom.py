@@ -7,8 +7,6 @@ import pdb
 
 import Constants
 
-__author__ = "David Casterton"
-__license__ = "GPL"
 
 if __name__ == "__main__":
     # variable init

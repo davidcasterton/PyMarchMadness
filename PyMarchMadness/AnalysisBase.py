@@ -8,9 +8,6 @@ import re
 
 import Constants
 
-__author__ = "David Casterton"
-__license__ = "GPL"
-
 
 class AnalysisBase(object):
     """:class: Analysis base class, derived classes implement actual analysis methods."""

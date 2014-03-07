@@ -5,9 +5,6 @@ import os
 import pdb
 import sys
 
-__author__ = 'davidcasterton'
-__license__ = "GPL"
-
 
 # add Analysis directory to python path
 analysis_dir = os.path.dirname(__file__)

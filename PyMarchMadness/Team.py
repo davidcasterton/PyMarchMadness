@@ -5,9 +5,6 @@ import pandas
 
 import Constants
 
-__author__ = "David Casterton"
-__license__ = "GPL"
-
 
 class Team(object):
     """:class: 1 NCAA backetball team for 1 NCAA season."""

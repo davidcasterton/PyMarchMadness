@@ -9,9 +9,6 @@ import re
 import Constants
 import Team
 
-__author__ = "David Casterton"
-__license__ = "GPL"
-
 
 class Season(object):
     """:class: 1 NCAA backetball season."""

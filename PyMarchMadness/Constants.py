@@ -5,9 +5,6 @@ import datetime
 import os
 import pandas
 
-__author__ = "David Casterton"
-__license__ = "GPL"
-
 
 VERSION = 1
 CURRENT_YEAR = datetime.date.today().year

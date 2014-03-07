@@ -9,18 +9,16 @@ def read(fname):
     return codecs.open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 NAME = "PyMarchMadness"
-DESCRIPTION = "Python March Madness analysis."
+DESCRIPTION = "Python March Madness analysis"
 AUTHOR = "David Casterton"
-AUTHOR_EMAIL = ""
+AUTHOR_EMAIL = "david.casterton AT gmail.com"
 URL = ""
 VERSION = __import__(NAME).__version__
-INPUT_DATA = os.path.join('PyMarchMadness', 'InputData')
 
 package_data = []
+INPUT_DATA = os.path.join('PyMarchMadness', 'InputData')
 for file in os.listdir(INPUT_DATA):
     package_data.append(os.path.join(file, "*"))
-
-pdb.set_trace()
 
 setup(
     name=NAME,
@@ -31,7 +29,7 @@ setup(
     author_email=AUTHOR_EMAIL,
     license="GPLv3",
     url=URL,
-    packages=['PyMarchMadness'],
+    packages=find_packages(),
     package_data={NAME: package_data},
     classifiers=[
         "Development Status :: 3 - Alpha",
