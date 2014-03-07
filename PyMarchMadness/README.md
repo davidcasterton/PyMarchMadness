@@ -7,7 +7,7 @@ PyMarchMadness Overview
 - [**KenPom**] (http://kenpom.com/)
 
 ####Python Files:
-- **__ini__.py :**
+- **\__init\__.py :**
  - Generates win probabilities for all possible matchups in each years March Madness tournament.
  - Generates March Madness Tournament predictions.
 - **AnalysisBase.py :** Analysis base class.
