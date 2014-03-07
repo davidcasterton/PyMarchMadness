@@ -5,9 +5,11 @@ import os
 import pdb
 import sys
 
+# add Analysis/ directory to python path
+analysis_dir = os.path.dirname(__file__)
+sys.path.insert(0, analysis_dir)
 
 # import all files in Analysis/
-analysis_dir = os.path.dirname(__file__)
 object_list = []  # list of analysis objects
 for file_name in os.listdir(analysis_dir):
     class_name, extension = file_name.split(".")
