@@ -13,7 +13,7 @@ Contents:
 
    PyMarchMadness.rst
 
-.. inheritance-diagram:: PyMarchMadness PyMarchMadness.Analysis
+.. inheritance-diagram:: PyMarchMadness.__main__ PyMarchMadness.Constants PyMarchMadness.Season PyMarchMadness.Team PyMarchMadness.Analysis
    :parts: 2
 
 Indices and tables
