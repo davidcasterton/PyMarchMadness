@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-""":module: Base Analysis class, all classes in Analysis/ directory inherit from here."""
+""":module: Base Analysis class."""
 
 import os
 import pandas
@@ -10,7 +10,7 @@ import Constants
 
 
 class AnalysisBase(object):
-    """:class: Analysis base class, derived classes implement actual analysis methods."""
+    """:class: Base Analysis class, all classes in Analysis/ directory inherit from here."""
     def __init__(self):
         self.name = None
 
@@ -20,7 +20,7 @@ class AnalysisBase(object):
 
     def data_available(self, season):
         """
-        :method: Check if KenPom data is available for this Season's year.
+        :method: Check if required data is available for this season.
 
         :param object season: Season object
         :returns: True if KenPom data is available
@@ -30,6 +30,8 @@ class AnalysisBase(object):
 
     def get_name(self, remove_spaces=False):
         """
+        :method: Returns class name.
+
         :param bool remove_spaces: if True then removes spaces from name
         :returns: name of current Analysis class
         :rtype: string
