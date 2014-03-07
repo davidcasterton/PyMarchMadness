@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-""":module: Base Analysis class."""
+""":module: Analysis base class."""
 
 import os
 import pandas
@@ -9,8 +9,8 @@ import re
 import Constants
 
 
-class AnalysisBase(object):
-    """:class: Base Analysis class, all classes in Analysis/ directory inherit from here."""
+class BaseClass(object):
+    """:class: Analysis base class, all classes in Analysis/ directory inherit from here."""
     def __init__(self):
         self.name = None
 

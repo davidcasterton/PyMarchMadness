@@ -3,14 +3,14 @@
 
 import random
 
-import AnalysisBase
+import Analysis
 import Constants
 
 __author__ = "David Casterton"
 __license__ = "GPL"
 
 
-class Random(AnalysisBase.AnalysisBase):
+class Random(Analysis.BaseClass):
     def __init__(self):
         self.name = "Random"
 

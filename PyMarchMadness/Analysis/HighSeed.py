@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 """Win probability calculated as difference from division seed values."""
 
-import AnalysisBase
+import Analysis
 import Constants
 
 __author__ = "David Casterton"
 __license__ = "GPL"
 
 
-class HighSeed(AnalysisBase.AnalysisBase):
+class HighSeed(Analysis.BaseClass):
     def __init__(self):
         self.name = "High Seed"
 

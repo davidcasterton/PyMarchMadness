@@ -16,7 +16,7 @@ for file_name in os.listdir(analysis_dir):
     class_name, extension = file_name.split(".")
 
     # skip __init__ and Parent files
-    if extension != "py" or class_name == "__init__":
+    if extension != "py" or class_name == "__init__" or class_name == "Analysis":
         continue
 
     # import file
