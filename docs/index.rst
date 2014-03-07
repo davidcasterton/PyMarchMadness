@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to PyMarchMadness's documentation!
+PyMarchMadness documentation
 ==========================================
 
 Contents:
@@ -13,7 +13,8 @@ Contents:
 
    PyMarchMadness.rst
 
-.. inheritance-diagram::
+.. inheritance-diagram:: PyMarchMadness PyMarchMadness.Analysis
+   :parts: 2
 
 Indices and tables
 ==================
