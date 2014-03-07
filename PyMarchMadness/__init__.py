@@ -9,4 +9,5 @@ __version__ = 1
 
 # add base directory to python path
 base_dir = os.path.dirname(__file__)
-sys.path.insert(0, base_dir)
+if base_dir not in sys.path:
+    sys.path.insert(0, base_dir)

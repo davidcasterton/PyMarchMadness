@@ -15,7 +15,7 @@ KENPOM_INPUT = {}  # dictionary storing DataFrames of data from KenPom.com
 
 
 # load Kaggle data from http://www.kaggle.com/c/march-machine-learning-mania/data
-_kaggle_dir = os.path.join(INPUT_FOLDER, "Kaggle")
+_kaggle_dir = os.path.join(INPUT_FOLDER, "Kaggle/")
 for _file_name in os.listdir(_kaggle_dir):
     _file_path = os.path.join(_kaggle_dir, _file_name)
     _file_base_name = _file_name.split(".")[0]

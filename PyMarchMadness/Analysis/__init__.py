@@ -7,7 +7,8 @@ import sys
 
 # add Analysis/ directory to python path
 analysis_dir = os.path.dirname(__file__)
-sys.path.insert(0, analysis_dir)
+if analysis_dir not in sys.path:
+    sys.path.insert(0, analysis_dir)
 
 # import all files in Analysis/
 object_list = []  # list of analysis objects
