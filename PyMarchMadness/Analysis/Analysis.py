@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-""":module: Analysis base class."""
+""":module: Analysis base module."""
 
 import os
 import pandas

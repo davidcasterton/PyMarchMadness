@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-""":module: Insert unique team id's to Ken Pomeroy data files."""
+"""Insert unique team id's to Ken Pomeroy data files."""
 
 import csv
 import os

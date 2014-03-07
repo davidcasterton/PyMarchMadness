@@ -1,5 +1,9 @@
 #!/usr/bin/env python
-""":module: Predict outcome of NCAA March Madness tournaments. Load data, analyze, and output results."""
+"""
+Predict outcome of NCAA March Madness tournaments.
+
+Load data, analyze, and output results.
+"""
 import os
 import pdb
 import sys

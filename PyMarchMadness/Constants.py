@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-""":module: Loads input data files and defines constant values."""
+"""Loads input data files and defines constant values."""
 
 import datetime
 import os
