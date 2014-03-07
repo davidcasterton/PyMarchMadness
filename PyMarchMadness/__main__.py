@@ -10,7 +10,7 @@ import sys
 
 import Analysis
 import Constants
-import Season
+import NCAA
 
 
 if __name__ == "__main__":
@@ -34,7 +34,7 @@ if __name__ == "__main__":
         year = int(row['years'].split("-")[1])
 
         # create Season object
-        seasons[year] = Season.Season(id=row['season'], years=row['years'], day_zero=row['dayzero'])
+        seasons[year] = NCAA.Season(id=row['season'], years=row['years'], day_zero=row['dayzero'])
         seasons[year].set_regions(region_w=row['regionW'], region_x=row['regionX'], region_y=row['regionY'], region_z=row['regionZ'])
 
         # build Teams and run analysis
