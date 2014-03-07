@@ -1,7 +1,0 @@
-PyMarchMadness.WrangleKenPom module
-===================================
-
-.. automodule:: PyMarchMadness.WrangleKenPom
-    :members:
-    :undoc-members:
-    :show-inheritance:

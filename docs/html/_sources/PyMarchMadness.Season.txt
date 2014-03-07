@@ -1,7 +1,0 @@
-PyMarchMadness.Season module
-============================
-
-.. automodule:: PyMarchMadness.Season
-    :members:
-    :undoc-members:
-    :show-inheritance:

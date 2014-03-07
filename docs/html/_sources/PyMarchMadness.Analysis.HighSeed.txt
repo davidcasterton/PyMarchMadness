@@ -1,7 +1,0 @@
-PyMarchMadness.Analysis.HighSeed module
-=======================================
-
-.. automodule:: PyMarchMadness.Analysis.HighSeed
-    :members:
-    :undoc-members:
-    :show-inheritance:

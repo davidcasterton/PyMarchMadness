@@ -1,7 +1,0 @@
-PyMarchMadness.Analysis.Random module
-=====================================
-
-.. automodule:: PyMarchMadness.Analysis.Random
-    :members:
-    :undoc-members:
-    :show-inheritance:
