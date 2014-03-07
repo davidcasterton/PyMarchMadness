@@ -1,4 +1,7 @@
 *.pyc
+PyMarchMadness/InputData/BracketScience/
+PyMarchMadness/InputData/KenPom/
+PyMarchMadness/InputData/KenPomWithIds/
 PyMarchMadness/OutputData/
 gen_docs.sh
 Makefile
