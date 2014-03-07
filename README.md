@@ -7,9 +7,9 @@ PyMarchMadness
 - **Public Site:** http://davidcasterton.github.io/March-Madness
 - **Source Code:** in PyMarchMadness/
 - **How To Add New Analysis To Framework:** 
- - Create an analysis module that inherits from AnalysisBase.AnalysisBase
- - Implement all methods that were not defined in AnalysisBase.AnalysisBase
- - Insert new analysis module into PyMarchMadness/Analysis/
+ - Create an analysis module that inherits from Analysis.BaseClass
+ - Implement all methods that were not defined in Analysis.BaseClass
+ - Insert analysis module into PyMarchMadness/Analysis/
  - Select new analysis module when prompted at run-time
 
 ####Software Dependencies:
