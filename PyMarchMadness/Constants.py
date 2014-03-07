@@ -24,10 +24,11 @@ for _file_name in os.listdir(_kaggle_dir):
 
 # load KenPom data from http://kenpom.com/
 _kenpom_dir = os.path.join(INPUT_FOLDER, "KenPomWithIds")
-for _file_name in os.listdir(_kenpom_dir):
-    _file_path = os.path.join(_kenpom_dir, _file_name)
-    _file_base_name = _file_name.split(".")[0]
-    KENPOM_INPUT[_file_base_name] = pandas.read_csv(_file_path)
+if os.path.isdir(_kenpom_dir):
+    for _file_name in os.listdir(_kenpom_dir):
+        _file_path = os.path.join(_kenpom_dir, _file_name)
+        _file_base_name = _file_name.split(".")[0]
+        KENPOM_INPUT[_file_base_name] = pandas.read_csv(_file_path)
 
 
 # blank tournament bracket

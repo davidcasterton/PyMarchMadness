@@ -16,9 +16,9 @@ import os
 #import sphinx_bootstrap_theme
 import sys
 
-_path = os.path.abspath(os.path.join(os.getcwd(), '..', '..'))
+_path = os.path.abspath(os.path.join(__file__, '..'))
 sys.path.insert(0, _path)
-_path = os.path.abspath(os.path.join(os.getcwd(), '..'))
+_path = os.path.abspath(os.path.join(__file__, '..', 'PyMarchMadness'))
 sys.path.insert(0, _path)
 
 # If extensions (or modules to document with autodoc) are in another directory,
