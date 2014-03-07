@@ -6,7 +6,6 @@ import os
 import pandas
 
 
-VERSION = 1
 CURRENT_YEAR = datetime.date.today().year
 BASE_DIR = os.path.dirname(__file__)
 INPUT_FOLDER = os.path.join(BASE_DIR, "InputData")

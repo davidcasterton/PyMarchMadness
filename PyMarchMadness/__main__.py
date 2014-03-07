@@ -8,14 +8,6 @@ import Analysis
 import Constants
 import Season
 
-__author__ = "David Casterton"
-__license__ = "GPL"
-__version__ = Constants.VERSION
-
-
-# add base directory to python path
-base_dir = os.path.dirname(__file__)
-sys.path.insert(0, base_dir)
 
 if __name__ == "__main__":
     seasons = {}
