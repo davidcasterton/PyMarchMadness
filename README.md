@@ -4,7 +4,7 @@ PyMarchMadness
 
 ####Information:
 - **Code Documentation:** http://pymarchmadness.readthedocs.org/
-- **Public Site:** http://davidcasterton.github.io/March-Madness
+- **Download Site:** http://davidcasterton.github.io/March-Madness
 - **Source Code:** in PyMarchMadness/
 - **How To Add New Analysis To Framework:** 
  - Create an analysis module that inherits from Analysis.BaseClass
