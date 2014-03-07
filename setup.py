@@ -11,14 +11,14 @@ def read(fname):
 NAME = "PyMarchMadness"
 DESCRIPTION = "Python March Madness analysis"
 AUTHOR = "David Casterton"
-AUTHOR_EMAIL = "david.casterton AT gmail.com"
+AUTHOR_EMAIL = "david.casterton [AT] gmail.com"
 URL = ""
 VERSION = __import__(NAME).__version__
 
 package_data = []
 INPUT_DATA = os.path.join('PyMarchMadness', 'InputData')
 for file in os.listdir(INPUT_DATA):
-    package_data.append(os.path.join(file, "*"))
+    package_data.append(os.path.join('InputData', file, "*"))
 
 setup(
     name=NAME,
