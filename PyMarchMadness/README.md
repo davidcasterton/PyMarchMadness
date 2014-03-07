@@ -1,10 +1,10 @@
-PyMarchMadness Overview
+PyMarchMadness Source Code
 =============
 
-####Code Documentation:
+####Source Code Documentation:
 - http://pymarchmadness.readthedocs.org/
 
-####File Overview:
+####Source Code Overview:
 - **\__init\__.py :** Initialize package.
 - **\__main\__.py :** Main program.
   1. Prompts user to choose analysis method.
@@ -18,9 +18,9 @@ PyMarchMadness Overview
 - **WrangleKenPom.py :** Generates InputData/KenPomWithIds/ directory, which adds TeamId column to all files from InputData/KenPom/. (KenPom data is not longer included in repo, see 'Input Data Sources' below for more information.)
 
 ####How To Add New Analysis To Framework:
-- Create an analysis module that inherits from Analysis.BaseClass
-- Implement all methods that were not defined in Analysis.BaseClass
-- Insert analysis module into PyMarchMadness/Analysis/
+- Create an analysis module that inherits from [Analysis.BaseClass] (Analysis/Analysis.py)
+- Implement all methods that were not defined in [Analysis.BaseClass] (Analysis/Analysis.py)
+- Insert analysis module into [PyMarchMadness/Analysis/] (Analysis/)
 - Select new analysis module when prompted at run-time
 
 ####Input Data Sources:
@@ -29,8 +29,6 @@ PyMarchMadness Overview
 - [~~**KenPom**~~] (http://kenpom.com/) available for purchase at preceeding link
 
 ####How To Add New Input Data:
+- Add *\<new_folder\>* into [InputData/] (InputData/)
 - Add data files into InputData/*\<new_folder\>*
-- Modify Constants.py to load new data files, e.g. KAGGLE_INPUT
-
-####Usage:
-    python PyMarchMadness
+- Modify [Constants.py] (Constants.py) to load new data files, e.g. KAGGLE_INPUT
