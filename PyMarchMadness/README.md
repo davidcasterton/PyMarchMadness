@@ -6,8 +6,8 @@ PyMarchMadness Overview
 
 ####Input Data Sources:
 - [**Kaggle**] (http://www.kaggle.com/c/march-machine-learning-mania/data)
-- [**BracketScience**] (http://wp.bracketscience.com/)
-- [**KenPom**] (http://kenpom.com/)
+- [~~**BracketScience**~~] (http://wp.bracketscience.com/) available for purchase at preceeding link
+- [~~**KenPom**~~] (http://kenpom.com/) available for purchase at preceeding link
 
 ####Python Files:
 - **\__main\__.py :**
