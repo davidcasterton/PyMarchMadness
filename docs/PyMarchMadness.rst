@@ -27,14 +27,6 @@ PyMarchMadness.Constants module
     :undoc-members:
     :show-inheritance:
 
-PyMarchMadness.Main module
---------------------------
-
-.. automodule:: PyMarchMadness.Main
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 PyMarchMadness.Season module
 ----------------------------
 
