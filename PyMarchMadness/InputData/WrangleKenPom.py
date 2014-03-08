@@ -5,24 +5,36 @@ import csv
 import os
 import pdb
 
-import Constants
-
 
 if __name__ == "__main__":
     # variable init
     kaggle_name_to_kaggle_id = {}
     kenpom_name_to_kaggle_id = {}
+    saved_mapping = "kenpom_name_to_kaggle_id.csv"
+
+    # load saved mapping
+    if os.path.isfile(saved_mapping):
+        map_handle = open(saved_mapping, "r")
+        reader = csv.reader(map_handle)
+        for row in reader:
+            team_name = row[0]
+            team_id = row[1]
+            kaggle_name_to_kaggle_id[team_name] = team_id
+        map_handle.close()
 
     ################################################################################
     # read Kaggle/teams.csv and build kaggle_name_to_kaggle_id dictionary with
     # relationships between team names and ids
     ################################################################################
-    file_path = os.path.join(Constants.INPUT_FOLDER, "Kaggle", "teams.csv")
+    file_path = os.path.join("Kaggle", "teams.csv")
     handle = open(file_path, 'r')
     reader = csv.reader(handle)
     for row in reader:
-        team_name = row[1]
         team_id = row[0]
+        team_name = row[1]
+        if team_name == "name":
+            #skip header
+            continue
         kaggle_name_to_kaggle_id[team_name] = team_id
     handle.close()
 
@@ -34,8 +46,8 @@ if __name__ == "__main__":
     # team name, if no match is found then prompt the user to find a match between
     # the 2 sets of team names.
     ################################################################################
-    source_kenpom_dir = os.path.join(Constants.INPUT_FOLDER, 'KenPom')
-    dest_kenpom_dir = os.path.join(Constants.INPUT_FOLDER, 'KenPomWithIds')
+    source_kenpom_dir = 'KenPom'
+    dest_kenpom_dir = 'KenPomWithIds'
     for source_file_name in os.listdir(source_kenpom_dir):
         # read in source KenPom file
         source_file_path = os.path.join(source_kenpom_dir, source_file_name)
@@ -87,33 +99,46 @@ if __name__ == "__main__":
                     if word in kaggle_team_name and \
                             kaggle_team_name not in kaggle_team_names_potential_matches:
                         kaggle_team_names_potential_matches.append(kaggle_team_name)
-            #prompt user to perform match
-            prompt = "Enter the number of the team that matches: '%s', or None if no match.\n" % kenpom_team_name
-            for i in range(len(kaggle_team_names_potential_matches)):
-                prompt += "\t%d. %s" % (i, kaggle_team_names_potential_matches[i])
-            index = raw_input(prompt + "\n")
-            if index.isdigit():
-                #user entered a match
-                matched_kaggle_team_name = kaggle_team_names_potential_matches[int(index)]
-                kenpom_name_to_kaggle_id[kenpom_team_name] = kaggle_name_to_kaggle_id.get(matched_kaggle_team_name)
-                row.insert(0, kenpom_name_to_kaggle_id.get(kenpom_team_name))
-                dest_csv.writerow(row)
-                continue
+            if kaggle_team_names_potential_matches:
+                #prompt user to perform match
+                prompt = "Enter the number of the team that matches: '%s', or None if no match.\n" % kenpom_team_name
+                input_range = range(len(kaggle_team_names_potential_matches))
+                for i in input_range:
+                    prompt += "\t%d. %s\n" % (i, kaggle_team_names_potential_matches[i])
+                #user_input = raw_input(prompt)
+                user_input = '0'
+                if user_input.isdigit() and int(user_input) in input_range:
+                    #user entered a match
+                    matched_kaggle_team_name = kaggle_team_names_potential_matches[int(user_input)]
+                    kenpom_name_to_kaggle_id[kenpom_team_name] = kaggle_name_to_kaggle_id.get(matched_kaggle_team_name)
+                    row.insert(0, kenpom_name_to_kaggle_id.get(kenpom_team_name))
+                    dest_csv.writerow(row)
+                    continue
 
             # prompt user to define mapping between KenPom & Kaggle name with FULL list
             prompt = "Enter the number of the team that matches: '%s'.\n" % kenpom_team_name
-            for i in range(len(kaggle_team_names)):
-                prompt += "\t%d. %s" % (i, kaggle_team_names[i])
-            index = raw_input(prompt + "\n")
-            if index.isdigit():
-                #user entered a match
-                matched_kaggle_team_name = kaggle_team_names[int(index)]
-                kenpom_name_to_kaggle_id[kenpom_team_name] = kaggle_name_to_kaggle_id.get(matched_kaggle_team_name)
-                row.insert(0, kenpom_name_to_kaggle_id.get(kenpom_team_name))
-                dest_csv.writerow(row)
-                continue
-            else:
-                raise Exception("invalid input: '%s'" % index)
+            input_range = range(len(kaggle_team_names))
+            for i in input_range:
+                prompt += "\t%d. %s\n" % (i, kaggle_team_names[i])
+            for i in range(5):
+                #user_input = raw_input(prompt)
+                user_input = '0'
+                if user_input.isdigit() and int(user_input) in input_range:
+                    #user entered a match
+                    matched_kaggle_team_name = kaggle_team_names[int(user_input)]
+                    kenpom_name_to_kaggle_id[kenpom_team_name] = kaggle_name_to_kaggle_id.get(matched_kaggle_team_name)
+                    row.insert(0, kenpom_name_to_kaggle_id.get(kenpom_team_name))
+                    dest_csv.writerow(row)
+                    break
+                else:
+                    print("INVALID INPUT: '%s'" % user_input)
 
         source_handle.close()
         dest_handle.close()
+
+    # save kenpom_name_to_kaggle_id
+    map_handle = open(saved_mapping, "w")
+    map_csv = csv.writer(map_handle)
+    for row in kenpom_name_to_kaggle_id.iteritems():
+        map_csv.writerow(row)
+    map_handle.close()
