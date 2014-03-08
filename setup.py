@@ -10,10 +10,11 @@ def read(fname):
 
 NAME = "PyMarchMadness"
 DESCRIPTION = "Python March Madness analysis"
-AUTHOR = "David Casterton"
+AUTHOR = __import__(NAME).__author__
 AUTHOR_EMAIL = __import__(NAME).__email__
-URL = ""
 VERSION = __import__(NAME).__version__
+LICENSE = __import__(NAME).__license__
+URL = ""
 
 package_data = []
 INPUT_DATA = os.path.join('PyMarchMadness', 'InputData')
@@ -27,7 +28,7 @@ setup(
     long_description=read("README.md"),
     author=AUTHOR,
     author_email=AUTHOR_EMAIL,
-    license="GPLv3",
+    license=LICENSE,
     url=URL,
     packages=find_packages(),
     package_data={NAME: package_data},

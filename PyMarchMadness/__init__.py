@@ -4,7 +4,7 @@ import sys
 
 __author__ = "David Casterton"
 __email__ = "david.casterton [AT] gmail.com"
-__license__ = "GPL"
+__license__ = "GPLv3"
 __version__ = 1
 
 
