@@ -11,26 +11,18 @@ Subpackages
 Submodules
 ----------
 
-PyMarchMadness.Constants module
--------------------------------
-
-.. automodule:: PyMarchMadness.Constants
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 PyMarchMadness.Basketball module
-----------------------------
+--------------------------------
 
 .. automodule:: PyMarchMadness.Basketball
     :members:
     :undoc-members:
     :show-inheritance:
 
-PyMarchMadness.WrangleKenPom module
------------------------------------
+PyMarchMadness.Constants module
+-------------------------------
 
-.. automodule:: PyMarchMadness.WrangleKenPom
+.. automodule:: PyMarchMadness.Constants
     :members:
     :undoc-members:
     :show-inheritance:
