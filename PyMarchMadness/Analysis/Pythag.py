@@ -19,7 +19,7 @@ class Pythag(Analysis.BaseClass):
         else:
             kenpom_available = False
 
-        df = Constants.KAGGLE_INPUT['tourney_seeds']
+        df = Constants.INPUT_DATA['Kaggle']['tourney_seeds']
         tourney_teams = df[df.season == season.id]  # slice of tourney_seeds DataFrame for current season
         if not tourney_teams.empty:
             seeds_available = True

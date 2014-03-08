@@ -61,8 +61,8 @@ class Team(object):
     def load_kenpom_data(self):
         """:method: Search KenPom dataframes and populate member variables."""
         input_file_name = 'summary%s' % str(self.tournament_year)[-2:]
-        if input_file_name in Constants.KENPOM_INPUT.keys():
-            df = Constants.KENPOM_INPUT[input_file_name]
+        if input_file_name in Constants.INPUT_DATA['KenPomWithIds'].keys():
+            df = Constants.INPUT_DATA['KenPomWithIds'][input_file_name]
             self.kenpom_data_frame = df[df.TeamId == self.id]  # single row from summaryXX.csv for this team
             if not self.kenpom_data_frame.empty:
                 self.pythag = self.kenpom_data_frame.Pythag.iloc[0]
@@ -103,13 +103,13 @@ class Season(object):
         }
 
     def build_teams(self):
-        """:method: Build Team objects for this season from KAGGLE_INPUT."""
-        df = Constants.KAGGLE_INPUT['tourney_seeds']
+        """:method: Build Team objects for this season from INPUT_DATA['Kaggle']."""
+        df = Constants.INPUT_DATA['Kaggle']['tourney_seeds']
         tourney_teams = df[df.season == self.id]  # slice of tourney_seeds DataFrame for current season
         for _id, row in tourney_teams.iterrows():
             # define variables relevant to Team
             team_id = int(row.team)
-            df = Constants.KAGGLE_INPUT['teams']
+            df = Constants.INPUT_DATA['Kaggle']['teams']
             team_name = df[df.id == team_id].name.iloc[0]
             tourney_seed = row.seed
 
@@ -209,7 +209,7 @@ class Tournament(object):
         :returns: Team object
         :rtype: object
         """
-        df = Constants.KAGGLE_INPUT['tourney_seeds']
+        df = Constants.INPUT_DATA['Kaggle']['tourney_seeds']
         tourney_seeds = df[df.season == self.season.id]  # slice of tourney_seeds DataFrame for current season
 
         team_df = tourney_seeds[(tourney_seeds.season == self.season.id) & (tourney_seeds.seed == seed)]
@@ -251,7 +251,7 @@ class Tournament(object):
         round_1 = "R00"
 
         # predict winners for play-in games
-        df = Constants.KAGGLE_INPUT['tourney_slots']
+        df = Constants.INPUT_DATA['Kaggle']['tourney_slots']
         tourney_slots = df[df.season == self.season.id]  # slice of tourney_slots DataFrame for current season
         for _id, row in tourney_slots.iterrows():
             if row.slot[0] != "R":
@@ -264,7 +264,7 @@ class Tournament(object):
                 self.bracket[round_1][slot] = winner
 
         # populate non-play-in teams
-        df = Constants.KAGGLE_INPUT['tourney_seeds']
+        df = Constants.INPUT_DATA['Kaggle']['tourney_seeds']
         tourney_seeds = df[df.season == self.season.id]  # slice of tourney_seeds DataFrame for current season
         for _id, row in tourney_seeds.iterrows():
             if len(row.seed) == 3:
@@ -284,7 +284,7 @@ class Tournament(object):
         current_round_id_1digit = "R%d" % tourney_round
         current_round_id_2digit = "R%02d" % tourney_round
 
-        df = Constants.KAGGLE_INPUT['tourney_slots']
+        df = Constants.INPUT_DATA['Kaggle']['tourney_slots']
         tourney_slots = df[df.season == self.season.id]  # slice of tourney_slots DataFrame for current season
         for _id, row in tourney_slots.iterrows():
             if row.slot[:2] == current_round_id_1digit:

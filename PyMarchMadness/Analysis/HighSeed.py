@@ -13,7 +13,7 @@ class HighSeed(Analysis.BaseClass):
         self.name = "High Seed"
 
     def data_available(self, season):
-        df = Constants.KAGGLE_INPUT['tourney_seeds']
+        df = Constants.INPUT_DATA['Kaggle']['tourney_seeds']
         tourney_seeds = df[df.season == season.id]
         if not tourney_seeds.empty:
             result = True

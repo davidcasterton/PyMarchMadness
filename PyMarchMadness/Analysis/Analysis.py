@@ -78,11 +78,11 @@ class BaseClass(object):
         :param dict seasons: key=tournament year, value=Season object
         """
         # if necessary make output directory
-        if not os.path.isdir(Constants.OUTPUT_FOLDER):
-            os.mkdir(Constants.OUTPUT_FOLDER)
+        if not os.path.isdir(Constants.OUTPUT_DIR):
+            os.mkdir(Constants.OUTPUT_DIR)
 
         #variable init
-        file_path = os.path.join(Constants.OUTPUT_FOLDER, "%s-matchup_probabilities.csv" % self.get_name(remove_spaces=True))
+        file_path = os.path.join(Constants.OUTPUT_DIR, "%s-matchup_probabilities.csv" % self.get_name(remove_spaces=True))
         all_season_matchup_probabilities = pandas.DataFrame()
         years = seasons.keys()
         years.sort()
@@ -110,11 +110,11 @@ class BaseClass(object):
         :param dict seasons: key=tournament year, value=Season object
         """
         # if necessary make output directory
-        if not os.path.isdir(Constants.OUTPUT_FOLDER):
-            os.mkdir(Constants.OUTPUT_FOLDER)
+        if not os.path.isdir(Constants.OUTPUT_DIR):
+            os.mkdir(Constants.OUTPUT_DIR)
 
         #variable init
-        file_path = os.path.join(Constants.OUTPUT_FOLDER, "%s-tournament_brackets.txt" % self.get_name(remove_spaces=True))
+        file_path = os.path.join(Constants.OUTPUT_DIR, "%s-tournament_brackets.txt" % self.get_name(remove_spaces=True))
         years = seasons.keys()
         years.sort()
         handle = open(file_path, "w")

@@ -29,7 +29,7 @@ if __name__ == "__main__":
         raise Exception("Invalid entry '%s', please enter one of following values %s." % (user_input, range(num_analysis)))
 
     # analyze each available season
-    for _, row in Constants.KAGGLE_INPUT['seasons'].iterrows():
+    for _, row in Constants.INPUT_DATA['Kaggle']['seasons'].iterrows():
         print("Analyzing %s" % row['years'])
         year = int(row['years'].split("-")[1])
 

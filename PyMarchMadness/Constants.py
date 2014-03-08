@@ -4,31 +4,32 @@
 import datetime
 import os
 import pandas
+import pdb
 
 
 CURRENT_YEAR = datetime.date.today().year
 BASE_DIR = os.path.dirname(__file__)
-INPUT_FOLDER = os.path.join(BASE_DIR, "InputData")
-OUTPUT_FOLDER = os.path.join(BASE_DIR, "OutputData")
-KAGGLE_INPUT = {}  # dictionary storing DataFrames of data from Kaggle.com
-KENPOM_INPUT = {}  # dictionary storing DataFrames of data from KenPom.com
+INPUT_DIR = os.path.join(BASE_DIR, "InputData")
+OUTPUT_DIR = os.path.join(BASE_DIR, "OutputData")
+INPUT_DATA = {}
 
 
-# load Kaggle data from http://www.kaggle.com/c/march-machine-learning-mania/data
-_kaggle_dir = os.path.join(INPUT_FOLDER, "Kaggle/")
-for _file_name in os.listdir(_kaggle_dir):
-    _file_path = os.path.join(_kaggle_dir, _file_name)
-    _file_base_name = _file_name.split(".")[0]
-    KAGGLE_INPUT[_file_base_name] = pandas.read_csv(_file_path)
+# load InputData into pandas DataFrames
+for _sub_dir in os.listdir(INPUT_DIR):
+    _sub_path = os.path.join(INPUT_DIR, _sub_dir)
 
+    if not os.path.isdir(_sub_path):
+        #skip non directories
+        continue
 
-# load KenPom data from http://kenpom.com/
-_kenpom_dir = os.path.join(INPUT_FOLDER, "KenPomWithIds")
-if os.path.isdir(_kenpom_dir):
-    for _file_name in os.listdir(_kenpom_dir):
-        _file_path = os.path.join(_kenpom_dir, _file_name)
-        _file_base_name = _file_name.split(".")[0]
-        KENPOM_INPUT[_file_base_name] = pandas.read_csv(_file_path)
+    INPUT_DATA[_sub_dir] = {}
+    for _file in os.listdir(_sub_path):
+        _file_path = os.path.join(_sub_path, _file)
+        _file_base_name, _extension = os.path.splitext(_file)
+        if _extension == ".csv":
+            INPUT_DATA[_sub_dir][_file_base_name] = pandas.read_csv(_file_path)
+        elif _extension == ".xls":
+            INPUT_DATA[_sub_dir][_file_base_name] = pandas.read_excel(_file_path, 0, index_col=None, na_values=['NA'])
 
 
 # blank tournament bracket
