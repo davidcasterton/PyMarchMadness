@@ -23,7 +23,7 @@ PyMarchMadness
 
 ####How To Add New Analysis To Framework:
   - Create an analysis module that inherits from [Analysis.BaseClass] (PyMarchMadness/Analysis/Analysis.py)
-  - Implement all methods that were not defined in [Analysis.BaseClass] (PyMarchMadness/Analysis/Analysis.py)
+  - Implement all methods in [Analysis.BaseClass] (PyMarchMadness/Analysis/Analysis.py) marked with "NotImplementedError"
   - Insert analysis module into [PyMarchMadness/Analysis/] (PyMarchMadness/Analysis/)
   - Select new analysis module when prompted at run-time
 

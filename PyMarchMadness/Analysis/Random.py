@@ -1,13 +1,10 @@
 #!/usr/bin/env python
-"""Win probability randomly generated."""
+""":module: Win probability randomly generated."""
 
 import random
 
 import Analysis
 import Constants
-
-__author__ = "David Casterton"
-__license__ = "GPL"
 
 
 class Random(Analysis.BaseClass):
@@ -15,14 +12,21 @@ class Random(Analysis.BaseClass):
         self.name = "Random"
 
     def data_available(self, season):
+        if not Constants.INPUT_DATA.get('Kaggle'):
+            return False
+
+        if not Constants.INPUT_DATA['Kaggle'].get('tourney_seeds'):
+            return False
+
         df = Constants.INPUT_DATA['Kaggle']['tourney_seeds']
         tourney_seeds = df[df.season == season.id]
-        if not tourney_seeds.empty:
-            result = True
-        else:
-            result = False
+        if tourney_seeds.empty:
+            return False
 
-        return result
+        return True
+
+    def train(self):
+        pass
 
     def win_probability(self, team_1, team_2):
         team_1_win_probability = random.random()

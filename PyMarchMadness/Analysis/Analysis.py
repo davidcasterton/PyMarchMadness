@@ -43,6 +43,12 @@ class BaseClass(object):
 
         return name
 
+    def train(self):
+        """
+        :method: Train on regular season data
+        """
+        raise NotImplementedError
+
     def win_probability(self, team_1, team_2):
         """
         :method: Calculate win probability between 2 teams.

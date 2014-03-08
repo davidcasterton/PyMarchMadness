@@ -1,11 +1,8 @@
 #!/usr/bin/env python
-"""Win probability calculated as difference from division seed values."""
+""":module: Win probability calculated as difference from division seed values."""
 
 import Analysis
 import Constants
-
-__author__ = "David Casterton"
-__license__ = "GPL"
 
 
 class HighSeed(Analysis.BaseClass):
@@ -21,6 +18,9 @@ class HighSeed(Analysis.BaseClass):
             result = False
 
         return result
+
+    def train(self):
+        pass
 
     def win_probability(self, team_1, team_2):
         max_seed = 16
