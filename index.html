@@ -32,24 +32,10 @@
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
         <h4>
-<a name="information" class="anchor" href="#information"><span class="octicon octicon-link"></span></a>Information:</h4>
+<a name="code-documentation" class="anchor" href="#code-documentation"><span class="octicon octicon-link"></span></a>Code Documentation:</h4>
 
 <ul>
-<li>
-<strong>Code Documentation:</strong> <a href="http://pymarchmadness.readthedocs.org/">http://pymarchmadness.readthedocs.org/</a>
-</li>
-<li>
-<strong>Source Code:</strong> in PyMarchMadness/</li>
-<li>
-<strong>How To Add New Analysis To Framework:</strong> 
-
-<ul>
-<li>Create an analysis module that inherits from Analysis.BaseClass</li>
-<li>Implement all methods that were not defined in Analysis.BaseClass</li>
-<li>Insert analysis module into PyMarchMadness/Analysis/</li>
-<li>Select new analysis module when prompted at run-time</li>
-</ul>
-</li>
+<li><a href="http://pymarchmadness.readthedocs.org/">http://pymarchmadness.readthedocs.org/</a></li>
 </ul><h4>
 <a name="software-dependencies" class="anchor" href="#software-dependencies"><span class="octicon octicon-link"></span></a>Software Dependencies:</h4>
 
@@ -67,6 +53,24 @@
 
 <pre><code>python PyMarchMadness
 </code></pre>
+
+<h4>
+<a name="how-to-add-new-analysis-to-framework" class="anchor" href="#how-to-add-new-analysis-to-framework"><span class="octicon octicon-link"></span></a>How To Add New Analysis To Framework:</h4>
+
+<ul>
+<li>Create an analysis module that inherits from Analysis.BaseClass</li>
+<li>Implement all methods that were not defined in Analysis.BaseClass</li>
+<li>Insert analysis module into PyMarchMadness/Analysis/</li>
+<li>Select new analysis module when prompted at run-time</li>
+</ul><h4>
+<a name="how-to-add-new-input-data" class="anchor" href="#how-to-add-new-input-data"><span class="octicon octicon-link"></span></a>How To Add New Input Data:</h4>
+
+<ul>
+<li>Add <em>&lt;new_folder&gt;</em> into InputData/</li>
+<li>Add data files into InputData/<em>&lt;new_folder&gt;</em>
+</li>
+<li>Modify Constants.py to load new data files, e.g. KAGGLE_INPUT</li>
+</ul>
       </section>
     </div>
 
