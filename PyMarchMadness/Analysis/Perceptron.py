@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 """
-:module: Multilayer Perceptron using Theano to calculate tournament win probabilities. Built on example code from http://deeplearning.net/tutorial/mlp.html.
+:module: Multilayer Perceptron using Theano to calculate tournament win probabilities.
+Built on example code from http://deeplearning.net/tutorial/mlp.html.
+
 
 A multilayer perceptron is a logistic regressor where
 instead of feeding the input to the logistic regression you insert a
@@ -42,6 +44,8 @@ import Analysis
 import Constants
 import Misc
 
+__docformat__ = 'restructedtext en'
+
 
 class Perceptron(Analysis.BaseClass):
     def __init__(self):
@@ -71,6 +75,7 @@ class Perceptron(Analysis.BaseClass):
 
 
 # Theano example code below
+# TODO adapt into framework
 
 class HiddenLayer(object):
     def __init__(self, rng, input, n_in, n_out, W=None, b=None,
