@@ -20,6 +20,7 @@ OUTPUT_DIR = os.path.join(BASE_DIR, "OutputData")
 INPUT_DATA = {}
 
 # load InputData into pandas DataFrames
+print("Loading Input Data...")
 for _sub_dir in os.listdir(INPUT_DIR):
     _sub_path = os.path.join(INPUT_DIR, _sub_dir)
 
@@ -35,6 +36,7 @@ for _sub_dir in os.listdir(INPUT_DIR):
             INPUT_DATA[_sub_dir][_file_base_name] = pandas.read_csv(_file_path)
         elif _extension == ".xls":
             INPUT_DATA[_sub_dir][_file_base_name] = pandas.read_excel(_file_path, 0, index_col=None, na_values=['NA'])
+print("Input Data loaded.")
 
 # lookup dictionaries based on input data
 SEASON_ID_TO_YEAR = {}

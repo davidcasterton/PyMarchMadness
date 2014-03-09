@@ -14,20 +14,20 @@ def check_input_data(directory, file_name, raise_exception=True):
             return False
 
     if not Constants.INPUT_DATA.get(directory):
-        return _fail(raise_exception)
+        return _fail(raise_exception, file_name, raise_exception)
 
     if file_name not in Constants.INPUT_DATA[directory].keys():
-        return _fail(raise_exception)
+        return _fail(raise_exception, file_name, raise_exception)
 
     if Constants.INPUT_DATA[directory][file_name].empty:
-        return _fail(raise_exception)
+        return _fail(raise_exception, file_name, raise_exception)
 
     return True
 
 
 def get_tournament_year(year):
         """
-        :method: Return tournament year as int
+        :function: Return tournament year as int
 
         :param string/int year: possible formats: 1) int(XXXX), 2) str("XXXX"), 3) str("XXXX-YYYY")
         :returns: tournament_year

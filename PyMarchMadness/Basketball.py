@@ -37,18 +37,16 @@ class TeamFactory(object):
             # variable init
             season_id = row.season
             team_id = int(row.team)
+            tourney_seed = row.seed
             df_teams = Constants.INPUT_DATA['Kaggle']['teams']
             team_name = df_teams[df_teams.id == team_id].name.iloc[0]
-            tourney_seed = row.seed
 
             # create Team object
             team = self.get_team(team_id)
             if not team:
-                team = Team(id=team_id, name=team_name)
+                team = self.add_team(team_id, team_name)
             season = team.add_season(season_id)
             season.set_tourney_seed(tourney_seed)
-
-            self.add_team(team_id, team_name)
 
 
 class Team(object):
@@ -84,7 +82,8 @@ class Team(object):
 
         :param season_id: Kaggle season_id
         """
-        return self.seasons.get(season_id)
+        season = self.seasons.get(season_id)
+        return season
 
     def add_season(self, season_id):
         """
@@ -92,11 +91,11 @@ class Team(object):
 
         :param string season_id:  year of NCAA tournament
         """
-        if not self.get_season(season_id):
+        if not self.seasons.get(season_id):
             season = Season(season_id)
             self.seasons[season_id] = season
 
-        return self.get_season(season_id)
+        return self.seasons.get(season_id)
 
 
 class Season(object):

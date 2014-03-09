@@ -74,8 +74,7 @@ if __name__ == "__main__":
     season_ids.sort()
     for season_id in season_ids:
         tournament = tournaments.get(season_id)
-        bracket = tournament.get_bracket()
-        if bracket != Constants.TOURNAMENT_BRACKET:
-            handle.write(bracket)
+        if tournament and (tournament.get_bracket() != Constants.TOURNAMENT_BRACKET):
+            handle.write(tournament.get_bracket())
     handle.close()
     print("Wrote tournament brackets to: '%s'" % file_path)

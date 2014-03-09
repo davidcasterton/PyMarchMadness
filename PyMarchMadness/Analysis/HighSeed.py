@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 """:module: Win probability calculated as difference from division seed values."""
+import pdb
 
 import Analysis
 import Constants
@@ -24,4 +25,6 @@ class HighSeed(Analysis.BaseClass):
         team_1_season = team_1.get_season(season_id)
         team_2_season = team_2.get_season(season_id)
 
-        return float((max_seed - team_1_season.division_seed) - (max_seed - team_2_season.division_seed)) / max_seed + 0.5
+        result = float((max_seed - team_1_season.division_seed) - (max_seed - team_2_season.division_seed)) / max_seed + 0.5
+
+        return result
