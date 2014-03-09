@@ -10,5 +10,5 @@ PyMarchMadness Input Data
 - Add *\<new_folder\>*
 - Add data files into *\<new_folder\>*
 
-####Data Wrangling:
+####Data Wrangling Code:
 - **WrangleKenPom.py :** Generates InputData/KenPomWithIds/ directory, which adds TeamId column to all files from InputData/KenPom/. (KenPom data is not longer included in repo, see 'Input Data Sources' for more information.)
