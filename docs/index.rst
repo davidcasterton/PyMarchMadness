@@ -13,8 +13,8 @@ Contents:
 
    PyMarchMadness.rst
 
-.. inheritance-diagram:: PyMarchMadness.rst
-   :parts: 3
+.. inheritance-diagram:: PyMarchMadness PyMarchMadness.Basketball PyMarchMadness.Basketball.TeamFactory PyMarchMadness.Basketball.Team PyMarchMadness.Basketball.Season PyMarchMadness.Basketball.Tournament PyMarchMadness.Analysis PyMarchMadness.Analysis.Analysis PyMarchMadness.Analysis.Random PyMarchMadness.Analysis.HighSeed PyMarchMadness.Analysis.Pythag
+   :parts: 2
 
 Indices and tables
 ==================
