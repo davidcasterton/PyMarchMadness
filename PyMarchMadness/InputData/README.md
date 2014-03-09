@@ -7,4 +7,4 @@ PyMarchMadness Input Data
 - [~~**KenPom**~~] (http://kenpom.com/) available for $19.95 at preceeding link
 
 ####Data Wrangling:
-- **WrangleKenPom.py :** Generates InputData/KenPomWithIds/ directory, which adds TeamId column to all files from InputData/KenPom/. (KenPom data is not longer included in repo, see 'Input Data Sources' below for more information.)
+- **WrangleKenPom.py :** Generates InputData/KenPomWithIds/ directory, which adds TeamId column to all files from InputData/KenPom/. (KenPom data is not longer included in repo, see 'Input Data Sources' for more information.)
