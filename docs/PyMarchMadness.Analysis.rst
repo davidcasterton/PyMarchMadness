@@ -20,6 +20,14 @@ PyMarchMadness.Analysis.HighSeed module
     :undoc-members:
     :show-inheritance:
 
+PyMarchMadness.Analysis.Perceptron module
+-----------------------------------------
+
+.. automodule:: PyMarchMadness.Analysis.Perceptron
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 PyMarchMadness.Analysis.Pythag module
 -------------------------------------
 

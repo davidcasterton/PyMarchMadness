@@ -35,23 +35,19 @@ class Pythag(Analysis.BaseClass):
             season.pythag = df_team.Pythag.iloc[0]
 
     def win_probability(self, team_1, team_2, season_id, daynum=None):
-        if self.data_available(season_id):
-            team_1_season = team_1.get_season(season_id)
-            if not team_1_season:
-                team_1_season = team_1.add_season(season_id)
-            team_2_season = team_2.get_season(season_id)
-            if not team_2_season:
-                team_2_season = team_2.add_season(season_id)
+        if not self.data_available(season_id):
+            return None
 
-            # load pythag if needed
-            if not hasattr(team_1_season, 'pythag'):
-                self.get_pythag(season_id, team_1)
-            if not hasattr(team_2_season, 'pythag'):
-                self.get_pythag(season_id, team_2)
+        team_1_season = team_1.get_season(season_id)
+        team_2_season = team_2.get_season(season_id)
 
-            team_1_win_probability = (((team_1_season.pythag - team_2_season.pythag) + 1) / 2)
-            team_1_win_probability = round(team_1_win_probability, 6)
-        else:
-            team_1_win_probability = None
+        # load pythag if needed
+        if not hasattr(team_1_season, 'pythag'):
+            self.get_pythag(season_id, team_1)
+        if not hasattr(team_2_season, 'pythag'):
+            self.get_pythag(season_id, team_2)
+
+        team_1_win_probability = (((team_1_season.pythag - team_2_season.pythag) + 1) / 2)
+        team_1_win_probability = round(team_1_win_probability, 6)
 
         return team_1_win_probability
