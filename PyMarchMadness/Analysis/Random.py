@@ -5,6 +5,7 @@ import random
 
 import Analysis
 import Constants
+import Misc
 
 
 class Random(Analysis.BaseClass):
@@ -12,23 +13,12 @@ class Random(Analysis.BaseClass):
         self.name = "Random"
 
     def data_available(self, season):
-        if not Constants.INPUT_DATA.get('Kaggle'):
-            return False
-
-        if not Constants.INPUT_DATA['Kaggle'].get('tourney_seeds'):
-            return False
-
-        df = Constants.INPUT_DATA['Kaggle']['tourney_seeds']
-        tourney_seeds = df[df.season == season.id]
-        if tourney_seeds.empty:
-            return False
-
         return True
 
-    def train(self):
+    def train(self, team, season_id):
         pass
 
-    def win_probability(self, team_1, team_2):
+    def win_probability(self, team_1, team_2, season_id, daynum=None):
         team_1_win_probability = random.random()
         team_1_win_probability = round(team_1_win_probability, 6)
 

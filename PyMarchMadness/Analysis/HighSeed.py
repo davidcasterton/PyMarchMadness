@@ -3,25 +3,25 @@
 
 import Analysis
 import Constants
+import Misc
 
 
 class HighSeed(Analysis.BaseClass):
     def __init__(self):
         self.name = "High Seed"
 
-    def data_available(self, season):
-        df = Constants.INPUT_DATA['Kaggle']['tourney_seeds']
-        tourney_seeds = df[df.season == season.id]
-        if not tourney_seeds.empty:
-            result = True
-        else:
-            result = False
+    def data_available(self, season_id):
+        Misc.check_input_data("Kaggle", "tourney_seeds", raise_exception=True)
 
-        return result
+        return True
 
-    def train(self):
+    def train(self, team, season_id):
         pass
 
-    def win_probability(self, team_1, team_2):
+    def win_probability(self, team_1, team_2, season_id, daynum=None):
         max_seed = 16
-        return float((max_seed - team_1.division_seed) - (max_seed - team_2.division_seed)) / max_seed + 0.5
+
+        team_1_season = team_1.get_season(season_id)
+        team_2_season = team_2.get_season(season_id)
+
+        return float((max_seed - team_1_season.division_seed) - (max_seed - team_2_season.division_seed)) / max_seed + 0.5

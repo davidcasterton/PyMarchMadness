@@ -18,11 +18,11 @@ class BaseClass(object):
         if type(self) == BaseClass:
             raise Exception("Analysis must be subclassed.")
 
-    def data_available(self, season):
+    def data_available(self, season_id):
         """
         :method: Check if required data is available for this season.
 
-        :param object season: Season object
+        :param str season: Kaggle season id
         :returns: True if KenPom data is available
         :rtype: bool
         """
@@ -43,97 +43,43 @@ class BaseClass(object):
 
         return name
 
-    def train(self):
+    def train(self, team, season_id):
         """
         :method: Train on regular season data
+
+        :param object team: Team object
+        :param object season: Kaggle season id
         """
         raise NotImplementedError
 
-    def win_probability(self, team_1, team_2):
+    def win_probability(self, team_1, team_2, season_id, daynum=None):
         """
         :method: Calculate win probability between 2 teams.
 
         :param object team_1: Team object
         :param object team_2: Team object
+        :param int season_id: Kaggle season id
+        :param int daynum: day number within season, 1st game is day 0
         :returns: probability that team 1 will beat team 2. Value > 0.5 indicates that team 1 will win.
         :rtype: float
         """
         raise NotImplementedError
 
-    def predict_winner(self, team_1, team_2):
+    def predict_winner(self, team_1, team_2, season_id, daynum=None):
         """
         :method: Predict the winner between 2 teams.
 
         :param object team_1: Team object
         :param object team_2: Team object
+        :param int season_id: Kaggle season id
+        :param int daynum: day number within season, 1st game is day 0
         :returns: Team predicted to win
         :rtype: object
         """
-        team_1_win_probability = self.win_probability(team_1, team_2)
+        team_1_win_probability = self.win_probability(team_1, team_2, season_id, daynum)
         if team_1_win_probability >= 0.5:
             winner = team_1
         else:
             winner = team_2
 
         return winner
-
-    def write_matchup_probabilities_file(self, seasons):
-        """
-        :method: Write win probabilities to a .csv file for every possible team combination.
-
-        :param dict seasons: key=tournament year, value=Season object
-        """
-        # if necessary make output directory
-        if not os.path.isdir(Constants.OUTPUT_DIR):
-            os.mkdir(Constants.OUTPUT_DIR)
-
-        #variable init
-        file_path = os.path.join(Constants.OUTPUT_DIR, "%s-matchup_probabilities.csv" % self.get_name(remove_spaces=True))
-        all_season_matchup_probabilities = pandas.DataFrame()
-        years = seasons.keys()
-        years.sort()
-
-        for year in years:
-            #only write probabilities for last 5 years
-            if year < (Constants.CURRENT_YEAR-5):
-                continue
-
-            season = seasons[year]
-            all_season_matchup_probabilities = all_season_matchup_probabilities.append(season.matchup_probabilities)
-
-        # Write probabilities file. Output is formatted into 2 rows:
-        #   row 1: identifies season and two teams playing
-        #   row 2: probability that team1 beats team2
-        all_season_matchup_probabilities.to_csv(file_path, mode="w", index=False)
-
-        print("Wrote match up probabilities to: '%s'" % file_path)
-
-
-    def write_bracket_file(self, seasons):
-        """
-        :method: Write tournament bracket to .txt file.
-
-        :param dict seasons: key=tournament year, value=Season object
-        """
-        # if necessary make output directory
-        if not os.path.isdir(Constants.OUTPUT_DIR):
-            os.mkdir(Constants.OUTPUT_DIR)
-
-        #variable init
-        file_path = os.path.join(Constants.OUTPUT_DIR, "%s-tournament_brackets.txt" % self.get_name(remove_spaces=True))
-        years = seasons.keys()
-        years.sort()
-        handle = open(file_path, "w")
-
-        for year in years:
-            season = seasons[year]
-
-            if season.tournament.bracket == Constants.TOURNAMENT_BRACKET:
-                continue
-
-            # write bracket to  file
-            handle.write(season.get_bracket() + "\n")
-
-        handle.close()
-
-        print("Wrote predicted tournament bracket to: '%s'" % file_path)

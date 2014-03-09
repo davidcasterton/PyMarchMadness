@@ -6,13 +6,18 @@ import os
 import pandas
 import pdb
 
+import Misc
 
+
+# misc variables
 CURRENT_YEAR = datetime.date.today().year
+INDENTATION = "    "
+
+# input data variables
 BASE_DIR = os.path.dirname(__file__)
 INPUT_DIR = os.path.join(BASE_DIR, "InputData")
 OUTPUT_DIR = os.path.join(BASE_DIR, "OutputData")
 INPUT_DATA = {}
-
 
 # load InputData into pandas DataFrames
 for _sub_dir in os.listdir(INPUT_DIR):
@@ -31,6 +36,24 @@ for _sub_dir in os.listdir(INPUT_DIR):
         elif _extension == ".xls":
             INPUT_DATA[_sub_dir][_file_base_name] = pandas.read_excel(_file_path, 0, index_col=None, na_values=['NA'])
 
+# lookup dictionaries based on input data
+SEASON_ID_TO_YEAR = {}
+DIVISIONS = {}
+SEASON_YEAR_TO_ID = {}
+if Misc.check_input_data("Kaggle", "seasons", raise_exception=False):
+    df = INPUT_DATA['Kaggle']['seasons']
+    for _, row in df.iterrows():
+        season_id = row['season']
+        tournament_year = Misc.get_tournament_year(row['years'])
+
+        SEASON_YEAR_TO_ID[tournament_year] = season_id
+        SEASON_ID_TO_YEAR[season_id] = tournament_year
+        DIVISIONS[season_id] = {
+            "W": row['regionW'],
+            "X": row['regionX'],
+            "Y": row['regionY'],
+            "Z": row['regionZ'],
+        }
 
 # blank tournament bracket
 TOURNAMENT_BRACKET = {

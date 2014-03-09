@@ -24,8 +24,8 @@ PyMarchMadness Source Code
 
 ####Input Data Sources:
 - [**Kaggle**] (http://www.kaggle.com/c/march-machine-learning-mania/data)
-- [~~**BracketScience**~~] (http://wp.bracketscience.com/) available for purchase at preceeding link
-- [~~**KenPom**~~] (http://kenpom.com/) available for purchase at preceeding link
+- [~~**BracketScience**~~] (http://wp.bracketscience.com/) available for $10 at preceeding link
+- [~~**KenPom**~~] (http://kenpom.com/) available for $19.95 at preceeding link
 
 ####How To Add New Input Data:
 - Add *\<new_folder\>* into [InputData/] (InputData/)
