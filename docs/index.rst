@@ -13,7 +13,7 @@ Contents:
 
    PyMarchMadness.rst
 
-.. inheritance-diagram:: PyMarchMadness PyMarchMadness.Basketball PyMarchMadness.Basketball.TeamFactory PyMarchMadness.Basketball.Team PyMarchMadness.Basketball.Season PyMarchMadness.Basketball.Tournament PyMarchMadness.Analysis PyMarchMadness.Analysis.Analysis PyMarchMadness.Analysis.Random PyMarchMadness.Analysis.HighSeed PyMarchMadness.Analysis.Pythag
+.. inheritance-diagram:: PyMarchMadness PyMarchMadness.Basketball PyMarchMadness.Basketball.TeamFactory PyMarchMadness.Basketball.Team PyMarchMadness.Basketball.Season PyMarchMadness.Basketball.Tournament PyMarchMadness.Analysis PyMarchMadness.Analysis.Analysis PyMarchMadness.Analysis.Random PyMarchMadness.Analysis.HighSeed PyMarchMadness.Analysis.Perceptron PyMarchMadness.Analysis.Pythag
    :parts: 2
 
 Indices and tables
