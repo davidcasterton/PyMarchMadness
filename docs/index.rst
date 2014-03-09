@@ -19,8 +19,8 @@ Contents:
    PyMarchMadness
    PyMarchMadness.Basketball
    PyMarchMadness.Basketball.TeamFactory
-   PyMarchMadness.Basketball.TeamFactory.Team
-   PyMarchMadness.Basketball.TeamFactory.Team.Season
+   PyMarchMadness.Basketball.Team
+   PyMarchMadness.Basketball.Season
    PyMarchMadness.Basketball.Tournament
    PyMarchMadness.Analysis
    PyMarchMadness.Analysis.Analysis
