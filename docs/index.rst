@@ -9,12 +9,24 @@ PyMarchMadness documentation
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
 
    PyMarchMadness.rst
 
-.. inheritance-diagram:: PyMarchMadness PyMarchMadness.Basketball PyMarchMadness.Basketball.TeamFactory PyMarchMadness.Basketball.TeamFactory.Team PyMarchMadness.Basketball.TeamFactory.Team.Season PyMarchMadness.Basketball.Tournament PyMarchMadness.Analysis PyMarchMadness.Analysis.Analysis PyMarchMadness.Analysis.Random PyMarchMadness.Analysis.HighSeed PyMarchMadness.Analysis.Pythag
+.. inheritance-diagram::
    :parts: 2
+
+   PyMarchMadness
+   PyMarchMadness.Basketball
+   PyMarchMadness.Basketball.TeamFactory
+   PyMarchMadness.Basketball.TeamFactory.Team
+   PyMarchMadness.Basketball.TeamFactory.Team.Season
+   PyMarchMadness.Basketball.Tournament
+   PyMarchMadness.Analysis
+   PyMarchMadness.Analysis.Analysis
+   PyMarchMadness.Analysis.Random
+   PyMarchMadness.Analysis.HighSeed
+   PyMarchMadness.Analysis.Pythag
 
 Indices and tables
 ==================

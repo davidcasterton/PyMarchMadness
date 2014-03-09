@@ -100,10 +100,7 @@ class TeamFactory(object):
 
 
         class Season(object):
-            """
-            :method: 1 Season worth of data for 1 team. This class is mostly a data container populated by Analysis classes.
-
-            """
+            """:method: 1 Season worth of data for 1 team. This class is mostly a data container populated by Analysis classes."""
             def __init__(self, id):
                 """
                 :param int season_id: Kaggle season id
