@@ -22,7 +22,7 @@ class TeamFactory(object):
 
     def add_team(self, team_id, team_name):
         if not self.get_team(team_id):
-            team = Team(team_id, team_name)
+            team = self.Team(team_id, team_name)
             self.teams[team_id] = team
 
         return self.get_team(team_id)
@@ -44,109 +44,109 @@ class TeamFactory(object):
             # create Team object
             team = self.get_team(team_id)
             if not team:
-                team = Team(id=team_id, name=team_name)
+                team = self.Team(id=team_id, name=team_name)
             season = team.add_season(season_id)
             season.set_tourney_seed(tourney_seed)
 
             self.add_team(team_id, team_name)
 
 
-class Team(object):
-    """:class: 1 NCAA backetball team."""
-    def __init__(self, id, name):
-        """
-        :param int id:  team identifier, defined in Kaggle/teams.csv id column
-        :param string name:  team name, defined in Kaggle/teams.csv name column
-        """
-        self.id = id
-        self.name = name
+    class Team(object):
+        """:class: 1 NCAA backetball team."""
+        def __init__(self, id, name):
+            """
+            :param int id:  team identifier, defined in Kaggle/teams.csv id column
+            :param string name:  team name, defined in Kaggle/teams.csv name column
+            """
+            self.id = id
+            self.name = name
 
-        self.seasons = {}  # dictionary of Season objects, indexed by season_id (int)
+            self.seasons = {}  # dictionary of Season objects, indexed by season_id (int)
 
-    def __str__(self, indentation_level=0):
-        indentation = Constants.INDENTATION * indentation_level
+        def __str__(self, indentation_level=0):
+            indentation = Constants.INDENTATION * indentation_level
 
-        _string = "%s%s\n" % (indentation, self.name)
-        _string += "%sid: %s\n" % (indentation, self.id)
+            _string = "%s%s\n" % (indentation, self.name)
+            _string += "%sid: %s\n" % (indentation, self.id)
 
-        # add seasons
-        seasons = self.seasons.keys()
-        seasons.sort()
-        for season in seasons:
-            season_object = self.seasons.get(season)
-            _string += season_object.__str__(indentation_level=indentation_level+1)
+            # add seasons
+            seasons = self.seasons.keys()
+            seasons.sort()
+            for season in seasons:
+                season_object = self.seasons.get(season)
+                _string += season_object.__str__(indentation_level=indentation_level+1)
 
-        return _string
+            return _string
 
-    def get_season(self, season_id):
-        """
-        :method: Get Season object from season_id
+        def get_season(self, season_id):
+            """
+            :method: Get Season object from season_id
 
-        :param season_id: Kaggle season_id
-        """
-        return self.seasons.get(season_id)
+            :param season_id: Kaggle season_id
+            """
+            return self.seasons.get(season_id)
 
-    def add_season(self, season_id):
-        """
-        :method: Add Season object for season_id
+        def add_season(self, season_id):
+            """
+            :method: Add Season object for season_id
 
-        :param string season_id:  year of NCAA tournament
-        """
-        if not self.get_season(season_id):
-            season = Season(season_id)
-            self.seasons[season_id] = season
+            :param string season_id:  year of NCAA tournament
+            """
+            if not self.get_season(season_id):
+                season = self.Season(season_id)
+                self.seasons[season_id] = season
 
-        return self.get_season(season_id)
+            return self.get_season(season_id)
 
 
-class Season(object):
-    """
-    :method: 1 Season worth of data for 1 team. This class is mostly a data container populated by Analysis classes.
+        class Season(object):
+            """
+            :method: 1 Season worth of data for 1 team. This class is mostly a data container populated by Analysis classes.
 
-    """
-    def __init__(self, id):
-        """
-        :param int season_id: Kaggle season id
-        """
-        self.id = id
-        self.tournament_year = Constants.SEASON_ID_TO_YEAR.get(id)
+            """
+            def __init__(self, id):
+                """
+                :param int season_id: Kaggle season id
+                """
+                self.id = id
+                self.tournament_year = Constants.SEASON_ID_TO_YEAR.get(id)
 
-        self.tourney_seed = None
-        self.division = None
-        self.division_seed = None
+                self.tourney_seed = None
+                self.division = None
+                self.division_seed = None
 
-    def __str__(self, indentation_level=0):
-        """
-        :method: Return string of all variables in local namespace
+            def __str__(self, indentation_level=0):
+                """
+                :method: Return string of all variables in local namespace
 
-        :param int indentation_level: top level indentation level for each line in response
-        :results: string of all variables in locals()
-        """
-        def _variable_name(obj, namespace):
-            return [name for name in namespace if namespace[name] is obj]
+                :param int indentation_level: top level indentation level for each line in response
+                :results: string of all variables in locals()
+                """
+                def _variable_name(obj, namespace):
+                    return [name for name in namespace if namespace[name] is obj]
 
-        indentation = Constants.INDENTATION * indentation_level
+                indentation = Constants.INDENTATION * indentation_level
 
-        _string = "%sSeason: %s (%s)\n" % (indentation, self.tournament_year, self.id)
+                _string = "%sSeason: %s (%s)\n" % (indentation, self.tournament_year, self.id)
 
-        indentation = Constants.INDENTATION * (indentation_level+1)
-        for variable_name, value in locals():
-            #variable_name = _variable_name(variable, locals())
-            _string += "%s%s: %s\n" % (indentation, variable_name, value)
+                indentation = Constants.INDENTATION * (indentation_level+1)
+                for variable_name, value in locals():
+                    #variable_name = _variable_name(variable, locals())
+                    _string += "%s%s: %s\n" % (indentation, variable_name, value)
 
-        return _string
+                return _string
 
-    def set_tourney_seed(self, tourney_seed):
-        """
-        :method: Set this teams seed in the tournament.
+            def set_tourney_seed(self, tourney_seed):
+                """
+                :method: Set this teams seed in the tournament.
 
-        :param string tourney_seed: string encoding this teams division and seed
-        :param dict regions: dictionary to map between division id's and division names
-        """
-        self.tourney_seed = str(tourney_seed)
-        division_id = self.tourney_seed[0]
-        self.division = Constants.DIVISIONS[self.id][division_id]
-        self.division_seed = int(self.tourney_seed[1:2])
+                :param string tourney_seed: string encoding this teams division and seed
+                :param dict regions: dictionary to map between division id's and division names
+                """
+                self.tourney_seed = str(tourney_seed)
+                division_id = self.tourney_seed[0]
+                self.division = Constants.DIVISIONS[self.id][division_id]
+                self.division_seed = int(self.tourney_seed[1:2])
 
 
 class Tournament(object):
