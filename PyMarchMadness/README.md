@@ -14,7 +14,7 @@ PyMarchMadness Source Code
   - **Analysis.py :** Analysis base class.
 - **Constants.py :** Loads input data files and defines constant values.
 - **Basketball.py :** Team, Season, & Tournament classes.
-- **WrangleKenPom.py :** Generates InputData/KenPomWithIds/ directory, which adds TeamId column to all files from InputData/KenPom/. (KenPom data is not longer included in repo, see 'Input Data Sources' below for more information.)
+- **Misc.py :** Miscellaneous helper functions.
 
 ####How To Add New Analysis To Framework:
 - Create an analysis module that inherits from [Analysis.BaseClass] (Analysis/Analysis.py)
