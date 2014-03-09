@@ -59,7 +59,6 @@ __docformat__ = 'restructedtext en'
 class Perceptron(Analysis.BaseClass):
     def __init__(self):
         self.name = "Perceptron"
-        self.neural_net =
 
     def data_available(self, season_id):
         pass
