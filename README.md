@@ -18,9 +18,6 @@ PyMarchMadness
 ####Source Code Documentation:
 - http://pymarchmadness.readthedocs.org/
 
-####Source Code Location:
-- [PyMarchMadness/] (PyMarchMadness/)
-
 ####How To Add New Analysis To Framework:
   - Create an analysis module that inherits from [Analysis.BaseClass] (PyMarchMadness/Analysis/Analysis.py)
   - Implement all methods in [Analysis.BaseClass] (PyMarchMadness/Analysis/Analysis.py) marked with *NotImplementedError*
