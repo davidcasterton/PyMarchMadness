@@ -67,8 +67,7 @@ class Perceptron(Analysis.BaseClass):
         pass
 
     def win_probability(self, team_1, team_2, season_id, daynum=None):
-        team_1_season = team_1.get_season(season_id)
-        team_2_season = team_2.get_season(season_id)
+        pass
 
 
 
@@ -78,7 +77,164 @@ class Perceptron(Analysis.BaseClass):
 
 
 
+    ################################################################################
+    # MatLab example code below
+    # TODO use as reference implementation
+    ################################################################################
+    """
+    %--------------------
+    %-----Data Mining Competition
+    %-----David Casterton
+    %--------------------
 
+    %dataIn=load('Workarea/ClassifyTrain.txt');
+    function [u,v,epoch,alpha] = dataMine12(data,u,v,M,alpha,startEpoch,inEpoch,a,b);
+
+    %--------------------
+    %-----loading data sets
+    %--------------------
+    start=clock; tic;
+    fprintf(strcat('loading...\n'));
+    Y=data(:,1)-1;
+    data=data(:,2:702);
+    fprintf(strcat('loaded:\tall data\t\t\t\t\t',num2str(toc),'secs\n')); tic;
+
+    train=data(1:(0+a),:);
+    trainClass=Y(1:(0+a),1);
+    t2=toc;
+    fprintf(strcat('loaded:\ttraining set:\t',num2str(a),'\t\t',num2str(toc),'secs\n')); tic;
+
+    test=data(29001:(29000+b),:);
+    testClass=Y(29001:(29000+b),1);
+    t3=toc;
+    fprintf(strcat('loaded:\ttest set:\t\t',num2str(b),'\t\t',num2str(toc),'secs\n')); tic;
+
+    clear data
+
+    %------------------------------
+    %-----training
+    %------------------------------
+
+    %-----initializations
+    tic;
+    epoch=startEpoch;
+    endEpoch=startEpoch+inEpoch;
+    %M; %-----# of neurons
+    m=1;%-----# output neurons
+    n=701; %-----# of inputs
+    if u==0 & v==0
+        u=randn(M,n);
+        v=randn((M+1),m);
+    end
+    if (size(u,1)~=M) & (M>size(u,1))
+        uOld=u; vOld=v;
+        u=randn(M,n);
+        v=randn((M+1),m);
+        u(1:size(uOld,1),1:size(uOld,2))=uOld;
+        v(1:size(vOld,1),1:size(vOld,2))=vOld;
+    end
+    if (size(u,1)~=M) & (M<size(u,1))
+        uOld=u; vOld=v;
+        clear u; clear v;
+        u=[uOld(1:M,:)];
+        v=[vOld(1:M+1,:)];
+    end
+    MSEtot=0;
+    MSEave(inEpoch,1)=0;
+    correct=ones(a,1)-1;
+    trainClassConv(a,m)=0;
+    fprintf(strcat('initializations done:\t\t\t\t',num2str(toc),'secs\n'));
+
+    %-----training loop
+    while epoch<endEpoch,
+        if mod(epoch,round(1/M*800))==0 & epoch>1
+            alpha=alpha*.98;
+            fprintf(strcat('\t\t--alpha:',num2str(alpha,3),'--\n'));
+        end
+        tic
+        for k=1:a
+            Z=[1,tanh(train(k,:)*u')];
+            Yprime=(Z*v);
+
+            %-----update weights
+            v=v+2*alpha*(Y(k,1)-Yprime(1,m))*Z(1,:)';
+            u=u+2*alpha*(Y(k,1)-Yprime(1,m))*v(2:M+1,1).*((1-(Z(1,2:M+1)).^2)')*train(k,:);
+        end
+        epoch=epoch+1;
+
+        %-----calc % correct
+        if mod(epoch,round(1/M*150))==0
+            for k=1:a
+                Z=[1,tanh(train(k,:)*u')];
+                Yprime=(Z*v);
+                    if Yprime>=.5
+                        ans=1;
+                    else
+                        ans=0;
+                    end
+                    if ans==trainClass(k,1)
+                        correct(k,1)=1; %marked 1 whenever correct
+                    end
+            end
+            correctAveTrain(1,epoch)=sum(correct(:,1))/size(correct(:,1),1)*100;
+            fprintf(strcat('\t-----train correct:',num2str(correctAveTrain(1,size(correctAveTrain,2)),3),'%%-----\n'));
+        elseif epoch<(startEpoch+(mod(startEpoch, round(1/M*150))))
+            correctAveTrain(1,epoch)=0;
+        else
+            correctAveTrain(1,epoch)=correctAveTrain(1,epoch-1);
+        end
+
+        if (mod(epoch,round(1/M*800))==0)
+            eval(strcat('save saveFile', num2str(correctAveTrain(1,size(correctAveTrain,2)),3),'a-',num2str(M),'n-',num2str(epoch),'e',' epoch alpha u v'));
+            fprintf(strcat('\t\t--file saved--\n'));
+        end
+        %-----terminal printout
+        fprintf(strcat('Epoch:',num2str(epoch),'.\t',num2str(endEpoch-epoch),'remaining.\tepoch time:',num2str(toc,2),'secs.\t',num2str((toc/60)*(endEpoch-epoch),2),'mins remaining\n'))
+    end
+
+    %------------------------------
+    %-----TEST set calc's
+    %------------------------------
+        correct(b,1)=0;
+        clear Yprime;
+        for k=1:b
+            Z=[1,tanh(u*test(k,:)')'];
+            Yprime(k,:)=(Z*v);
+            if Yprime>=.5
+                ans=1;
+            else
+                ans=0;
+            end
+            if ans==testClass(k,1)
+                correct(k,1)=1; %marked 1 whenever correct
+            end
+        end
+        correctAve=sum(correct(:,1))/size(correct(:,1),1)*100;
+
+    %------------------------------
+    %-----text output
+    %------------------------------
+
+    %-----final terminal printout
+    fprintf(strcat('\ntotal epochs: ',num2str(endEpoch),'\tneurons: ',num2str(M),'\talpha:',num2str(alpha)));
+    total=clock-start;
+    finish=clock;
+    if total(1,5)
+        fprintf(strcat('\ntotal time:\t',num2str(total(1,5)),':',num2str(finish(1,6)+(60-start(1,6)),2),'mins.\ttrain %%:',num2str(correctAveTrain(1,size(correctAveTrain,2)),3),'\ttest %%:',num2str(correctAve,3),'\n'));
+    else
+        fprintf(strcat('\ntotal time:\t',num2str(total(1,6),2),'secs.\ttrain %%:',num2str(correctAveTrain(1,size(correctAveTrain,2)),3),'\ttest %%:',num2str(correctAve,3),'\n'));
+    end
+
+    %------------------------------
+    %-----graphical output
+    %------------------------------
+
+    %-----%ave correct plot
+    figure
+    plot(startEpoch+1:(startEpoch+inEpoch),correctAveTrain(1,startEpoch+1:(startEpoch+inEpoch)))
+    title(strcat('test set correct: ',num2str(correctAve,3),'%   train set correct:',num2str(correctAveTrain(1,size(correctAveTrain,2)),3),'%'));
+    legend('train set')
+    """
 
 
     ################################################################################
