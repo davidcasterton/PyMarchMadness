@@ -30,4 +30,3 @@ PyMarchMadness
 ####How To Add New Input Data:
 - Add *\<new_folder\>* into [InputData/] (PyMarchMadness/InputData/)
 - Add data files into InputData/*\<new_folder\>*
-- Modify [Constants.py] (PyMarchMadness/Constants.py) to load new data files, e.g. KAGGLE_INPUT
