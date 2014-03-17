@@ -146,8 +146,9 @@ if __name__ == "__main__":
         dest_handle.close()
 
     # save kenpom_name_to_kaggle_id
-    map_handle = open(saved_mapping, "w")
-    map_csv = csv.writer(map_handle)
-    for row in kenpom_name_to_kaggle_id.iteritems():
-        map_csv.writerow(row)
-    map_handle.close()
+    if not os.path.isfile(saved_mapping):
+        map_handle = open(saved_mapping, "w")
+        map_csv = csv.writer(map_handle)
+        for row in kenpom_name_to_kaggle_id.iteritems():
+            map_csv.writerow(row)
+        map_handle.close()
