@@ -13,6 +13,9 @@ if analysis_dir not in sys.path:
 # import all files in Analysis/
 object_list = []  # list of analysis objects
 for file_name in os.listdir(analysis_dir):
+    if not os.path.isfile(os.path.join(analysis_dir, file_name)):
+        continue
+
     class_name, extension = file_name.split(".")
 
     # skip __init__ and Parent files

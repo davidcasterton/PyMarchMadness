@@ -4,11 +4,13 @@
 import csv
 import os
 import pdb
+import string
 
 
 if __name__ == "__main__":
     # variable init
     kaggle_name_to_kaggle_id = {}
+    kaggle_name_to_kaggle_id_no_punctuation = {}
     kenpom_name_to_kaggle_id = {}
     saved_mapping = "kenpom_name_to_kaggle_id.csv"
 
@@ -36,6 +38,8 @@ if __name__ == "__main__":
             #skip header
             continue
         kaggle_name_to_kaggle_id[team_name] = team_id
+        team_name_no_punctuation = team_name.translate(None, string.punctuation)
+        kaggle_name_to_kaggle_id_no_punctuation[team_name_no_punctuation] = team_id
     handle.close()
 
     ################################################################################
@@ -88,6 +92,13 @@ if __name__ == "__main__":
                 dest_csv.writerow(row)
                 continue
 
+            # remove punctuation then exactly matched kenpom_team_name, insert team_id into row
+            kenpom_team_name_no_punctuation = kenpom_team_name.translate(None, string.punctuation)
+            if kaggle_name_to_kaggle_id_no_punctuation.get(kenpom_team_name_no_punctuation):
+                row.insert(0, kaggle_name_to_kaggle_id.get(kenpom_team_name_no_punctuation))
+                dest_csv.writerow(row)
+                continue
+
             # prompt user to define mapping between KenPom & Kaggle name with CONSOLIDATED list
             kenpom_words = kenpom_team_name.split(" ")
             kaggle_team_names = kaggle_name_to_kaggle_id.keys()
@@ -105,8 +116,7 @@ if __name__ == "__main__":
                 input_range = range(len(kaggle_team_names_potential_matches))
                 for i in input_range:
                     prompt += "\t%d. %s\n" % (i, kaggle_team_names_potential_matches[i])
-                #user_input = raw_input(prompt)
-                user_input = '0'
+                user_input = raw_input(prompt)
                 if user_input.isdigit() and int(user_input) in input_range:
                     #user entered a match
                     matched_kaggle_team_name = kaggle_team_names_potential_matches[int(user_input)]
@@ -121,8 +131,7 @@ if __name__ == "__main__":
             for i in input_range:
                 prompt += "\t%d. %s\n" % (i, kaggle_team_names[i])
             for i in range(5):
-                #user_input = raw_input(prompt)
-                user_input = '0'
+                user_input = raw_input(prompt)
                 if user_input.isdigit() and int(user_input) in input_range:
                     #user entered a match
                     matched_kaggle_team_name = kaggle_team_names[int(user_input)]
