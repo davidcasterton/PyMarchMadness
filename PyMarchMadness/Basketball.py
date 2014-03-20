@@ -282,12 +282,21 @@ class Tournament(object):
         team_ids.sort()
 
         # loop through all possible match ups in tournament and write probability of team1 win to .csv
+        matchup_list = []
         for i in range(len(team_ids)):
-            for k in range(i+1, len(team_ids)):
+            for k in range(len(team_ids)):
+                if i == k:
+                    continue
+
                 team_1 = self.team_factory.get_team(team_ids[i])
                 team_2 = self.team_factory.get_team(team_ids[k])
 
                 id = "%s_%s_%s" % (self.season_id, team_1.id, team_2.id)
+                if id in matchup_list:
+                    continue
+                matchup_list.append("%s_%s_%s" % (self.season_id, team_1.id, team_2.id))
+                matchup_list.append("%s_%s_%s" % (self.season_id, team_2.id, team_1.id))
+
                 pred = analysis.win_probability(team_1, team_2, self.season_id)
 
                 probabilities.append({"id": id, "pred": pred})
