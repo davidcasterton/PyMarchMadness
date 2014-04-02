@@ -16,7 +16,7 @@ class HighSeed(Analysis.BaseClass):
 
         return True
 
-    def train(self, team, season_id):
+    def train_season(self, team, season_id):
         pass
 
     def win_probability(self, team_1, team_2, season_id, daynum=None):

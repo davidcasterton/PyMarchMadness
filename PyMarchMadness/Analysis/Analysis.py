@@ -43,7 +43,7 @@ class BaseClass(object):
 
         return name
 
-    def train(self, team, season_id):
+    def train_season(self, team, season_id):
         """
         :method: Train on regular season data
 

@@ -12,10 +12,10 @@ class Random(Analysis.BaseClass):
     def __init__(self):
         self.name = "Random"
 
-    def data_available(self, season):
+    def data_available(self, season_id):
         return True
 
-    def train(self, team, season_id):
+    def train_season(self, team, season_id):
         pass
 
     def win_probability(self, team_1, team_2, season_id, daynum=None):

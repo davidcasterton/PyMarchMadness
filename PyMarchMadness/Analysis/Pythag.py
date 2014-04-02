@@ -19,7 +19,7 @@ class Pythag(Analysis.BaseClass):
 
         return result
 
-    def train(self, team, season_id):
+    def train_season(self, team, season_id):
         pass
 
     def get_pythag(self, season_id, team):
