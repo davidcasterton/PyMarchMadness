@@ -3,7 +3,7 @@ PyMarchMadness
 ###Modular Python framework to analyze the NCAA March Madness tournament.
 
 ####Download Site:
-- http://davidcasterton.github.io/March-Madness
+- http://davidcasterton.github.io/PyMarchMadness
 
 ####Requirements:
   - [Python 2.7] (http://www.python.org/download/releases/2.7/)
